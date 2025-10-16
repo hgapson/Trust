@@ -1,7 +1,7 @@
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { motion } from 'motion/react';
 
 export function CallToAction() {

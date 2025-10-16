@@ -1,5 +1,5 @@
 import { Facebook, Twitter, Linkedin, Mail } from "lucide-react";
-import exampleImage from 'figma:asset/0f9c1b089996acdc17849f2c9c3234b78a2ea0a1.png';
+import logoImage from "../assets/0f9c1b089996acdc17849f2c9c3234b78a2ea0a1.png";
 
 export function Footer() {
   return (
@@ -8,9 +8,9 @@ export function Footer() {
         <div className="grid gap-8 md:grid-cols-4">
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
-              <img 
-                src={exampleImage} 
-                alt="Waikato Navigate Trust Logo" 
+              <img
+                src={logoImage}
+                alt="Waikato Navigate Trust Logo"
                 className="h-8 w-auto"
               />
               <div>

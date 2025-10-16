@@ -1,7 +1,7 @@
 import { Menu } from "lucide-react";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
-import exampleImage from 'figma:asset/0f9c1b089996acdc17849f2c9c3234b78a2ea0a1.png';
+import logoImage from "../assets/0f9c1b089996acdc17849f2c9c3234b78a2ea0a1.png";
 
 export function Header() {
   const navItems = [
@@ -16,9 +16,9 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b glass-effect supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4">
         <div className="flex items-center space-x-4">
-          <img 
-            src={exampleImage} 
-            alt="Waikato Navigate Trust Logo" 
+          <img
+            src={logoImage}
+            alt="Waikato Navigate Trust Logo"
             className="h-10 w-auto"
           />
           <div className="hidden sm:block">
