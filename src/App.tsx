@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-import { HomePage } from "./components/pages/HomePage";
+import { HomePage } from "./components/pages/home";
 import { AboutPage } from "./components/pages/AboutPage";
 import { ServicesPage } from "./components/pages/ServicesPage";
 import { GetInvolvedPage } from "./components/pages/GetInvolvedPage";
