@@ -172,5 +172,3 @@ export const processSteps = [
     description: "Get matched with suitable employment opportunities",
   },
 ];
-
-export { ArrowRight, CheckCircle, Clock };
