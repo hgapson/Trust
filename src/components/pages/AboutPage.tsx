@@ -1,10 +1,11 @@
 import {
   AboutCtaSection,
   AboutHero,
-  ImpactStatsSection,
+  //ImpactStatsSection,
   MissionVisionSection,
   TeamSection,
-  TimelineSection,
+  //TimelineSection,
+  Values,
 } from "./about";
 import { impactStats, milestones, teamMembers } from "./about/data";
 
@@ -14,8 +15,9 @@ export function AboutPage() {
       <AboutHero />
       <div className="container mx-auto max-w-screen-xl px-4">
         <MissionVisionSection />
-        <ImpactStatsSection stats={impactStats} />
-        <TimelineSection milestones={milestones} />
+        <Values />
+        {/* <ImpactStatsSection stats={impactStats} /> */}
+        {/* <TimelineSection milestones={milestones} /> */}
         <TeamSection members={teamMembers} />
         <AboutCtaSection />
       </div>

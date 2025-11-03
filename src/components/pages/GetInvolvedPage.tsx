@@ -2,10 +2,10 @@ import {
   CommunityHighlightSection,
   GetInvolvedCtaSection,
   GetInvolvedHero,
-  ImpactStatsSection,
-  PartnershipTiersSection,
+  //ImpactStatsSection,
+  //PartnershipTiersSection,
   SupportWaysSection,
-  UpcomingEventsSection,
+  //UpcomingEventsSection,
   VolunteerOpportunitiesSection,
 } from "./get-involved";
 import {
@@ -21,11 +21,11 @@ export function GetInvolvedPage() {
     <div className="py-20">
       <GetInvolvedHero />
       <div className="container mx-auto max-w-screen-xl px-4">
-        <ImpactStatsSection stats={impactStats} />
+        {/* <ImpactStatsSection stats={impactStats} /> */}
         <VolunteerOpportunitiesSection opportunities={volunteerOpportunities} />
         <SupportWaysSection supportWays={supportWays} />
-        <PartnershipTiersSection tiers={partnershipTiers} />
-        <UpcomingEventsSection events={upcomingEvents} />
+        {/* <PartnershipTiersSection tiers={partnershipTiers} /> */}
+        {/* <UpcomingEventsSection events={upcomingEvents} /> */}
         <CommunityHighlightSection />
         <GetInvolvedCtaSection />
       </div>

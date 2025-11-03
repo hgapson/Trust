@@ -4,3 +4,4 @@ export { ImpactStatsSection } from "./ImpactStatsSection";
 export { MissionVisionSection } from "./MissionVisionSection";
 export { TeamSection } from "./TeamSection";
 export { TimelineSection } from "./TimelineSection";
+export { Values } from "./Values";

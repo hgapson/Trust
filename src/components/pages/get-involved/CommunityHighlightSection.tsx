@@ -23,7 +23,7 @@ export function CommunityHighlightSection() {
               Together We Make a Difference
             </h2>
             <p className="mx-auto max-w-2xl text-xl">
-              Every volunteer hour, every donation, every partnership creates
+              Every volunteer hour, every partnership creates
               ripples of positive change in our community.
             </p>
           </div>

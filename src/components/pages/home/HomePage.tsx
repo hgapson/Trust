@@ -1,11 +1,9 @@
 import {
   CallToAction,
-  CommunityImpact,
-  FAQ,
+  //CommunityImpact,
   Hero,
   OurApproach,
   Services,
-  Values,
   WhoWeServe,
 } from ".";
 
@@ -16,9 +14,6 @@ export function HomePage() {
       <WhoWeServe />
       <Services />
       <OurApproach />
-      <Values />
-      <CommunityImpact />
-      <FAQ />
       <CallToAction />
     </>
   );

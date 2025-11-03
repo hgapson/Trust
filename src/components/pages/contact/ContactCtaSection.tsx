@@ -22,11 +22,8 @@ export function ContactCtaSection() {
         </p>
         <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <Button className="bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 hover:from-blue-700 hover:to-purple-700 hover:shadow-xl">
-            Schedule Free Consultation
-          </Button>
-          <Button variant="outline" size="lg">
             <Phone className="mr-2 h-4 w-4" />
-            Call Now
+            Call us for Consultation
           </Button>
         </div>
       </motion.div>

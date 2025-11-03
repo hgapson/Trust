@@ -3,7 +3,7 @@ import {
   ContactFormAndInfoSection,
   ContactHero,
   ContactMethodsSection,
-  EmergencyContactSection,
+  //EmergencyContactSection,
   FaqSection,
 } from "./contact";
 import {
@@ -25,7 +25,7 @@ export function ContactPage() {
           languages={supportedLanguages}
         />
         <FaqSection faqs={faqs} />
-        <EmergencyContactSection {...emergencyContact} />
+        {/* <EmergencyContactSection {...emergencyContact} /> */}
         <ContactCtaSection />
       </div>
     </div>

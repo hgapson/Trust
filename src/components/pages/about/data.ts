@@ -1,8 +1,8 @@
 import type { ComponentType } from "react";
-import type { IconProps } from "lucide-react";
+import type { LucideProps } from "lucide-react";
 import { Award, Globe, Heart, Users } from "lucide-react";
 
-type IconComponent = ComponentType<IconProps>;
+type IconComponent = ComponentType<LucideProps>;
 
 export interface TeamMember {
   name: string;
@@ -24,28 +24,22 @@ export interface ImpactStat {
 
 export const teamMembers: TeamMember[] = [
   {
-    name: "Sarah Johnson",
-    role: "Executive Director",
+    name: "Penny Smith",
+    role: "Chief Executive Officer",
     description:
-      "15+ years in refugee services and community development",
+      "Penny has over 15 years in management services and community development",
   },
   {
-    name: "Ahmed Hassan",
+    name: "Mookthida",
     role: "Program Coordinator",
     description:
-      "Former refugee turned advocate, specializing in employment services",
+      "Former refugee and migrant turned advocate, specializing in employment services and community development",
   },
   {
-    name: "Maria Santos",
-    role: "Career Counselor",
+    name: "Leeya",
+    role: "Community Liaison Officer",
     description:
-      "Certified career counselor with expertise in cross-cultural communication",
-  },
-  {
-    name: "David Kim",
-    role: "Community Outreach Manager",
-    description:
-      "Building bridges between migrants and local business community",
+      "Certified community liaison officer with expertise in cross-cultural communication",
   },
 ];
 

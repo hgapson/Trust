@@ -13,15 +13,12 @@ export function GetInvolvedCtaSection() {
       >
         <h2 className="text-3xl lg:text-4xl">Ready to Make an Impact?</h2>
         <p className="mx-auto max-w-2xl text-xl text-gray-600">
-          Whether you volunteer, donate, or partner with us, your contribution
+          Whether you volunteeror partner with us, your contribution
           creates meaningful change in the lives of migrants and former refugees
           in our community.
         </p>
         <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <Button className="bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 hover:from-blue-700 hover:to-purple-700 hover:shadow-xl">
-            Start Volunteering
-          </Button>
-          <Button variant="outline" size="lg">
             Contact Us
           </Button>
         </div>

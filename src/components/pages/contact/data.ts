@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import type { IconProps } from "lucide-react";
+import type { LucideProps as IconProps } from "lucide-react";
 import {
   Accessibility,
   Calendar,
@@ -36,7 +36,7 @@ export const contactMethods: ContactMethod[] = [
   {
     icon: Phone,
     title: "Phone",
-    details: "+64 7 838 3570",
+    details: "++64 223146756",
     description: "Monday to Friday, 9:00 AM - 5:00 PM",
     action: "Call Now",
   },
@@ -50,16 +50,9 @@ export const contactMethods: ContactMethod[] = [
   {
     icon: MessageSquare,
     title: "WhatsApp",
-    details: "+64 21 555 0123",
+    details: "+64 223146756",
     description: "Quick questions and support",
     action: "Message Us",
-  },
-  {
-    icon: Calendar,
-    title: "Book Appointment",
-    details: "Schedule a meeting",
-    description: "Free consultation available",
-    action: "Book Now",
   },
 ];
 
@@ -67,14 +60,14 @@ export const officeInfo: OfficeInfo[] = [
   {
     icon: MapPin,
     title: "Main Office",
-    details: "123 Victoria Street, Hamilton Central, Hamilton 3204",
-    extra: "Level 2, Navigate Trust Building",
+    details: "46G Boundary Road, Claudelands, Hamilton 3200, New Zealand",
+    extra: "Located inside Settlement center building",
   },
   {
     icon: Clock,
     title: "Office Hours",
     details: "Monday to Friday: 9:00 AM - 5:00 PM",
-    extra: "Saturday: 9:00 AM - 1:00 PM (By appointment)",
+    extra: "Closed on public holidays",
   },
   {
     icon: Car,
@@ -86,7 +79,7 @@ export const officeInfo: OfficeInfo[] = [
     icon: Accessibility,
     title: "Accessibility",
     details: "Wheelchair accessible building",
-    extra: "Lift access to all floors",
+    extra: "Assistance available upon request",
   },
 ];
 
@@ -129,7 +122,7 @@ export const faqs: FaqItem[] = [
 ];
 
 export const emergencyContact = {
-  phone: "+64 21 555 0199",
+  phone: "+64 223146756",
   description:
     "If you need urgent assistance outside office hours, please contact our emergency support line:",
   availability: "Available 24/7 for emergency situations requiring immediate support",

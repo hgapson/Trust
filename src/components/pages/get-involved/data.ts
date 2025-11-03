@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import type { IconProps } from "lucide-react";
+import type { LucideProps as IconProps } from "lucide-react";
 import {
   Building,
   Clock,
@@ -7,8 +7,8 @@ import {
   Gift,
   Handshake,
   Heart,
-  MapPin,
-  Star,
+  //MapPin,
+  //Star,
   Users,
 } from "lucide-react";
 

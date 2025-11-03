@@ -47,11 +47,7 @@ export function Hero() {
               <Button className="bg-white text-purple-600 transition-colors hover:bg-blue-50 hover:text-purple-700" size="lg">
                 Get Started Today
               </Button>
-              <Button
-                className="border-white text-white transition-colors hover:bg-white hover:text-purple-600"
-                size="lg"
-                variant="outline"
-              >
+              <Button className="bg-white text-purple-600 transition-colors hover:bg-blue-50 hover:text-purple-700" size="lg">
                 Learn More
               </Button>
             </motion.div>
@@ -62,20 +58,6 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <div className="grid grid-cols-3 gap-4 text-center">
-                <div>
-                  <div className="text-2xl text-cyan-200">500+</div>
-                  <div className="text-sm text-blue-100">People Helped</div>
-                </div>
-                <div>
-                  <div className="text-2xl text-pink-200">95%</div>
-                  <div className="text-sm text-blue-100">Success Rate</div>
-                </div>
-                <div>
-                  <div className="text-2xl text-yellow-200">50+</div>
-                  <div className="text-sm text-blue-100">Partners</div>
-                </div>
-              </div>
             </motion.div>
           </motion.div>
 
