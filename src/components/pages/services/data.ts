@@ -1,5 +1,4 @@
-import type { ComponentType } from "react";
-import type { IconProps } from "lucide-react";
+import type { ComponentType, SVGProps } from "react";
 import {
   BookOpen,
   CheckCircle,
@@ -13,7 +12,7 @@ import {
 export interface DetailedService {
   id: string;
   title: string;
-  icon: ComponentType<IconProps>;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
   color: string;
   bgColor: string;
   image: string;
@@ -24,7 +23,7 @@ export interface DetailedService {
 export interface AdditionalService {
   title: string;
   description: string;
-  icon: ComponentType<IconProps>;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
   sessions: string;
 }
 
@@ -42,7 +41,7 @@ export const detailedServices: DetailedService[] = [
     color: "text-red-600",
     bgColor: "bg-red-100",
     image:
-      "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwdGVhbSUyMG1lZXRpbmclMjBvZmZpY2V8ZW58MXx8fHwxNzU4NDY2MDQ2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      "https://igdleaders.org/wp-content/uploads/2023/01/Untitled-design-32-1.png",
     description:
       "We build partnerships with employers and empower individuals with confidence and motivation.",
     features: [
@@ -61,7 +60,7 @@ export const detailedServices: DetailedService[] = [
     color: "text-blue-600",
     bgColor: "bg-blue-100",
     image:
-      "https://images.unsplash.com/photo-1565688527174-775059ac429c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxqb2IlMjBpbnRlcnZpZXclMjB0cmFpbmluZyUyMHdvcmtzaG9wfGVufDF8fHx8MTc1ODU0Njg2MHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      "https://robertsmith.com/wp-content/uploads/2023/10/Robert-f-Smith-com-352-20-Professional-Development-Skills-to-Help-Craft-Your-Future.jpeg",
     description:
       "Comprehensive work skills preparation, career guidance, and practical workshops.",
     features: [
@@ -80,7 +79,7 @@ export const detailedServices: DetailedService[] = [
     color: "text-green-600",
     bgColor: "bg-green-100",
     image:
-      "https://images.unsplash.com/photo-1758273240631-59d44c8f5b66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXJlZXIlMjBjb3Vuc2VsaW5nJTIwbWVldGluZ3xlbnwxfHx8fDE3NTg1NDY4NjN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      "https://blog.4tests.com/wp-content/uploads/2016/12/Screen-Shot-2016-12-30-at-10.13.14-PM.png",
     description:
       "Inspiring success stories and ongoing support to reduce inequality and achieve career goals.",
     features: [

@@ -46,17 +46,7 @@ export function CallToAction() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-4 pt-4 sm:flex-row">
-              <Button className="bg-white text-blue-600 transition-colors hover:bg-blue-50" size="lg" variant="secondary">
-                Book a Consultation
-              </Button>
-              <Button
-                className="border-white text-white transition-colors hover:bg-white hover:text-blue-600"
-                size="lg"
-                variant="outline"
-              >
-                Download Resources
-              </Button>
+            <div className="flex flex-col gap-4 pt-4 sm:flex-row">   
             </div>
           </motion.div>
 

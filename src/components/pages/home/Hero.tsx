@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 
 import { ImageWithFallback } from "../../FallBacks/ImageWithFallback";
 import { Button } from "../../ui/button";
+import home from '../../../assets/home.png'
 
 export function Hero() {
   return (
@@ -69,7 +70,7 @@ export function Hero() {
           >
             <div className="overflow-hidden rounded-lg shadow-2xl">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1629787177096-9fbe3e2ef6f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwcGVvcGxlJTIwd29ya2luZyUyMHRvZ2V0aGVyJTIwb2ZmaWNlfGVufDF8fHx8MTc1ODUxOTAyNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                src={home}
                 alt="Diverse people working together in an office environment"
                 className="h-96 w-full object-cover"
               />

@@ -13,7 +13,7 @@ export function CommunityHighlightSection() {
         transition={{ duration: 0.8 }}
       >
         <ImageWithFallback
-          src="https://images.unsplash.com/photo-1710092784814-4a6f158913b8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2b2x1bnRlZXJzJTIwY29tbXVuaXR5JTIwaGVscGluZyUyMGhhbmRzfGVufDF8fHx8MTc1ODQ4NDE3Mnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+          src="https://cface.chass.ncsu.edu/wp-content/uploads/sites/12/2025/09/Web-Story-Graphics-1.png"
           alt="Community volunteers helping hands"
           className="h-96 w-full object-cover"
         />

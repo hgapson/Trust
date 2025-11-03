@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 
 import { ImageWithFallback } from "../../FallBacks/ImageWithFallback";
 import { Award, FileText, Rocket, UserCheck } from "lucide-react";
+import approach from '../../../assets/approach.png'
 
 export function OurApproach() {
   const steps = [
@@ -95,7 +96,7 @@ export function OurApproach() {
             transition={{ duration: 0.8 }}
           >
             <ImageWithFallback
-              src="https://images.unsplash.com/photo-1552664730-d307ca884978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0ZWFtJTIwbWVldGluZyUyMGRpdmVyc2l0eXxlbnwxfHx8fDE3NTg1NDUwNTB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+              src={approach}
               alt="Diverse team meeting and collaboration"
               className="h-full w-full object-cover"
             />

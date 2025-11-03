@@ -13,7 +13,7 @@ export function MissionVisionSection() {
           transition={{ duration: 0.8 }}
         >
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwdGVhbSUyMG1lZXRpbmclMjBvZmZpY2V8ZW58MXx8fHwxNzU4NDY2MDQ2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+            src="https://media.licdn.com/dms/image/v2/C4E12AQGkw2DkzWd14A/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1520437220732?e=2147483647&v=beta&t=wpGG84obe9jBH9u0-MHlJOWTnqH8bGAZZ8BK8VJSSds"
             alt="Diverse team meeting"
             className="h-96 w-full rounded-lg object-cover shadow-2xl"
           />
