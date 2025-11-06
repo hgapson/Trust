@@ -43,7 +43,7 @@ export const contactMethods: ContactMethod[] = [
   {
     icon: Mail,
     title: "Email",
-    details: "info@navigatetrust.org.nz",
+    details: "waikato.navtrust@outlook.com",
     description: "We respond within 24 hours",
     action: "Send Email",
   },
