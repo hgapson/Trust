@@ -31,15 +31,15 @@ export const teamMembers: TeamMember[] = [
   },
   {
     name: "Mookthida",
-    role: "Program Coordinator",
+    role: "Office Manager",
     description:
-      "Former refugee and migrant turned advocate, specializing in employment services and community development",
+      "Work placement expert specializing in employment services and community developmen",
   },
   {
     name: "Leeya",
-    role: "Community Liaison Officer",
+    role: "Office Administrator",
     description:
-      "Certified community liaison officer with expertise in cross-cultural communication",
+      "Certified office administrator with expertise in cross-cultural communication",
   },
 ];
 
