@@ -28,11 +28,11 @@ export function CallToAction() {
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-blue-200" />
-                <span className="text-blue-100">+64 7 XXX XXXX</span>
+                <span className="text-blue-100">+64 223146756</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-blue-200" />
-                <span className="text-blue-100">info@waikatonavigate.org.nz</span>
+                <span className="text-blue-100">waikato.navtrust@outlook.com</span>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="h-5 w-5 text-blue-200" />

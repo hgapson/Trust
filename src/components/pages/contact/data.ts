@@ -36,7 +36,7 @@ export const contactMethods: ContactMethod[] = [
   {
     icon: Phone,
     title: "Phone",
-    details: "++64 223146756",
+    details: "+64 223146756",
     description: "Monday to Friday, 9:00 AM - 5:00 PM",
     action: "Call Now",
   },
