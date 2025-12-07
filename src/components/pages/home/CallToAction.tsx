@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { ImageWithFallback } from "../../FallBacks/ImageWithFallback";
 import { Button } from "../../ui/button";
 import { Card, CardContent } from "../../ui/card";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
 export function CallToAction() {
@@ -70,9 +71,44 @@ export function CallToAction() {
                     Meet with our team to discuss your goals and create a
                     personalized plan for your career journey.
                   </p>
-                  <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 hover:from-blue-700 hover:to-purple-700 hover:shadow-lg">
-                    Schedule Now
-                  </Button>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 hover:from-blue-700 hover:to-purple-700 hover:shadow-lg">
+                        Talk to Us
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent
+                      align="center"
+                      sideOffset={12}
+                      className="w-80 space-y-3 rounded-xl border border-slate-200 bg-white shadow-2xl"
+                    >
+                      <p className="text-sm font-semibold text-slate-600">
+                        Choose how you want to reach us
+                      </p>
+                      <div className="flex flex-col gap-2">
+                        <a
+                          href="tel:+64223146756"
+                          className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-blue-200 hover:bg-blue-50 hover:shadow-sm"
+                        >
+                          <span className="flex items-center gap-2 font-semibold">
+                            <Phone className="h-4 w-4" />
+                            Call us
+                          </span>
+                       
+                        </a>
+                        <a
+                          href="mailto:waikato.navtrust@outlook.com"
+                          className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-purple-200 hover:bg-purple-50 hover:shadow-sm"
+                        >
+                          <span className="flex items-center gap-2 font-semibold">
+                            <Mail className="h-4 w-4" />
+                            Email us
+                          </span>
+                          
+                        </a>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                 </div>
               </CardContent>
             </Card>
