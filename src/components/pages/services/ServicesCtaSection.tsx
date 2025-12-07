@@ -82,7 +82,7 @@ export function ServicesCtaSection() {
             onClick={() => setIsModalOpen(true)}
             className="h-11 rounded-md border border-slate-300 bg-white px-6 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-100"
           >
-            Download Service Guide
+            Read Service Guide
           </Button>
         </div>
       </motion.div>

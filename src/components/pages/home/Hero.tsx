@@ -2,7 +2,10 @@ import { motion } from "motion/react";
 
 import { ImageWithFallback } from "../../FallBacks/ImageWithFallback";
 import { Button } from "../../ui/button";
-import home from '../../../assets/home.png'
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
+import { Mail, Phone } from "lucide-react";
+import home from "../../../assets/home.png";
+import brochurePdf from "../../../assets/brochure.pdf";
 
 export function Hero() {
   return (
@@ -45,10 +48,44 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <Button className="bg-white text-purple-600 transition-colors hover:bg-blue-50 hover:text-purple-700" size="lg">
-                Get Started Today
-              </Button>
-              <Button className="bg-white text-purple-600 transition-colors hover:bg-blue-50 hover:text-purple-700" size="lg">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button className="bg-white text-purple-600 transition-colors hover:bg-blue-50 hover:text-purple-700" size="lg">
+                    Talk to Us
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent
+                  align="start"
+                  sideOffset={12}
+                  className="w-72 space-y-3 rounded-xl border border-slate-200 bg-white shadow-2xl"
+                >
+                  <div className="flex flex-col gap-2">
+                    <a
+                      href="tel:+64223146756"
+                      className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-blue-200 hover:bg-blue-50 hover:shadow-sm"
+                    >
+                      <span className="flex items-center gap-2 font-semibold">
+                        <Phone className="h-4 w-4" />
+                        Call us
+                      </span>
+                    </a>
+                    <a
+                      href="mailto:waikato.navtrust@outlook.com"
+                      className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-purple-200 hover:bg-purple-50 hover:shadow-sm"
+                    >
+                      <span className="flex items-center gap-2 font-semibold">
+                        <Mail className="h-4 w-4" />
+                        Email us
+                      </span>
+                    </a>
+                  </div>
+                </PopoverContent>
+              </Popover>
+              <Button
+                className="bg-white text-purple-600 transition-colors hover:bg-blue-50 hover:text-purple-700"
+                size="lg"
+                onClick={() => window.open(brochurePdf, "_blank", "noopener,noreferrer")}
+              >
                 Learn More
               </Button>
             </motion.div>
