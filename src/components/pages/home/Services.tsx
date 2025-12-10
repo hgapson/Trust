@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+
 import { motion } from "motion/react";
 
 import { Button } from "../../ui/button";
@@ -24,6 +27,13 @@ export function Services() {
         "Empower migrants and former refugees with tools and support",
         "Create opportunities in ethnic communities affected by unemployment",
       ],
+      modalDetails:
+        "We start with a guided conversation to understand your story, aspirations, and the barriers in your way. Together we map your strengths and design a plan that keeps you motivated and moving forward.",
+      modalSteps: [
+        "30–45 minute discovery session to define your goals and constraints",
+        "Strengths mapping plus a summary you can share with employers or mentors",
+        "Confidence-building check-ins and community connections for encouragement",
+      ],
     },
     {
       icon: Wrench,
@@ -37,6 +47,13 @@ export function Services() {
         "Provide career information and connect with opportunities",
         "Organize workshops for communication and employment skills",
         "Link to upskilling and training courses",
+      ],
+      modalDetails:
+        "Once we know what you want, we give you the tools to get there. From CVs to interview practice, we focus on practical coaching and resources tailored to the roles and industries you’re targeting.",
+      modalSteps: [
+        "Hands-on workshops for CV, cover letters, and LinkedIn clean-up",
+        "Industry-specific language support and mock interviews with feedback",
+        "Introductions to short courses or micro-credentials matched to your path",
       ],
     },
     {
@@ -52,8 +69,43 @@ export function Services() {
         "Enhance well-being through positive engagement and relationships",
         "Foster trust, belonging, shared values and participation in society",
       ],
+      modalDetails:
+        "We stay with you through applications, interviews, and those crucial first weeks in a new role. Our team advocates for you with employers and makes sure you settle in with confidence.",
+      modalSteps: [
+        "Warm introductions to employers who value migrant and former refugee talent",
+        "Support with work trials or placements, including clear expectations for both sides",
+        "Post-placement follow-ups for the first 90 days so you have backup when you need it",
+      ],
     },
   ];
+
+  const [selectedService, setSelectedService] =
+    useState<(typeof services)[number] | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsModalOpen(false);
+      }
+    };
+
+    if (isModalOpen) {
+      document.addEventListener("keydown", onKeyDown);
+    }
+
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isModalOpen]);
+
+  const handleOpen = (service: (typeof services)[number]) => {
+    setSelectedService(service);
+    setIsModalOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+    setSelectedService(null);
+  };
 
   return (
     <section id="services" className="gradient-bg-services py-20">
@@ -115,6 +167,7 @@ export function Services() {
                   <Button
                     className={`group/btn w-full justify-between ${service.color} hover:${service.bgColor}`}
                     variant="ghost"
+                    onClick={() => handleOpen(service)}
                   >
                     Learn More
                     <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
@@ -136,6 +189,112 @@ export function Services() {
             Start Your Journey
           </Button>
         </motion.div>
+
+        {isModalOpen &&
+          selectedService &&
+          createPortal(
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center px-4"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="service-modal-title"
+            >
+              <div
+                className="absolute inset-0 bg-black/40"
+                onClick={handleClose}
+              />
+              <div className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-[0_25px_70px_rgba(15,23,42,0.25)] sm:max-w-lg">
+                <div className="h-2 w-full bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500" />
+                <div className="max-h-[85vh] overflow-y-auto p-6">
+                  <div className="flex items-start gap-3">
+                  <span
+                    className={`inline-flex h-12 w-12 items-center justify-center rounded-xl ${selectedService.bgColor}`}
+                  >
+                    <selectedService.icon
+                      className={`h-5 w-5 ${selectedService.color}`}
+                    />
+                  </span>
+                  <div className="flex-1 space-y-2">
+                    <h3
+                      id="service-modal-title"
+                      className="text-2xl font-semibold text-gray-900"
+                    >
+                      {selectedService.title}
+                    </h3>
+                    <p className="text-base text-gray-600">
+                      {selectedService.description}
+                    </p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-gray-500"
+                    onClick={handleClose}
+                    aria-label="Close"
+                  >
+                    ✕
+                  </Button>
+                </div>
+
+                  <div className="mt-5 space-y-5 text-sm text-gray-700">
+                  <p className="leading-relaxed">{selectedService.modalDetails}</p>
+
+                  <div className="rounded-xl border bg-muted/30 p-4">
+                    <p className="mb-3 text-sm font-semibold text-gray-900">
+                      What this looks like:
+                    </p>
+                    <ul className="space-y-2">
+                      {selectedService.modalSteps.map((step) => (
+                        <li key={step} className="flex items-start gap-3">
+                          <span
+                            className={`mt-1 inline-block h-2.5 w-2.5 rounded-full ${selectedService.color.replace("text-", "bg-")}`}
+                          />
+                          <span>{step}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="rounded-xl border border-dashed p-4">
+                    <p className="mb-2 text-sm font-semibold text-gray-900">
+                      Common results:
+                    </p>
+                    <ul className="space-y-1 text-sm text-gray-700">
+                      <li>• A clear 4-week plan with milestones you can track</li>
+                      <li>• Confidence to speak about your strengths to employers</li>
+                      <li>• Warm introductions to at least one relevant employer</li>
+                    </ul>
+                  </div>
+
+                  <div className="grid gap-3 rounded-xl bg-gradient-to-br from-slate-50 to-white p-4 sm:grid-cols-2">
+                    <div className="space-y-1">
+                      <p className="text-2xl font-semibold text-gray-900">1:1</p>
+                      <p className="text-xs uppercase tracking-wide text-gray-500">
+                        Personal support
+                      </p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-2xl font-semibold text-gray-900">Workshops</p>
+                      <p className="text-xs uppercase tracking-wide text-gray-500">
+                        Weekly skills sessions
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                  <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+                  <Button variant="outline" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button className="bg-gradient-to-r from-blue-600 to-purple-600">
+                    Book a session
+                  </Button>
+                </div>
+                </div>
+              </div>
+            </div>,
+            document.body,
+          )}
       </div>
     </section>
   );
