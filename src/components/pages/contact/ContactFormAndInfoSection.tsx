@@ -25,7 +25,7 @@ export function ContactFormAndInfoSection({
   languages,
 }: ContactFormAndInfoSectionProps) {
   return (
-    <section className="py-20">
+    <section id="contact-form" className="py-20">
       <div className="grid gap-12 lg:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
