@@ -108,6 +108,11 @@ export function Services() {
     setSelectedService(null);
   };
 
+  const handleStartJourney = () => {
+    window.history.pushState({}, "", "/contact#contact-form");
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  };
+
   return (
     <section id="services" className="gradient-bg-services py-20">
       <div className="container mx-auto max-w-screen-xl px-4">
@@ -186,7 +191,11 @@ export function Services() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.8 }}
         >
-          <Button className="bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 hover:from-blue-700 hover:to-purple-700 hover:shadow-xl" size="lg">
+          <Button
+            className="bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 hover:from-blue-700 hover:to-purple-700 hover:shadow-xl"
+            size="lg"
+            onClick={handleStartJourney}
+          >
             Start Your Journey
           </Button>
         </motion.div>
@@ -226,15 +235,6 @@ export function Services() {
                       {selectedService.description}
                     </p>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-gray-500"
-                    onClick={handleClose}
-                    aria-label="Close"
-                  >
-                    ✕
-                  </Button>
                 </div>
 
                   <div className="mt-5 space-y-5 text-sm text-gray-700">
