@@ -17,15 +17,29 @@ import {
 
 export function ContactPage() {
   useEffect(() => {
-    if (window.location.hash === "#contact-form") {
-      const target = document.getElementById("contact-form");
-      if (target) {
-        // slight delay to ensure layout is ready
-        setTimeout(() => {
+    const tryScroll = (attemptsLeft: number) => {
+      if (window.location.hash === "#contact-form") {
+        const target = document.getElementById("contact-form");
+        if (target) {
           target.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 50);
+          return;
+        }
       }
-    }
+      if (attemptsLeft > 0) {
+        setTimeout(() => tryScroll(attemptsLeft - 1), 100);
+      }
+    };
+
+    const scrollToForm = () => tryScroll(5);
+
+    scrollToForm();
+    window.addEventListener("hashchange", scrollToForm);
+    window.addEventListener("popstate", scrollToForm);
+
+    return () => {
+      window.removeEventListener("hashchange", scrollToForm);
+      window.removeEventListener("popstate", scrollToForm);
+    };
   }, []);
 
   return (

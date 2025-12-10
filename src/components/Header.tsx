@@ -38,9 +38,12 @@ export function Header() {
               {item.name}
             </a>
           ))}
-          <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-md hover:shadow-lg transition-all duration-300">
+          <a
+            href="/contact#contact-form"
+            className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 font-medium text-white shadow-md transition-all duration-300 hover:from-blue-700 hover:to-purple-700 hover:shadow-lg"
+          >
             Get Help Now
-          </Button>
+          </a>
         </nav>
 
         {/* Mobile Navigation */}
@@ -62,9 +65,12 @@ export function Header() {
                   {item.name}
                 </a>
               ))}
-              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-md hover:shadow-lg transition-all duration-300 mt-4">
+              <a
+                href="/contact#contact-form"
+                className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 font-medium text-white shadow-md transition-all duration-300 hover:from-blue-700 hover:to-purple-700 hover:shadow-lg mt-4"
+              >
                 Get Help Now
-              </Button>
+              </a>
             </nav>
           </SheetContent>
         </Sheet>

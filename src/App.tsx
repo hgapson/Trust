@@ -27,9 +27,12 @@ function Router() {
       
       if (link && link.href && link.origin === window.location.origin) {
         e.preventDefault();
-        const newPath = new URL(link.href).pathname;
-        window.history.pushState({}, '', newPath);
-        setCurrentPath(newPath);
+        const url = new URL(link.href);
+        window.history.pushState({}, '', link.href);
+        setCurrentPath(url.pathname);
+        if (url.hash) {
+          window.dispatchEvent(new HashChangeEvent('hashchange'));
+        }
       }
     };
 
