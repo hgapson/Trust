@@ -13,6 +13,11 @@ exports.seed = async function seed(knex) {
       title: 'Backend Engineer',
       company: 'Globex',
       description: 'Build APIs with Node and Knex.'
-    }
+    },
+    {
+      title: 'Cleaner',
+      company: 'Settlement Center',
+      description: 'Maintain cleanliness and order in the facility.'
+    },
   ]);
 };
