@@ -8,6 +8,7 @@ export function Header() {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
+    { name: "Jobs", href: "/jobs" },
     { name: "Get Involved", href: "/get-involved" },
     { name: "Contact", href: "/contact" }
   ];

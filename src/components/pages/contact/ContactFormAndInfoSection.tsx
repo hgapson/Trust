@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { motion } from "motion/react";
 
 import { Button } from "../../ui/button";
@@ -24,6 +25,12 @@ export function ContactFormAndInfoSection({
   officeInfo,
   languages,
 }: ContactFormAndInfoSectionProps) {
+  const jobInterest = useMemo(() => {
+    const params = new URLSearchParams(window.location.search);
+    const job = params.get("job");
+    return job ? `Interested in: ${job}` : "";
+  }, []);
+
   return (
     <section id="contact-form" className="py-20 scroll-mt-24">
       <div className="grid gap-12 lg:grid-cols-2">
@@ -65,7 +72,11 @@ export function ContactFormAndInfoSection({
 
               <div className="space-y-2">
                 <Label htmlFor="subject">Subject *</Label>
-                <Input id="subject" placeholder="What can we help you with?" />
+                <Input
+                  id="subject"
+                  placeholder="What can we help you with?"
+                  defaultValue={jobInterest || undefined}
+                />
               </div>
 
               <div className="space-y-2">
@@ -74,6 +85,11 @@ export function ContactFormAndInfoSection({
                   id="message"
                   className="min-h-[120px]"
                   placeholder="Please tell us more about your situation and how we can help you..."
+                  defaultValue={
+                    jobInterest
+                      ? `${jobInterest}\n\nI found this role on your jobs page and would like to talk about next steps.`
+                      : undefined
+                  }
                 />
               </div>
 

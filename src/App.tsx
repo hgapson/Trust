@@ -6,6 +6,7 @@ import { AboutPage } from "./components/pages/AboutPage";
 import { ServicesPage } from "./components/pages/ServicesPage";
 import { GetInvolvedPage } from "./components/pages/GetInvolvedPage";
 import { ContactPage } from "./components/pages/ContactPage";
+import { JobsPage } from "./components/pages/jobs";
 
 function Router() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -48,6 +49,8 @@ function Router() {
         return <AboutPage />;
       case '/services':
         return <ServicesPage />;
+      case '/jobs':
+        return <JobsPage />;
       case '/get-involved':
         return <GetInvolvedPage />;
       case '/contact':
