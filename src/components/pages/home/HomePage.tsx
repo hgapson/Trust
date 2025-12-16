@@ -1,6 +1,5 @@
 import {
   CallToAction,
-  //CommunityImpact,
   Hero,
   OurApproach,
   Services,
