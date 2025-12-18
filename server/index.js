@@ -113,12 +113,17 @@ app.get("/api/approach-steps", async (_req, res) => {
 /* ======================
    COMMUNITY STORIES ROUTES
 ====================== */
-app.get("/api/community-stories", async (_req, res) => {
+app.get("/api/community-stories", async (req, res) => {
   try {
-    const stories = await db("community_stories")
+    const limit = req.query.limit ? Number(req.query.limit) : null;
+
+    let query = db("community_stories")
       .select("*")
       .orderBy("sort_order", "asc");
 
+    if (limit) query = query.limit(limit);
+
+    const stories = await query;
     res.json(stories);
   } catch (err) {
     console.error(err);
