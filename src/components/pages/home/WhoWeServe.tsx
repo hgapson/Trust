@@ -1,49 +1,38 @@
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../../ui/card";
 import { Briefcase, Globe, GraduationCap, Home } from "lucide-react";
 
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../ui/card";
+import type { Audience } from "./types";
+
+const iconMap = {
+  Globe,
+  Home,
+  Briefcase,
+  GraduationCap,
+} as const;
+
 export function WhoWeServe() {
-  const audiences = [
-    {
-      icon: Globe,
-      title: "Recent Migrants",
-      description:
-        "Newcomers to New Zealand seeking to establish their careers in the Waikato region",
-      color: "text-blue-600",
-      bgColor: "bg-blue-50",
-    },
-    {
-      icon: Home,
-      title: "Former Refugees",
-      description:
-        "Individuals rebuilding their lives and looking for meaningful employment opportunities",
-      color: "text-purple-600",
-      bgColor: "bg-purple-50",
-    },
-    {
-      icon: Briefcase,
-      title: "Career Changers",
-      description:
-        "Migrants transitioning to new industries or adapting their skills to the local market",
-      color: "text-green-600",
-      bgColor: "bg-green-50",
-    },
-    {
-      icon: GraduationCap,
-      title: "Skilled Professionals",
-      description:
-        "Qualified individuals needing support to navigate NZ workplace culture and expectations",
-      color: "text-orange-600",
-      bgColor: "bg-orange-50",
-    },
-  ];
+  const [audiences, setAudiences] = useState<Audience[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await fetch("/api/audiences");
+        if (!res.ok) throw new Error("Failed to load audiences");
+        const data = (await res.json()) as Audience[];
+        setAudiences(data);
+      } catch (err) {
+        console.error(err);
+        setAudiences([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    load();
+  }, []);
 
   return (
     <section className="bg-white py-20">
@@ -57,39 +46,52 @@ export function WhoWeServe() {
         >
           <h2 className="text-3xl text-gray-800 lg:text-4xl">Who We Serve</h2>
           <p className="mx-auto max-w-2xl text-xl text-gray-600">
-            We support diverse individuals on their journey to meaningful
-            employment in the Waikato region
+            We support diverse individuals on their journey to meaningful employment in the Waikato region
           </p>
         </motion.div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {audiences.map((audience, index) => (
-            <motion.div
-              key={audience.title}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-            >
-              <Card className="h-full border-0 shadow-md transition-all duration-300 hover:shadow-lg">
-                <CardHeader className="pb-4 text-center">
-                  <div
-                    className={`mx-auto mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full ${audience.bgColor}`}
-                  >
-                    <audience.icon className={`h-7 w-7 ${audience.color}`} />
-                  </div>
-                  <CardTitle className="text-lg">{audience.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-center text-sm">
-                    {audience.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+        {loading ? (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-48 animate-pulse rounded-2xl bg-slate-100" />
+            ))}
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {audiences.map((audience, index) => {
+              const Icon =
+                iconMap[audience.icon as keyof typeof iconMap] ?? Globe;
+
+              return (
+                <motion.div
+                  key={audience.id}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  whileHover={{ y: -10 }}
+                >
+                  <Card className="h-full border-0 shadow-md transition-all duration-300 hover:shadow-lg">
+                    <CardHeader className="pb-4 text-center">
+                      <div
+                        className={`mx-auto mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full ${audience.bgColor}`}
+                      >
+                        <Icon className={`h-7 w-7 ${audience.color}`} />
+                      </div>
+                      <CardTitle className="text-lg">{audience.title}</CardTitle>
+                    </CardHeader>
+
+                    <CardContent>
+                      <CardDescription className="text-center text-sm">
+                        {audience.description}
+                      </CardDescription>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );

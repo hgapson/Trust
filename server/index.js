@@ -44,7 +44,21 @@ app.post("/api/jobs", async (req, res) => {
     res.status(500).json({ error: "Failed to create job" });
   }
 });
+/* ======================
+   AUDIENCES ROUTES
+====================== */
+app.get("/api/audiences", async (_req, res) => {
+  try {
+    const audiences = await db("audiences")
+      .select("*")
+      .orderBy("sort_order", "asc");
 
+    res.json(audiences);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch audiences" });
+  }
+});
 /* ======================
    SERVICES ROUTES
 ====================== */
