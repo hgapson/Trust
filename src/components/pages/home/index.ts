@@ -28,4 +28,4 @@ export function getHomeSections() {
   return HOME_SECTIONS.filter((s) => s.enabled !== false);
 }
 
-export { CallToAction, Hero, OurApproach, Services, WhoWeServe, CommunityImpact };
+export { CallToAction, Hero, OurApproach, Services, WhoWeServe, CommunityImpact, FAQ };
