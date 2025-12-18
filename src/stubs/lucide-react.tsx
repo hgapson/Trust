@@ -39,6 +39,13 @@ const Menu = createIcon(
 const Facebook = circleIcon;
 const Twitter = circleIcon;
 const Linkedin = circleIcon;
+const Link = createIcon(
+  <>
+    <path d="M15 7h3a5 5 0 0 1 0 10h-3" />
+    <path d="M9 17H6a5 5 0 0 1 0-10h3" />
+    <line x1="8" y1="12" x2="16" y2="12" />
+  </>,
+);
 const Mail = createIcon(
   <>
     <rect x="3" y="5" width="18" height="14" rx="2" />
@@ -247,6 +254,7 @@ const ChevronRightIcon = createIcon(
     <polyline points="9 6 15 12 9 18" />
   </>,
 );
+const ChevronDown = ChevronDownIcon;
 const ChevronLeft = ArrowLeft;
 const ChevronRight = ArrowRight;
 const ChevronLeftIcon = ArrowLeft;
@@ -307,6 +315,7 @@ export {
   Calendar,
   CalendarDays,
   Car,
+  ChevronDown,
   CheckCircle,
   CheckIcon,
   ChevronDownIcon,
@@ -327,6 +336,7 @@ export {
   Handshake,
   Heart,
   Home,
+  Link,
   Linkedin,
   Mail,
   MapPin,
