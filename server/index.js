@@ -95,6 +95,21 @@ app.get("/api/services", async (_req, res) => {
 });
 
 /* ======================
+   APPROACH ROUTES
+====================== */
+app.get("/api/approach-steps", async (_req, res) => {
+  try {
+    const steps = await db("approach_steps")
+      .select("*")
+      .orderBy("sort_order", "asc");
+
+    res.json(steps);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch approach steps" });
+  }
+});
+/* ======================
    START SERVER
 ====================== */
 

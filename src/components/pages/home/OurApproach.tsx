@@ -1,40 +1,39 @@
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { Award, FileText, Rocket, UserCheck } from "lucide-react";
 
 import { ImageWithFallback } from "../../FallBacks/ImageWithFallback";
-import { Award, FileText, Rocket, UserCheck } from "lucide-react";
-import approach from '../../../assets/approach.png'
+import approach from "../../../assets/approach.png";
+
+import type { ApproachStep } from "./types";
+import { ApproachApi } from "./api/approach";
+
+const iconMap = {
+  UserCheck,
+  FileText,
+  Award,
+  Rocket,
+} as const;
 
 export function OurApproach() {
-  const steps = [
-    {
-      icon: UserCheck,
-      title: "Initial Assessment",
-      description:
-        "We learn about your background, skills, and career aspirations to create a personalized pathway",
-      step: "01",
-    },
-    {
-      icon: FileText,
-      title: "Skills Development",
-      description:
-        "Access workshops, training, and resources to enhance your employability in the NZ market",
-      step: "02",
-    },
-    {
-      icon: Award,
-      title: "Career Matching",
-      description:
-        "We connect you with employers who value diversity and align with your professional goals",
-      step: "03",
-    },
-    {
-      icon: Rocket,
-      title: "Ongoing Support",
-      description:
-        "Continue receiving guidance and mentorship as you establish and grow your career",
-      step: "04",
-    },
-  ];
+  const [steps, setSteps] = useState<ApproachStep[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const data = await ApproachApi.list();
+        setSteps(data);
+      } catch (err) {
+        console.error(err);
+        setSteps([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    load();
+  }, []);
 
   return (
     <section className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-20">
@@ -61,31 +60,50 @@ export function OurApproach() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            {steps.map((step, index) => (
-              <motion.div
-                key={step.title}
-                className="flex gap-4"
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <div className="flex-shrink-0">
-                  <div className="relative">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white">
-                      <step.icon className="h-6 w-6" />
+            {loading ? (
+              <div className="space-y-6">
+                {[1, 2, 3, 4].map((i) => (
+                  <div
+                    key={i}
+                    className="h-20 animate-pulse rounded-2xl bg-white/60"
+                  />
+                ))}
+              </div>
+            ) : (
+              steps.map((step, index) => {
+                const Icon =
+                  iconMap[step.icon as keyof typeof iconMap] ?? UserCheck;
+
+                return (
+                  <motion.div
+                    key={step.id}
+                    className="flex gap-4"
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                  >
+                    <div className="flex-shrink-0">
+                      <div className="relative">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white">
+                          <Icon className="h-6 w-6" />
+                        </div>
+                        <div className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs text-purple-600 shadow-md">
+                          {step.step}
+                        </div>
+                      </div>
                     </div>
-                    <div className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs text-purple-600 shadow-md">
-                      {step.step}
+
+                    <div className="flex-1">
+                      <h3 className="mb-2 text-xl text-gray-800">
+                        {step.title}
+                      </h3>
+                      <p className="text-gray-600">{step.description}</p>
                     </div>
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <h3 className="mb-2 text-xl text-gray-800">{step.title}</h3>
-                  <p className="text-gray-600">{step.description}</p>
-                </div>
-              </motion.div>
-            ))}
+                  </motion.div>
+                );
+              })
+            )}
           </motion.div>
 
           <motion.div
