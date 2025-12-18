@@ -4,6 +4,7 @@ import {
   OurApproach,
   Services,
   WhoWeServe,
+  CommunityImpact,
 } from ".";
 
 export function HomePage() {
@@ -13,6 +14,7 @@ export function HomePage() {
       <WhoWeServe />
       <Services />
       <OurApproach />
+      <CommunityImpact />
       <CallToAction />
     </>
   );

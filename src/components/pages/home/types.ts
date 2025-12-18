@@ -47,3 +47,10 @@ export type ServiceRow = {
   sort_order?: number;
   created_at?: string;
 };
+export type CommunityStory = {
+  id: number;
+  quote: string;
+  author: string;
+  role: string;
+  image_url: string;
+};

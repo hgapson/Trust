@@ -109,6 +109,23 @@ app.get("/api/approach-steps", async (_req, res) => {
     res.status(500).json({ error: "Failed to fetch approach steps" });
   }
 });
+
+/* ======================
+   COMMUNITY STORIES ROUTES
+====================== */
+app.get("/api/community-stories", async (_req, res) => {
+  try {
+    const stories = await db("community_stories")
+      .select("*")
+      .orderBy("sort_order", "asc");
+
+    res.json(stories);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch community stories" });
+  }
+});
+
 /* ======================
    START SERVER
 ====================== */

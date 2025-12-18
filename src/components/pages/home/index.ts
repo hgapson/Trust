@@ -1,7 +1,7 @@
 import type { HomeSectionItem } from "./types";
 
 import {Hero} from "./Hero";
-import {CommunityImpact} from "./CommunityImpact";
+import CommunityImpact from "./CommunityImpact";
 import {OurApproach} from "./OurApproach";
 import {Services} from "./Services";
 import {WhoWeServe} from "./WhoWeServe";
@@ -28,4 +28,4 @@ export function getHomeSections() {
   return HOME_SECTIONS.filter((s) => s.enabled !== false);
 }
 
-export { CallToAction, Hero, OurApproach, Services, WhoWeServe };
+export { CallToAction, Hero, OurApproach, Services, WhoWeServe, CommunityImpact };
