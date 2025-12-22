@@ -66,11 +66,11 @@ function PartnerCard({
             )}
           >
             {profile.logo ? (
-              <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-white p-2 shadow-sm">
+              <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-white p-2 shadow-sm">
                 <ImageWithFallback
                   src={profile.logo}
                   alt={`${profile.name} logo`}
-                  className="h-12 w-12 object-contain"
+                  className="h-16 w-16 object-contain"
                 />
               </div>
             ) : (
@@ -89,7 +89,7 @@ function PartnerCard({
           <Badge
             variant="secondary"
             className={cn(
-              "border-0 bg-gradient-to-r text-white shadow-sm",
+              "border-0 bg-gradient-to-r text-gray-100 shadow-sm",
               accentClass,
             )}
           >
@@ -143,9 +143,6 @@ export function PartnersSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-amber-600">
-            Partnerships
-          </p>
           <h2 className="mt-3 text-3xl text-gray-900 lg:text-4xl">
             Our partners and funders power the mission
           </h2>

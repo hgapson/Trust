@@ -1,7 +1,6 @@
 import {
-  //AboutCtaSection,
   AboutHero,
-  //ImpactStatsSection,
+  CommunityImpact,
   MissionVisionSection,
   PartnersSection,
   TeamSection,
@@ -18,11 +17,10 @@ export function AboutPage() {
       <div className="container mx-auto max-w-screen-xl px-4">
         <MissionVisionSection />
         <Values />
-        {/* <ImpactStatsSection stats={impactStats} /> */}
         {/* <TimelineSection milestones={milestones} /> */}
         <PartnersSection />
         <TeamSection members={teamMembers} />
-        <CallToAction />
+        <CommunityImpact />
       </div>
     </div>
   );

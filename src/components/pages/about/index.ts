@@ -1,6 +1,6 @@
 export { AboutCtaSection } from "./AboutCtaSection";
 export { AboutHero } from "./AboutHero";
-export { ImpactStatsSection } from "./ImpactStatsSection";
+export { CommunityImpact } from "./CommunityImpact";
 export { MissionVisionSection } from "./MissionVisionSection";
 export { PartnersSection } from "./PartnersSection";
 export { TeamSection } from "./TeamSection";
