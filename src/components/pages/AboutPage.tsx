@@ -21,6 +21,7 @@ export function AboutPage() {
         <PartnersSection />
         <TeamSection members={teamMembers} />
         <CommunityImpact />
+        <CallToAction />
       </div>
     </div>
   );

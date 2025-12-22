@@ -5,7 +5,7 @@ import { ChevronDown, Mail, Phone } from "lucide-react";
 import { ImageWithFallback } from "../../FallBacks/ImageWithFallback";
 import { Card, CardContent } from "../../ui/card";
 import type { CommunityStory } from "../home/types";
-import { CommunityStoriesApi } from "./api/testimonies";
+import { CommunityStoriesApi } from "../home/api/communityStories";
 
 export function CommunityImpact() {
   const [stories, setStories] = useState<CommunityStory[]>([]);
