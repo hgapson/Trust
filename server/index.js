@@ -132,6 +132,18 @@ app.get("/api/community-stories", async (req, res) => {
 });
 
 /* ======================
+   CALL TO ACTION ROUTES
+====================== */
+app.get("/api/call-to-action", async (_req, res) => {
+  try {
+    const cta = await db("call_to_action").select("*").first();
+    res.json(cta);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch call to action" });
+  }
+});
+/* ======================
    START SERVER
 ====================== */
 

@@ -5,7 +5,7 @@ import CommunityImpact from "./CommunityImpact";
 import {OurApproach} from "./OurApproach";
 import {Services} from "./HowWeHelp";
 import {WhoWeServe} from "./WhoWeServe";
-import {CallToAction} from "./CallToAction";
+import {CallToAction} from "../CallToAction";
 export { HomePage } from "./HomePage";
 
 export const HOME_SECTIONS: HomeSectionItem[] = [
