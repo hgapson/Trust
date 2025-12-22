@@ -28,7 +28,7 @@ export function CommunityImpact() {
   }, []);
 
   return (
-    <section className="bg-white py-20">
+    <section className="gradient-bg-values py-20">
       <div className="container mx-auto max-w-screen-xl px-4">
         <motion.div
           className="mb-16 space-y-4 text-center"

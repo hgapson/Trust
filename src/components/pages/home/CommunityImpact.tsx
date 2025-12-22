@@ -28,7 +28,7 @@ export function CommunityImpact() {
   }, []);
 
   return (
-    <section className="bg-white py-20">
+    <section className="gradient-bg-values py-20">
       <div className="container mx-auto max-w-screen-xl px-4">
         <motion.div
           className="mb-16 space-y-4 text-center"
@@ -90,7 +90,7 @@ export function CommunityImpact() {
 
 <div className="mt-12 flex justify-center">
   <a
-    href="/about#testimonials"
+    href="/about#CommunityImpact"
     className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:from-blue-700 hover:to-purple-700 hover:shadow-lg"
   >
     Read more stories

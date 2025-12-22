@@ -137,22 +137,22 @@ export function PartnersSection() {
         <div className="pointer-events-none absolute -right-10 bottom-8 h-56 w-56 rounded-full bg-rose-200/50 blur-3xl" />
 
         <motion.div
-          className="mx-auto mb-12 max-w-3xl text-center"
+          className="mx-auto mb-6 max-w-3xl text-center"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="mt-3 text-3xl text-gray-900 lg:text-4xl">
+          <h2 className="mt-1 text-3xl text-gray-900 lg:text-4xl">
             Our partners and funders power the mission
           </h2>
-          <p className="mt-4 text-lg text-gray-600">
+          <p className="mb-6 text-lg text-gray-600">
             We collaborate with trusted organizations to build opportunity,
             belonging, and long-term impact.
           </p>
         </motion.div>
 
-        <div className="mx-auto mb-10 flex w-full max-w-md items-center justify-center gap-3 rounded-full border border-white/80 bg-white p-2 shadow-md">
+        <div className="mx-auto mb-6 flex w-full max-w-md items-center justify-center gap-3 rounded-full border border-white/80 bg-white p-2 shadow-md">
           {(["partners", "funders"] as PartnerTab[]).map((tab) => (
             <Button
               key={tab}
@@ -181,10 +181,10 @@ export function PartnersSection() {
             transition={{ duration: 0.4 }}
           >
             <div className="mb-8 text-center">
-              <h3 className="text-2xl text-gray-900">
+              <h3 className="mb-6 text-2xl text-gray-900">
                 {tabCopy[activeTab].title}
               </h3>
-              <p className="mt-2 text-sm text-gray-600">
+              <p className="mb-6 text-sm text-gray-600">
                 {tabCopy[activeTab].description}
               </p>
             </div>
