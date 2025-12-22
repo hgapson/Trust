@@ -22,6 +22,16 @@ export interface ImpactStat {
   color: string;
 }
 
+export interface PartnerProfile {
+  name: string;
+  logo?: string;
+  url?: string;
+  focus: string;
+  description: string;
+  location: string;
+  contribution: string;
+}
+
 export const teamMembers: TeamMember[] = [
   {
     name: "Penny Smith",
@@ -75,5 +85,131 @@ export const impactStats: ImpactStat[] = [
     number: "50+",
     label: "Partner Organizations",
     color: "text-orange-600",
+  },
+];
+
+export const partners: PartnerProfile[] = [
+  {
+    name: "Community Waikato",
+    logo: "https://images.squarespace-cdn.com/content/v1/5f2a22d539307a4ca976ace6/1600921303317-GY8C1CVTIH2SK2WN4OUW/CW-logo-web.png",
+    url: "https://www.communitywaikato.org.nz",
+    focus: "Community capability",
+    description:
+      "Supporting local organisations with advisory, governance, and funding guidance.",
+    location: "Hamilton",
+    contribution: "Capacity building and sector support",
+  },
+  {
+    name: "Volunteering Waikato",
+    logo: "https://volunteeringwaikato.org.nz/images/main/logo-2023.png",
+    url: "https://www.volunteeringwaikato.org.nz",
+    focus: "Volunteer pathways",
+    description:
+      "Connecting people to volunteering and community initiatives.",
+    location: "Hamilton",
+    contribution: "Volunteer matching and training",
+  },
+  {
+    name: "Sport Waikato",
+    logo: "https://www.sportwaikato.org.nz/images/logos/Logo@2x.png",
+    url: "https://www.sportwaikato.org.nz",
+    focus: "Healthy communities",
+    description:
+      "Growing active lifestyles through sport and recreation.",
+    location: "Hamilton",
+    contribution: "Community wellbeing programs",
+  },
+  {
+    name: "Creative Waikato",
+    logo: "https://creativewaikato.co.nz/site/uploads/cw-social-logo.png",
+    url: "https://creativewaikato.co.nz",
+    focus: "Arts and culture",
+    description:
+      "Championing creative initiatives across the region.",
+    location: "Hamilton",
+    contribution: "Creative sector partnerships",
+  },
+  {
+    name: "Waikato Museum",
+    logo: "https://tewharetaonga.nz/assets/Uploads/Te-Whare-Taonga-o-Waikato_logo.jpg",
+    url: "https://www.waikatomuseum.co.nz",
+    focus: "Culture and heritage",
+    description:
+      "Celebrating stories, exhibitions, and learning for the community.",
+    location: "Hamilton",
+    contribution: "Community exhibitions and learning",
+  },
+  {
+    name: "Hamilton City Council",
+    logo: "https://hamilton.govt.nz/_resources/themes/hcc-theme/img/logos/logo-black.png?m=1766019066",
+    url: "https://hamilton.govt.nz",
+    focus: "Civic services",
+    description:
+      "Supporting community development and local initiatives.",
+    location: "Hamilton",
+    contribution: "Community grants and support",
+  },
+];
+
+export const funders: PartnerProfile[] = [
+  {
+    name: "Trust Waikato",
+    logo: "https://trustwaikato.co.nz/wp-content/themes/trustwaikato/src/img/logo/icon.png",
+    url: "https://trustwaikato.co.nz",
+    focus: "Community funding",
+    description:
+      "Funding initiatives that strengthen Waikato communities.",
+    location: "Hamilton",
+    contribution: "Community grants",
+  },
+  {
+    name: "WEL Networks",
+    logo: "https://wel.co.nz/images/Logo.svg",
+    url: "https://wel.co.nz",
+    focus: "Regional investment",
+    description:
+      "Investing in local infrastructure and community wellbeing.",
+    location: "Hamilton",
+    contribution: "Sponsorship and community funding",
+  },
+  {
+    name: "University of Waikato",
+    logo: "https://www.waikato.ac.nz/_resources/themes/app/dist/icons/logo.svg?m=1760581704",
+    url: "https://www.waikato.ac.nz",
+    focus: "Research and education",
+    description:
+      "Supporting pathways, skills, and community-led research.",
+    location: "Hamilton",
+    contribution: "Research collaboration and scholarships",
+  },
+  {
+    name: "Wintec | Te Pukenga",
+    logo: "https://www.wintec.ac.nz/ResourcePackages/WintecPublicWebsite/assets/dist/images/brand/logo-wintec.svg",
+    url: "https://www.wintec.ac.nz",
+    focus: "Skills development",
+    description:
+      "Training and upskilling for workforce readiness.",
+    location: "Hamilton",
+    contribution: "Training partnerships",
+  },
+  {
+    name: "Waikato District Council",
+    logo: "https://www.waikatodistrict.govt.nz/ResourcePackages/WaikatoDistrictCouncil/assets/dist/images/waikato-district-council-logo.svg",
+    url: "https://www.waikatodistrict.govt.nz",
+    focus: "Regional services",
+    description:
+      "Supporting community-led projects across the district.",
+    location: "Waikato District",
+    contribution: "Community development funding",
+  },
+  {
+    name: "Te Whatu Ora - Health NZ",
+    logo: "https://www.tewhatuora.govt.nz/logo.png",
+    url: "https://www.tewhatuora.govt.nz",
+    focus: "Health access",
+    description:
+      "Supporting wellbeing services and local health initiatives.",
+    location: "Waikato",
+    contribution: "Health partnership support",
   },
 ];

@@ -1,13 +1,15 @@
 import {
-  AboutCtaSection,
+  //AboutCtaSection,
   AboutHero,
   //ImpactStatsSection,
   MissionVisionSection,
+  PartnersSection,
   TeamSection,
   //TimelineSection,
   Values,
 } from "./about";
-import { impactStats, milestones, teamMembers } from "./about/data";
+import {CallToAction} from "./CallToAction";
+import { teamMembers } from "./about/data";
 
 export function AboutPage() {
   return (
@@ -18,8 +20,9 @@ export function AboutPage() {
         <Values />
         {/* <ImpactStatsSection stats={impactStats} /> */}
         {/* <TimelineSection milestones={milestones} /> */}
+        <PartnersSection />
         <TeamSection members={teamMembers} />
-        <AboutCtaSection />
+        <CallToAction />
       </div>
     </div>
   );
