@@ -4,7 +4,7 @@ import { ArrowRight, Heart, Target, Wrench } from "lucide-react";
 import { Button } from "../../ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../ui/card";
 import { ServiceModal, type ServiceModalData } from "./ServiceModal";
-import { ServicesApi } from "./api/services";
+import { ServicesApi } from "./api/howWeHelp";
 import type { ServiceRow } from "./types";
 
 const iconMap = {

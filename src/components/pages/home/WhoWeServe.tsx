@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Briefcase, Globe, GraduationCap, Home } from "lucide-react";
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../ui/card";
 import type { Audience } from "./types";
 

@@ -45,7 +45,7 @@ app.post("/api/jobs", async (req, res) => {
   }
 });
 /* ======================
-   AUDIENCES ROUTES
+   WHO WE SERVE ROUTES
 ====================== */
 app.get("/api/audiences", async (_req, res) => {
   try {
@@ -60,7 +60,7 @@ app.get("/api/audiences", async (_req, res) => {
   }
 });
 /* ======================
-   SERVICES ROUTES
+   HOW WE HELP ROUTES
 ====================== */
 
 app.get("/api/services", async (_req, res) => {
