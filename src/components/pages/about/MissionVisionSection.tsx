@@ -1,8 +1,48 @@
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-
 import { ImageWithFallback } from "../../FallBacks/ImageWithFallback";
 
+import type { MissionVisionData } from "./types";
+import { MissionVisionApi } from "./api/missionVision";
+
 export function MissionVisionSection() {
+  const [data, setData] = useState<MissionVisionData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const result = await MissionVisionApi.get();
+        setData(result);
+      } catch (err) {
+        console.error(err);
+        setData(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    load();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-20">
+        <div className="grid items-center gap-12 lg:grid-cols-2">
+          <div className="h-96 animate-pulse rounded-lg bg-slate-100" />
+          <div className="space-y-4">
+            <div className="h-10 w-2/3 animate-pulse rounded bg-slate-100" />
+            <div className="h-20 animate-pulse rounded bg-slate-100" />
+            <div className="h-8 w-1/2 animate-pulse rounded bg-slate-100" />
+            <div className="h-20 animate-pulse rounded bg-slate-100" />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!data) return null;
+
   return (
     <section className="py-20">
       <div className="grid items-center gap-12 lg:grid-cols-2">
@@ -13,7 +53,7 @@ export function MissionVisionSection() {
           transition={{ duration: 0.8 }}
         >
           <ImageWithFallback
-            src="https://media.licdn.com/dms/image/v2/C4E12AQGkw2DkzWd14A/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1520437220732?e=2147483647&v=beta&t=wpGG84obe9jBH9u0-MHlJOWTnqH8bGAZZ8BK8VJSSds"
+            src={data.image_url}
             alt="Diverse team meeting"
             className="h-96 w-full rounded-lg object-cover shadow-2xl"
           />
@@ -27,22 +67,13 @@ export function MissionVisionSection() {
           transition={{ duration: 0.8 }}
         >
           <div>
-            <h2 className="mb-4 text-3xl lg:text-4xl">Our Mission</h2>
-            <p className="text-lg text-gray-600">
-              To provide comprehensive support, resources, and advocacy for
-              migrants and former refugees in the Waikato region, helping them
-              achieve economic independence and social integration through
-              employment opportunities and community engagement.
-            </p>
+            <h2 className="mb-4 text-3xl lg:text-4xl">{data.mission_title}</h2>
+            <p className="text-lg text-gray-600">{data.mission_description}</p>
           </div>
 
           <div>
-            <h3 className="mb-4 text-2xl">Our Vision</h3>
-            <p className="text-lg text-gray-600">
-              A thriving, inclusive Waikato community where every migrant and
-              former refugee has the opportunity to reach their full potential
-              and contribute meaningfully to society.
-            </p>
+            <h3 className="mb-4 text-2xl">{data.vision_title}</h3>
+            <p className="text-lg text-gray-600">{data.vision_description}</p>
           </div>
         </motion.div>
       </div>

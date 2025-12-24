@@ -144,6 +144,18 @@ app.get("/api/call-to-action", async (_req, res) => {
   }
 });
 /* ======================
+   MISSION & VISION ROUTES
+====================== */
+app.get("/api/mission-vision", async (_req, res) => {
+  try {
+    const row = await db("mission_vision").first();
+    res.json(row);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch mission & vision" });
+  }
+});
+/* ======================
    START SERVER
 ====================== */
 
