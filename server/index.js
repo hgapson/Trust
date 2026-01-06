@@ -189,6 +189,19 @@ app.get("/api/funders", async (_req, res) => {
   }
 });
 
+/* =========================
+   VALUES ROUTES
+========================= */
+app.get("/api/values", async (_req, res) => {
+  try {
+    const rows = await db("values").select("*").orderBy("sort_order", "asc");
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch values" });
+  }
+});
+
 /* ======================
    START SERVER
 ====================== */

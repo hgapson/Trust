@@ -50,3 +50,11 @@ export function mapDbPartner(row: DbPartner): PartnerProfile {
     contribution: row.contribution,
   };
 }
+export type ValueItem = {
+  id: number;
+  title: string;
+  description: string;
+  icon: "Shield" | "Award" | "CheckCircle" | "Users";
+  color: string;
+  bg_color: string;
+};
