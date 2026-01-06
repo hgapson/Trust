@@ -58,3 +58,10 @@ export type ValueItem = {
   color: string;
   bg_color: string;
 };
+export type TeamMember = {
+  id: number;
+  name: string;
+  role: string;
+  image_url?: string;
+  description: string;
+};

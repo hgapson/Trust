@@ -11,6 +11,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(express.static("public"));
 
 /* ======================
    JOBS ROUTES
@@ -199,6 +200,22 @@ app.get("/api/values", async (_req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to fetch values" });
+  }
+});
+
+/* =========================
+   TEAM ROUTES
+========================= */
+app.get("/api/team", async (_req, res) => {
+  try {
+    const team = await db("team_members")
+      .select("*")
+      .orderBy("sort_order", "asc");
+
+    res.json(team);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch team members" });
   }
 });
 

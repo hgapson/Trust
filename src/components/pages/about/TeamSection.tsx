@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
-import type { TeamMember } from "./data";
+import { ImageWithFallback } from "../../FallBacks/ImageWithFallback";
+import type { TeamMember } from "./types";
 
 interface TeamSectionProps {
   members: TeamMember[];
@@ -46,8 +47,19 @@ export function TeamSection({ members }: TeamSectionProps) {
               >
                 <Card className="h-full text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                   <CardHeader>
-                    <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-2xl font-semibold text-white shadow-md">
-                      {initialsFromName(member.name)}
+                    {/* Avatar */}
+                    <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-blue-500 to-purple-600 shadow-md">
+                      {member.image_url ? (
+                        <ImageWithFallback
+                          src={member.image_url}
+                          alt={member.name}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <span className="text-2xl font-semibold text-white">
+                          {initialsFromName(member.name)}
+                        </span>
+                      )}
                     </div>
 
                     <CardTitle className="text-xl">{member.name}</CardTitle>

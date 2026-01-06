@@ -1,14 +1,9 @@
 import type { ComponentType } from "react";
 import type { LucideProps } from "lucide-react";
 import { Award, Globe, Heart, Users } from "lucide-react";
+import type { TeamMember } from "./types";
 
 type IconComponent = ComponentType<LucideProps>;
-
-export interface TeamMember {
-  name: string;
-  role: string;
-  description: string;
-}
 
 export interface Milestone {
   year: string;
@@ -32,26 +27,7 @@ export interface PartnerProfile {
   contribution: string;
 }
 
-export const teamMembers: TeamMember[] = [
-  {
-    name: "Penny Smith",
-    role: "Chief Executive Officer",
-    description:
-      "Penny has over 15 years in management services and community development",
-  },
-  {
-    name: "Mookthida",
-    role: "Office Manager",
-    description:
-      "Work placement expert specializing in employment services and community developmen",
-  },
-  {
-    name: "Leeya",
-    role: "Office Administrator",
-    description:
-      "Certified office administrator with expertise in cross-cultural communication",
-  },
-];
+export const teamMembers: TeamMember[] = [];
 
 export const milestones: Milestone[] = [
   { year: "2018", event: "Founded with mission to support Waikato migrants" },
@@ -87,4 +63,3 @@ export const impactStats: ImpactStat[] = [
     color: "text-orange-600",
   },
 ];
-
