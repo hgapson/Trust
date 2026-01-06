@@ -155,6 +155,40 @@ app.get("/api/mission-vision", async (_req, res) => {
     res.status(500).json({ error: "Failed to fetch mission & vision" });
   }
 });
+
+/* ======================
+   PARTNERS & FUNDERS ROUTES
+====================== */
+/* ==========================
+   PARTNERS & FUNDERS ROUTES
+   ========================== */
+
+app.get("/api/partners", async (_req, res) => {
+  try {
+    const rows = await db("partners")
+      .where({ type: "partner" })
+      .orderBy("sort_order", "asc");
+
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch partners" });
+  }
+});
+
+app.get("/api/funders", async (_req, res) => {
+  try {
+    const rows = await db("partners")
+      .where({ type: "funder" })
+      .orderBy("sort_order", "asc");
+
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch funders" });
+  }
+});
+
 /* ======================
    START SERVER
 ====================== */

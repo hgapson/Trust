@@ -13,3 +13,40 @@ export type MissionVisionData = {
   vision_description: string;
   image_url: string;
 };
+export type PartnerTab = "partners" | "funders";
+
+export type DbPartner = {
+  id: number;
+  type: "partner" | "funder";
+  name: string;
+  logo_url?: string;
+  website_url?: string;
+  focus: string;
+  description: string;
+  location: string;
+  contribution: string;
+  sort_order?: number;
+  created_at?: string;
+};
+
+export interface PartnerProfile {
+  name: string;
+  logo?: string;
+  url?: string;
+  focus: string;
+  description: string;
+  location: string;
+  contribution: string;
+}
+
+export function mapDbPartner(row: DbPartner): PartnerProfile {
+  return {
+    name: row.name,
+    logo: row.logo_url ?? "",
+    url: row.website_url ?? "",
+    focus: row.focus,
+    description: row.description,
+    location: row.location,
+    contribution: row.contribution,
+  };
+}
