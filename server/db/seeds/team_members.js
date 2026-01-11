@@ -14,7 +14,7 @@ exports.seed = async function (knex) {
       name: "Mookthida",
       role: "Office Manager",
       description:
-        "Work placement expert specializing in employment services and community developmen",
+        "Work placement expert specializing in employment services and community development",
       image_url: "/team/mookthida.jpg",
       sort_order: 2,
     },
