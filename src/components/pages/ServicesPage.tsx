@@ -8,7 +8,6 @@ import {
 } from "./services";
 import {
   additionalServices,
-  detailedServices,
   processSteps,
   workshopSchedule,
 } from "./services/data";
@@ -18,7 +17,7 @@ export function ServicesPage() {
     <div className="py-20">
       <ServicesHero />
       <div className="container mx-auto max-w-screen-xl px-4">
-        <DetailedServicesSection services={detailedServices} />
+        <DetailedServicesSection />
         <AdditionalServicesSection services={additionalServices} />
         <WorkshopScheduleSection schedule={workshopSchedule} />
         <ProcessTimelineSection steps={processSteps} />

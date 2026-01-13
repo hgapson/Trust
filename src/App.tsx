@@ -7,6 +7,7 @@ import { ServicesPage } from "./components/pages/ServicesPage";
 import { GetInvolvedPage } from "./components/pages/GetInvolvedPage";
 import { ContactPage } from "./components/pages/ContactPage";
 import { JobsPage } from "./components/pages/jobs";
+import { ServiceDetailsPage } from "./components/pages/services/ServiceDetailsPage";
 
 function Router() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -42,6 +43,11 @@ function Router() {
   }, []);
 
   const renderPage = () => {
+    if (currentPath.startsWith("/services/") && currentPath !== "/services") {
+      const slug = decodeURIComponent(currentPath.replace("/services/", "").split("/")[0]);
+      return <ServiceDetailsPage slug={slug} />;
+    }
+
     switch (currentPath) {
       case '/':
         return <HomePage />;
