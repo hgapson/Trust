@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import { ArrowRight, Heart, Target, Wrench } from "lucide-react";
 import { Button } from "../../ui/button";
@@ -23,6 +24,7 @@ export function Services() {
   const [selectedService, setSelectedService] = useState<ServiceModalData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const load = async () => {
@@ -61,8 +63,7 @@ export function Services() {
   }, []);
 
   const handleStartJourney = () => {
-    window.history.pushState({}, "", "/contact#contact-form");
-    window.dispatchEvent(new PopStateEvent("popstate"));
+    navigate("/contact#contact-form");
   };
 
   return (

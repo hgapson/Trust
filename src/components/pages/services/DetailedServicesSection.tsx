@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 
 import { ArrowRight, CheckCircle, Heart, Target, Wrench } from "lucide-react";
@@ -27,10 +28,10 @@ function mapRowToUI(row: DetailedServiceRow): DetailedServiceUI {
 export function DetailedServicesSection() {
   const [rows, setRows] = useState<DetailedServiceRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const handleLearnMore = (id: string) => {
-    window.history.pushState({}, "", `/services/${id}`);
-    window.dispatchEvent(new PopStateEvent("popstate"));
+    navigate(`/services/${id}`);
   };
 
   useEffect(() => {

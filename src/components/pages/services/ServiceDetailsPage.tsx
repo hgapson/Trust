@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "motion/react";
 import { ArrowLeft, ArrowRight, CheckCircle, Heart, Target, Wrench } from "lucide-react";
 
@@ -20,23 +21,27 @@ type ServiceDetailsRow = {
   modalSteps?: string[];
 };
 
-type Props = {
-  slug: string;
-};
-
 const iconMap = {
   Heart,
   Wrench,
   Target,
 } as const;
 
-export function ServiceDetailsPage({ slug }: Props) {
+export function ServiceDetailsPage() {
+  const { slug } = useParams();
+  const navigate = useNavigate();
   const [detail, setDetail] = useState<DetailedServiceRow | null>(null);
   const [moreInfo, setMoreInfo] = useState<ServiceDetailsRow | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!slug) {
+      setError("This service is missing a valid identifier.");
+      setLoading(false);
+      return;
+    }
+
     const load = async () => {
       try {
         setLoading(true);
@@ -76,17 +81,15 @@ export function ServiceDetailsPage({ slug }: Props) {
   const steps = useMemo(() => moreInfo?.modalSteps ?? [], [moreInfo]);
 
   const handleBack = () => {
-    window.history.pushState({}, "", "/services");
-    window.dispatchEvent(new PopStateEvent("popstate"));
+    navigate("/services");
   };
 
   const handleContact = () => {
-    window.history.pushState({}, "", "/contact#contact-form");
-    window.dispatchEvent(new PopStateEvent("popstate"));
+    navigate("/contact#contact-form");
   };
 
   return (
-    <section className="relative overflow-hidden py-16 sm:py-20">
+    <section className="relative overflow-hidden bg-slate-50 pb-16 pt-28 sm:pb-20 sm:pt-28">
       <div className="pointer-events-none absolute -left-20 top-10 h-64 w-64 rounded-full bg-gradient-to-br from-blue-200/60 via-emerald-100/40 to-transparent blur-3xl" />
       <div className="pointer-events-none absolute -right-24 top-40 h-72 w-72 rounded-full bg-gradient-to-tr from-amber-100/60 via-rose-100/40 to-transparent blur-3xl" />
 

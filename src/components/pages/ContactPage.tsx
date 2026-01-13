@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import {
   ContactCtaSection,
   ContactFormAndInfoSection,
@@ -16,6 +17,8 @@ import {
 } from "./contact/data";
 
 export function ContactPage() {
+  const location = useLocation();
+
   useEffect(() => {
     const tryScroll = (attemptsLeft: number) => {
       if (window.location.hash === "#contact-form") {
@@ -33,14 +36,10 @@ export function ContactPage() {
     const scrollToForm = () => tryScroll(5);
 
     scrollToForm();
-    window.addEventListener("hashchange", scrollToForm);
-    window.addEventListener("popstate", scrollToForm);
 
     return () => {
-      window.removeEventListener("hashchange", scrollToForm);
-      window.removeEventListener("popstate", scrollToForm);
     };
-  }, []);
+  }, [location]);
 
   return (
     <div className="py-20">
