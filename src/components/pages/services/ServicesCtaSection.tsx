@@ -55,7 +55,7 @@ export function ServicesCtaSection() {
   };
 
   return (
-    <section className="bg-slate-50 py-16 text-center">
+    <section className="mt-16 bg-slate-50 py-16 text-center">
       <motion.div
         className="container mx-auto max-w-4xl space-y-4 px-4"
         initial={{ opacity: 0, y: 20 }}
