@@ -33,35 +33,6 @@ export interface WorkshopItem {
   day: string;
 }
 
-
-export const workshopSchedule: WorkshopItem[] = [
-  {
-    time: "9:00 AM - 11:00 AM",
-    title: "Resume Writing Workshop",
-    day: "Monday",
-  },
-  {
-    time: "1:00 PM - 3:00 PM",
-    title: "Interview Skills Training",
-    day: "Tuesday",
-  },
-  {
-    time: "10:00 AM - 12:00 PM",
-    title: "Digital Literacy Basics",
-    day: "Wednesday",
-  },
-  {
-    time: "2:00 PM - 4:00 PM",
-    title: "Workplace Communication",
-    day: "Thursday",
-  },
-  {
-    time: "9:00 AM - 11:00 AM",
-    title: "Job Search Strategies",
-    day: "Friday",
-  },
-];
-
 export const processSteps = [
   {
     step: "1",

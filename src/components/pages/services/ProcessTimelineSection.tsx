@@ -1,14 +1,19 @@
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { ProcessStepsApi } from "./api/processSteps";
+import type { ProcessStep } from "./types";
 
-interface ProcessTimelineSectionProps {
-  steps: Array<{ step: string; title: string; description: string }>;
-}
+export function ProcessTimelineSection() {
+  const [steps, setSteps] = useState<ProcessStep[]>([]);
 
-export function ProcessTimelineSection({
-  steps,
-}: ProcessTimelineSectionProps) {
+  useEffect(() => {
+    ProcessStepsApi.list()
+      .then(setSteps)
+      .catch(console.error);
+  }, []);
+
   return (
-    <section className="py-20">
+    <section className="py-20 gradient-bg-values">
       <motion.div
         className="mb-16 text-center"
         initial={{ opacity: 0, y: 30 }}
@@ -24,7 +29,7 @@ export function ProcessTimelineSection({
       <div className="grid gap-8 md:grid-cols-4">
         {steps.map((step, index) => (
           <motion.div
-            key={step.step}
+            key={step.id}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -32,7 +37,7 @@ export function ProcessTimelineSection({
             className="text-center"
           >
             <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-xl text-white">
-              {step.step}
+              {step.step_number}
             </div>
             <h3 className="mb-2 text-xl">{step.title}</h3>
             <p className="text-gray-600">{step.description}</p>

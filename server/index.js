@@ -486,6 +486,22 @@ app.delete("/api/admin/workshop-registrations/:id", async (req, res) => {
     res.status(500).json({ error: "Failed to delete registration" });
   }
 });
+
+/* =========================
+   PROCESS TIMELINE ROUTES
+========================= */
+app.get("/api/process-steps", async (_req, res) => {
+  try {
+    const steps = await db("process_steps")
+      .select("*")
+      .orderBy("sort_order", "asc");
+
+    res.json(steps);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch process steps" });
+  }
+});
 /* ======================
    START SERVER
 ====================== */

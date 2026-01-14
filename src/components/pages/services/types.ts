@@ -52,3 +52,9 @@ export type WorkshopRegistrationPayload = {
   phone?: string;
   notes?: string;
 };
+export interface ProcessStep {
+  id: number;
+  step_number: number;
+  title: string;
+  description: string;
+}
