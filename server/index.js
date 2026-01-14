@@ -331,6 +331,38 @@ app.get("/api/team", async (_req, res) => {
   }
 });
 
+/* =========================
+   ADDITIONAL SERVICES ROUTES
+========================= */
+app.get("/api/additional-services", async (_req, res) => {
+  try {
+    const rows = await db("additional_services")
+      .select("*")
+      .orderBy("sort_order", "asc");
+
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch additional services" });
+  }
+});
+
+/* =========================
+   CONTACT METHODS ROUTES
+========================= */
+app.get("/api/contact-methods", async (_req, res) => {
+  try {
+    const rows = await db("contact_methods")
+      .select("*")
+      .orderBy("sort_order", "asc")
+
+    res.json(rows)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to fetch contact methods" })
+  }
+})
+
 /* ======================
    START SERVER
 ====================== */

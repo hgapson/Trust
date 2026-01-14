@@ -25,3 +25,13 @@ export type DetailedServiceUI = {
   description: string;
   features: string[];
 };
+// types.ts
+export type AdditionalService = {
+  id: number
+  title: string
+  description: string
+  icon_key: string
+  sessions: string
+  sort_order: number
+  created_at?: string
+}
