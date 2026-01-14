@@ -164,10 +164,25 @@ const Rocket = createIcon(
     <path d="m15 9-6 6" />
   </>,
 );
+const Trash2 = createIcon(
+  <>
+    <path d="M3 6h18" />
+    <path d="M8 6V4h8v2" />
+    <path d="M6 6l1 14h10l1-14" />
+    <path d="M10 11v6" />
+    <path d="M14 11v6" />
+  </>,
+);
 const Quote = createIcon(
   <>
     <path d="M5 11c0-3 2-5 4-5v4a4 4 0 1 1-4 4" />
     <path d="M15 11c0-3 2-5 4-5v4a4 4 0 1 1-4 4" />
+  </>,
+);
+const RefreshCw = createIcon(
+  <>
+    <path d="M21 12a9 9 0 1 1-3.1-6.7" />
+    <polyline points="21 3 21 9 15 9" />
   </>,
 );
 const DollarSign = createIcon(
@@ -348,12 +363,14 @@ export {
   PanelLeftIcon,
   Phone,
   Quote,
+  RefreshCw,
   Rocket,
   SearchIcon,
   Shield,
   Star,
   Target,
   Twitter,
+  Trash2,
   UserCheck,
   Users,
   Wrench,

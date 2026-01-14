@@ -1,5 +1,6 @@
 import { createBrowserRouter, type RouteObject } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
+import AdminLayout from "./components/Layout/AdminLayout";
 import { HomePage } from "./components/pages/home";
 import { AboutPage } from "./components/pages/AboutPage";
 import { ServicesPage } from "./components/pages/ServicesPage";
@@ -7,6 +8,7 @@ import { GetInvolvedPage } from "./components/pages/GetInvolvedPage";
 import { ContactPage } from "./components/pages/ContactPage";
 import { JobsPage } from "./components/pages/jobs";
 import { ServiceDetailsPage } from "./components/pages/services/ServiceDetailsPage";
+import WorkshopRegistrationsAdminPage from "./components/pages/Admin/WorkshopRegistrations";
 
 const routes: RouteObject[] = [
   {
@@ -21,6 +23,16 @@ const routes: RouteObject[] = [
       { path: "get-involved", element: <GetInvolvedPage /> },
       { path: "contact", element: <ContactPage /> },
       { path: "*", element: <HomePage /> },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      {
+        path: "workshop-registrations",
+        element: <WorkshopRegistrationsAdminPage />,
+      },
     ],
   },
 ];

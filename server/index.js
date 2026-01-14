@@ -363,6 +363,129 @@ app.get("/api/contact-methods", async (_req, res) => {
   }
 })
 
+/* =========================
+   UPCOMING WORKSHOP ROUTES
+========================= */
+app.get("/api/workshops", async (req, res) => {
+  try {
+    const upcomingOnly = req.query.upcoming === "true"
+
+    let query = db("workshops").select("*").where({ is_active: 1 })
+
+    if (upcomingOnly) {
+      query = query.where("start_at", ">=", db.fn.now())
+    }
+
+    const rows = await query.orderBy("start_at", "asc")
+    res.json(rows)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to fetch workshops" })
+  }
+})
+
+/* =========================
+   WORKSHOP REGISTRATION ROUTES
+========================= */
+app.post("/api/workshops/:id/register", async (req, res) => {
+  const workshopId = Number(req.params.id)
+  const { full_name, email, phone, notes } = req.body
+
+  if (!full_name || !email) {
+    return res.status(400).json({ error: "full_name and email are required" })
+  }
+
+  try {
+    const workshop = await db("workshops").where({ id: workshopId }).first()
+    if (!workshop) return res.status(404).json({ error: "Workshop not found" })
+
+    // Optional capacity check
+    if (workshop.capacity) {
+      const [{ count }] = await db("workshop_registrations")
+        .where({ workshop_id: workshopId })
+        .count({ count: "*" })
+
+      if (Number(count) >= workshop.capacity) {
+        return res.status(409).json({ error: "Workshop is full" })
+      }
+    }
+
+    const [id] = await db("workshop_registrations").insert({
+      workshop_id: workshopId,
+      full_name,
+      email,
+      phone: phone || null,
+      notes: notes || null,
+    })
+
+    const row = await db("workshop_registrations").where({ id }).first()
+    res.status(201).json(row)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to register" })
+  }
+})
+
+/* =========================
+   ADMIN: WORKSHOP REGISTRATIONS
+========================= */
+
+app.get("/api/admin/workshop-registrations", async (_req, res) => {
+  try {
+    const rows = await db("workshop_registrations as r")
+      .leftJoin("workshops as w", "r.workshop_id", "w.id")
+      .select(
+        "r.id",
+        "r.workshop_id",
+        "r.full_name",
+        "r.email",
+        "r.phone",
+        "r.notes",
+        "r.status",
+        "r.created_at",
+        "w.title as workshop_title",
+        "w.start_at",
+        "w.end_at"
+      )
+      .orderBy("r.created_at", "desc");
+
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch registrations" });
+  }
+});
+
+app.patch("/api/admin/workshop-registrations/:id", async (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    const { status } = req.body;
+
+    const allowed = new Set(["new", "contacted", "closed"]);
+    if (!allowed.has(status)) {
+      return res.status(400).json({ error: "Invalid status" });
+    }
+
+    await db("workshop_registrations").where({ id }).update({ status });
+    const updated = await db("workshop_registrations").where({ id }).first();
+
+    res.json(updated);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update registration" });
+  }
+});
+
+app.delete("/api/admin/workshop-registrations/:id", async (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    await db("workshop_registrations").where({ id }).del();
+    res.status(204).send();
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete registration" });
+  }
+});
 /* ======================
    START SERVER
 ====================== */

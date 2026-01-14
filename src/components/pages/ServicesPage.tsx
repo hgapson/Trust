@@ -4,9 +4,10 @@ import {
   ProcessTimelineSection,
   ServicesCtaSection,
   ServicesHero,
-  WorkshopScheduleSection,
 } from "./services";
-import { processSteps, workshopSchedule } from "./services/data";
+
+import WorkshopsPage  from "./services/Workshop/WorkshopSection";
+import { processSteps } from "./services/data";
 
 export function ServicesPage() {
   return (
@@ -15,7 +16,8 @@ export function ServicesPage() {
       <div className="container mx-auto max-w-screen-xl px-4">
         <DetailedServicesSection />
         <AdditionalServicesSection />
-        <WorkshopScheduleSection schedule={workshopSchedule} />
+        <WorkshopsPage />
+
         <ProcessTimelineSection steps={processSteps} />
         <ServicesCtaSection />
       </div>

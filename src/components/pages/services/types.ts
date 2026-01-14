@@ -34,4 +34,21 @@ export type AdditionalService = {
   sessions: string
   sort_order: number
   created_at?: string
-}
+};
+export type Workshop = {
+  id: number;
+  title: string;
+  start_at: string; // ISO datetime
+  end_at: string;   // ISO datetime
+  location?: string | null;
+  description?: string | null;
+  capacity?: number | null;
+};
+
+export type WorkshopRegistrationPayload = {
+  workshop_id: number;
+  full_name: string;
+  email: string;
+  phone?: string;
+  notes?: string;
+};
