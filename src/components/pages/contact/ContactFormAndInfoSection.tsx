@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { motion } from "motion/react";
+import { useLocation } from "react-router-dom";
 
 import { Button } from "../../ui/button";
 import {
@@ -25,11 +26,27 @@ export function ContactFormAndInfoSection({
   officeInfo,
   languages,
 }: ContactFormAndInfoSectionProps) {
-  const jobInterest = useMemo(() => {
-    const params = new URLSearchParams(window.location.search);
+  const location = useLocation();
+  const inquiryContext = useMemo(() => {
+    const params = new URLSearchParams(location.search);
     const job = params.get("job");
-    return job ? `Interested in: ${job}` : "";
-  }, []);
+    if (job) return `Interested in: ${job}`;
+    const volunteer = params.get("volunteer");
+    return volunteer ? `Volunteer application: ${volunteer}` : "";
+  }, [location.search]);
+
+  const inquiryMessage = useMemo(() => {
+    const params = new URLSearchParams(location.search);
+    const job = params.get("job");
+    if (job) {
+      return `Interested in: ${job}\n\nI found this role on your jobs page and would like to talk about next steps.`;
+    }
+    const volunteer = params.get("volunteer");
+    if (volunteer) {
+      return `Volunteer application: ${volunteer}\n\nI'd like to volunteer for this opportunity. Please share the next steps.`;
+    }
+    return undefined;
+  }, [location.search]);
 
   return (
     <section id="contact-form" className="py-20 scroll-mt-24">
@@ -72,26 +89,22 @@ export function ContactFormAndInfoSection({
 
               <div className="space-y-2">
                 <Label htmlFor="subject">Subject *</Label>
-                <Input
-                  id="subject"
-                  placeholder="What can we help you with?"
-                  defaultValue={jobInterest || undefined}
-                />
-              </div>
+                  <Input
+                    id="subject"
+                    placeholder="What can we help you with?"
+                    defaultValue={inquiryContext || undefined}
+                  />
+                </div>
 
               <div className="space-y-2">
                 <Label htmlFor="message">Message *</Label>
-                <Textarea
-                  id="message"
-                  className="min-h-[120px]"
-                  placeholder="Please tell us more about your situation and how we can help you..."
-                  defaultValue={
-                    jobInterest
-                      ? `${jobInterest}\n\nI found this role on your jobs page and would like to talk about next steps.`
-                      : undefined
-                  }
-                />
-              </div>
+                  <Textarea
+                    id="message"
+                    className="min-h-[120px]"
+                    placeholder="Please tell us more about your situation and how we can help you..."
+                    defaultValue={inquiryMessage}
+                  />
+                </div>
 
               <div className="space-y-2">
                 <Label htmlFor="language">

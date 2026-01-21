@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+
 import {
   ContactCtaSection,
   ContactFormAndInfoSection,
@@ -8,6 +9,7 @@ import {
   //EmergencyContactSection,
   FaqSection,
 } from "./contact";
+
 import {
   contactMethods,
   emergencyContact,
@@ -17,29 +19,25 @@ import {
 } from "./contact/data";
 
 export function ContactPage() {
-  const location = useLocation();
+  const { hash } = useLocation();
 
   useEffect(() => {
+    if (hash !== "#contact-form") return;
+
     const tryScroll = (attemptsLeft: number) => {
-      if (window.location.hash === "#contact-form") {
-        const target = document.getElementById("contact-form");
-        if (target) {
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
-          return;
-        }
+      const target = document.getElementById("contact-form");
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
       }
+
       if (attemptsLeft > 0) {
-        setTimeout(() => tryScroll(attemptsLeft - 1), 100);
+        setTimeout(() => tryScroll(attemptsLeft - 1), 120);
       }
     };
 
-    const scrollToForm = () => tryScroll(5);
-
-    scrollToForm();
-
-    return () => {
-    };
-  }, [location]);
+    tryScroll(10);
+  }, [hash]);
 
   return (
     <div className="py-20">

@@ -58,48 +58,6 @@ export const impactStats: ImpactStat[] = [
   { number: "500+", label: "Lives Changed", icon: Heart },
 ];
 
-export const volunteerOpportunities: VolunteerOpportunity[] = [
-  {
-    title: "Mentor & Coach",
-    description:
-      "Provide one-on-one guidance to help migrants navigate their career journey",
-    commitment: "2 hours/week",
-    skills: "Professional experience, good communication",
-    icon: Users,
-    color: "text-blue-600",
-    bgColor: "bg-blue-100",
-  },
-  {
-    title: "Workshop Facilitator",
-    description:
-      "Lead workshops on resume writing, interview skills, or industry-specific topics",
-    commitment: "4 hours/month",
-    skills: "Expertise in relevant field, teaching ability",
-    icon: Clock,
-    color: "text-green-600",
-    bgColor: "bg-green-100",
-  },
-  {
-    title: "Translation Support",
-    description:
-      "Help with document translation and interpretation services",
-    commitment: "Flexible",
-    skills: "Bilingual proficiency, cultural understanding",
-    icon: Heart,
-    color: "text-purple-600",
-    bgColor: "bg-purple-100",
-  },
-  {
-    title: "Administrative Support",
-    description:
-      "Assist with data entry, filing, and general office tasks",
-    commitment: "3 hours/week",
-    skills: "Basic computer skills, attention to detail",
-    icon: Building,
-    color: "text-orange-600",
-    bgColor: "bg-orange-100",
-  },
-];
 
 export const supportWays: SupportWay[] = [
   {

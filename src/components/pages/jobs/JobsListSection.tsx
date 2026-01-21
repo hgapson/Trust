@@ -53,7 +53,7 @@ export function JobsListSection({
                   Retry
                 </Button>
                 <a
-                  href="/contact#contact-form"
+                  href="/contact#ContactFormAndInfoSection"
                   className="rounded-lg bg-blue-600 px-5 py-2.5 text-white hover:bg-blue-700"
                 >
                   Contact us

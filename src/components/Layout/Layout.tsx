@@ -9,7 +9,7 @@ export default function Layout() {
   useScrollToTop()
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-white">
       {/* Fixed / scroll-aware header */}
       <Header />
 

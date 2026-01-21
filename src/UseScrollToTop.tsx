@@ -1,13 +1,13 @@
-// hooks/useScrollToTop.ts
-import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-const useScrollToTop = () => {
-  const { pathname } = useLocation()
+export default function useScrollToTop() {
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [pathname])
-}
+    // If there is a hash, let the page handle scrolling to the section.
+    if (hash) return;
 
-export default useScrollToTop
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [pathname, hash]);
+}

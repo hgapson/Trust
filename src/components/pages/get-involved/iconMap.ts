@@ -5,9 +5,11 @@ import {
   Building,
 } from "lucide-react";
 
-export const iconMap: Record<string, React.ComponentType<any>> = {
+export const iconMap = {
   Users,
   Clock,
   Heart,
   Building,
-};
+} as const;
+
+export type IconKey = keyof typeof iconMap;
