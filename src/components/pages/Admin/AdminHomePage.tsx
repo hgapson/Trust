@@ -10,9 +10,9 @@ export default function AdminHomePage() {
 
   return (
     <section className="space-y-6">
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-8 text-white shadow-2xl">
+      <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl">
         <p className="mt-2 text-slate-300">
-          Choose a section to manage website content and registrations.
+          Choose a section to manage website content.
         </p>
       </div>
 

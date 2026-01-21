@@ -46,6 +46,12 @@ const Link = createIcon(
     <line x1="8" y1="12" x2="16" y2="12" />
   </>,
 );
+const Plus = createIcon(
+  <>
+    <line x1="12" y1="5" x2="12" y2="19" />
+    <line x1="5" y1="12" x2="19" y2="12" />
+  </>
+);
 const Layers = createIcon(
   <>
     <path d="M12 3 2 9l10 6 10-6-10-6Z" />
@@ -121,6 +127,13 @@ const HelpCircle = createIcon(
     <path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-2 2-2 4" />
     <circle cx="12" cy="17" r="0.9" />
   </>,
+);
+const HelpingHand = createIcon(
+  <>
+    <path d="M12 20c-3.5 0-6-2.5-6-5.5V10a2 2 0 0 1 4 0v3" />
+    <path d="M10 13V7a2 2 0 0 1 4 0v6" />
+    <path d="M14 13V8a2 2 0 0 1 4 0v6.5c0 3-2.5 5.5-6 5.5Z" />
+  </>
 );
 const Wrench = createIcon(
   <>
@@ -398,12 +411,14 @@ export {
   HandHeart,
   Heart,
   HelpCircle,
+  HelpingHand,
   Home,
   Link,
   Layers,
   LayoutDashboard,
   ListChecks,
   Linkedin,
+  Plus,
   Mail,
   MapPin,
   Menu,

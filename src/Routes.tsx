@@ -14,12 +14,13 @@ import WorkshopRegistrationsAdminPage from "./components/pages/Admin/WorkshopReg
 
 // ✅ New: Admin home + placeholders (create these files)
 import AdminHomePage from "./components/pages/Admin/AdminHomePage";
-import AdminWorkshopsPage from "./components/pages/Admin/AdminWorkshopsPage";
-import AdminTeamPage from "./components/pages/Admin/AdminTeamPage";
-import AdminVolunteersPage from "./components/pages/Admin/AdminVolunteersPage";
-import AdminPartnersPage from "./components/pages/Admin/AdminPartnersPage";
-import AdminServicesPage from "./components/pages/Admin/AdminServicesPage";
-import AdminProcessStepsPage from "./components/pages/Admin/AdminProcessStepsPage";
+import AdminWorkshopsPage from "./components/pages/Admin/sections/AdminWorkshopsPage";
+import AdminTeamPage from "./components/pages/Admin/sections/AdminTeamPage";
+import AdminVolunteersPage from "./components/pages/Admin/sections/AdminVolunteersPage";
+import AdminPartnersPage from "./components/pages/Admin/sections/AdminPartnersPage";
+import AdminServicesPage from "./components/pages/Admin/sections/AdminServicesPage";
+import AdminProcessStepsPage from "./components/pages/Admin/sections/AdminProcessStepsPage";
+import SupportWaysAdminPage from "./components/pages/Admin/sections/SupportWays"
 
 
 const routes: RouteObject[] = [
@@ -55,6 +56,7 @@ const routes: RouteObject[] = [
       { path: "partners", element: <AdminPartnersPage /> },
       { path: "services", element: <AdminServicesPage /> },
       { path: "process-steps", element: <AdminProcessStepsPage /> },
+      { path: "support-ways", element: <SupportWaysAdminPage /> },
     ],
   },
 ];

@@ -58,42 +58,6 @@ export const impactStats: ImpactStat[] = [
   { number: "500+", label: "Lives Changed", icon: Heart },
 ];
 
-
-export const supportWays: SupportWay[] = [
-  {
-    title: "Share Your Expertise",
-    description:
-      "Offer skills-based support through mentoring, resume reviews, or mock interviews",
-    icon: Users,
-    color: "text-blue-600",
-    bgColor: "bg-blue-100",
-  },
-  {
-    title: "Spread the Word",
-    description:
-      "Help us reach more people by sharing our mission with your network",
-    icon: Heart,
-    color: "text-pink-600",
-    bgColor: "bg-pink-100",
-  },
-  {
-    title: "Open Doors",
-    description:
-      "Connect us with potential employers, partners, or community organizations",
-    icon: Handshake,
-    color: "text-purple-600",
-    bgColor: "bg-purple-100",
-  },
-  {
-    title: "Provide Resources",
-    description:
-      "Donate office supplies, training materials, or professional clothing",
-    icon: Gift,
-    color: "text-green-600",
-    bgColor: "bg-green-100",
-  },
-];
-
 export const partnershipTiers: PartnershipTier[] = [
   {
     tier: "Community Partner",

@@ -1,21 +1,52 @@
-import { motion } from "motion/react";
+import { useEffect, useState, type ComponentType } from "react"
+import { motion } from "motion/react"
+import { Button } from "../../ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card"
 
-import { Button } from "../../ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../../ui/card";
-import type { SupportWay } from "./data";
+import { Users, Heart, Handshake, Gift } from "lucide-react"
+import { SupportWaysApi } from "./api/supportWays"
+import type { SupportWayRow } from "./types"
 
-interface SupportWaysSectionProps {
-  supportWays: SupportWay[];
+const iconMap = {
+  Users,
+  Heart,
+  Handshake,
+  Gift,
+} as const
+
+type SupportWayUI = SupportWayRow & {
+  Icon?: ComponentType<any>
 }
 
-export function SupportWaysSection({
-  supportWays,
-}: SupportWaysSectionProps) {
+export function SupportWaysSection() {
+  const [supportWays, setSupportWays] = useState<SupportWayUI[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    SupportWaysApi.list()
+      .then((rows) => {
+        const ui = rows.map((r) => ({
+          ...r,
+          Icon: iconMap[r.icon_key as keyof typeof iconMap],
+        }))
+        setSupportWays(ui)
+      })
+      .catch((e) => {
+        console.error(e)
+        setError("Failed to load support ways")
+      })
+      .finally(() => setLoading(false))
+  }, [])
+
+  if (loading) {
+    return <p className="py-20 text-center text-gray-600">Loading…</p>
+  }
+
+  if (error) {
+    return <p className="py-20 text-center text-red-600">{error}</p>
+  }
+
   return (
     <section className="py-20">
       <motion.div
@@ -33,7 +64,7 @@ export function SupportWaysSection({
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {supportWays.map((way, index) => (
           <motion.div
-            key={way.title}
+            key={way.id}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -43,9 +74,9 @@ export function SupportWaysSection({
             <Card className="h-full text-center transition-all duration-300 hover:shadow-lg">
               <CardHeader>
                 <div
-                  className={`mx-auto mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full ${way.bgColor}`}
+                  className={`mx-auto mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full ${way.bg_color}`}
                 >
-                  <way.icon className={`h-7 w-7 ${way.color}`} />
+                  {way.Icon ? <way.Icon className={`h-7 w-7 ${way.color}`} /> : null}
                 </div>
                 <CardTitle className="text-lg">{way.title}</CardTitle>
               </CardHeader>
@@ -80,5 +111,5 @@ export function SupportWaysSection({
         </Button>
       </motion.div>
     </section>
-  );
+  )
 }

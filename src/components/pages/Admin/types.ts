@@ -13,3 +13,13 @@ export type AdminWorkshopRegistration = {
   status: WorkshopRegistrationStatus;
   created_at: string;
 };
+export type SupportWayRow = {
+  id: number
+  title: string
+  description: string
+  icon_key: string
+  color: string
+  bg_color: string
+  sort_order: number
+  created_at?: string
+}

@@ -518,6 +518,74 @@ app.get("/api/volunteer-opportunities", async (_req, res) => {
 });
 
 /* ======================
+   SUPPORT WAYS ROUTES
+====================== */
+
+app.get("/api/support-ways", async (_req, res) => {
+  try {
+    const rows = await db("support_ways").select("*").orderBy("sort_order", "asc")
+    res.json(rows)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to fetch support ways" })
+  }
+})
+
+/* ======================
+   ADMIN: SUPPORT WAYS
+====================== */
+
+app.get("/api/admin/support-ways", async (_req, res) => {
+  try {
+    const rows = await db("support_ways").select("*").orderBy("sort_order", "asc")
+    res.json(rows)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to fetch support ways" })
+  }
+})
+
+app.post("/api/admin/support-ways", async (req, res) => {
+  const { title, description, icon_key, color, bg_color, sort_order } = req.body
+
+  if (!title || !description || !icon_key || !color || !bg_color) {
+    return res.status(400).json({
+      error: "title, description, icon_key, color, bg_color are required",
+    })
+  }
+
+  try {
+    const [id] = await db("support_ways").insert({
+      title,
+      description,
+      icon_key,
+      color,
+      bg_color,
+      sort_order: Number(sort_order) || 0,
+    })
+
+    const created = await db("support_ways").where({ id }).first()
+    res.status(201).json(created)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to create support way" })
+  }
+})
+
+app.delete("/api/admin/support-ways/:id", async (req, res) => {
+  const id = Number(req.params.id)
+  if (!id) return res.status(400).json({ error: "Invalid id" })
+
+  try {
+    const deleted = await db("support_ways").where({ id }).del()
+    if (!deleted) return res.status(404).json({ error: "Not found" })
+    res.json({ ok: true })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to delete support way" })
+  }
+})
+/* ======================
    START SERVER
 ====================== */
 
