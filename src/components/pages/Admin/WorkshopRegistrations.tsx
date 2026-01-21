@@ -145,6 +145,11 @@ export default function WorkshopRegistrationsAdminPage() {
         </CardHeader>
 
         <CardContent className="space-y-4">
+          {error ? (
+            <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+              {error} Check that the API server is running and reachable.
+            </div>
+          ) : null}
 
           {/* Filters */}
           <div className="grid gap-3 md:grid-cols-3">
@@ -192,6 +197,16 @@ export default function WorkshopRegistrationsAdminPage() {
               </thead>
 
               <tbody>
+                {!loading && filtered.length === 0 ? (
+                  <tr>
+                    <td
+                      colSpan={5}
+                      className="px-4 py-10 text-center text-slate-400"
+                    >
+                      No registrations found.
+                    </td>
+                  </tr>
+                ) : null}
                 {filtered.map((r) => (
                   <tr
                     key={r.id}

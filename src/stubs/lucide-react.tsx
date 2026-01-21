@@ -46,6 +46,30 @@ const Link = createIcon(
     <line x1="8" y1="12" x2="16" y2="12" />
   </>,
 );
+const Layers = createIcon(
+  <>
+    <path d="M12 3 2 9l10 6 10-6-10-6Z" />
+    <path d="M2 15l10 6 10-6" />
+  </>
+);
+const LayoutDashboard = createIcon(
+  <>
+    <rect x="3" y="3" width="8" height="8" rx="1" />
+    <rect x="13" y="3" width="8" height="6" rx="1" />
+    <rect x="13" y="11" width="8" height="10" rx="1" />
+    <rect x="3" y="13" width="8" height="8" rx="1" />
+  </>
+);
+const ListChecks = createIcon(
+  <>
+    <line x1="10" y1="6" x2="20" y2="6" />
+    <line x1="10" y1="12" x2="20" y2="12" />
+    <line x1="10" y1="18" x2="20" y2="18" />
+    <polyline points="3 6 4.5 7.5 7 5" />
+    <polyline points="3 12 4.5 13.5 7 11" />
+    <polyline points="3 18 4.5 19.5 7 17" />
+  </>
+);
 const Mail = createIcon(
   <>
     <rect x="3" y="5" width="18" height="14" rx="2" />
@@ -68,6 +92,14 @@ const CheckCircle = createIcon(
     <circle cx="12" cy="12" r="9" />
     <path d="m9 12 2 2 4-4" />
   </>,
+);
+const ClipboardList = createIcon(
+  <>
+    <rect x="9" y="3" width="6" height="4" rx="1" />
+    <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
+    <line x1="9" y1="12" x2="15" y2="12" />
+    <line x1="9" y1="16" x2="15" y2="16" />
+  </>
 );
 const CheckIcon = createIcon(<path d="m5 12 5 5 9-9" />);
 const Users = createIcon(
@@ -231,6 +263,12 @@ const Handshake = createIcon(
     <path d="m8 13 3 3a3 3 0 0 0 4.24 0L19 12" />
   </>,
 );
+const HandHeart = createIcon(
+  <>
+    <path d="M12 21s-6-4.35-8.4-7.2a5 5 0 1 1 7.2-6.6L12 8l1.2-0.8a5 5 0 1 1 7.2 6.6C18 16.65 12 21 12 21Z" />
+    <path d="M4 14c2 2 4 3 8 3s6-1 8-3" />
+  </>
+);
 const Star = createIcon(
   <>
     <polygon points="12 3 14.6 9.1 21 9.7 16 14 17.5 21 12 17.8 6.5 21 8 14 3 9.7 9.4 9.1 12 3" />
@@ -340,6 +378,7 @@ export {
   ChevronDown,
   CheckCircle,
   CheckIcon,
+  ClipboardList,
   ChevronDownIcon,
   ChevronLeft,
   ChevronLeftIcon,
@@ -356,10 +395,14 @@ export {
   GraduationCap,
   GripVerticalIcon,
   Handshake,
+  HandHeart,
   Heart,
   HelpCircle,
   Home,
   Link,
+  Layers,
+  LayoutDashboard,
+  ListChecks,
   Linkedin,
   Mail,
   MapPin,

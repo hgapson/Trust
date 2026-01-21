@@ -63,7 +63,7 @@ export function VolunteerOpportunitiesSection() {
   }
 
   return (
-    <section className="rounded-2xl py-20">
+    <section className="rounded-2xl py-20 gradient-bg-values">
       <div className="mb-16 text-center">
         <h2 className="mb-4 text-3xl text-gray-800 lg:text-4xl">
           Volunteer Opportunities
@@ -127,12 +127,6 @@ export function VolunteerOpportunitiesSection() {
             </Card>
           </motion.div>
         ))}
-      </div>
-
-      <div className="mt-12 text-center">
-        <Button className="bg-gradient-to-r from-blue-600 to-purple-600 transition-colors hover:from-blue-700 hover:to-purple-700">
-          View All Volunteer Opportunities
-        </Button>
       </div>
     </section>
   )

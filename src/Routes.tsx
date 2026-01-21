@@ -1,6 +1,7 @@
 import { createBrowserRouter, type RouteObject } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import AdminLayout from "./components/Layout/AdminLayout";
+
 import { HomePage } from "./components/pages/home";
 import { AboutPage } from "./components/pages/AboutPage";
 import { ServicesPage } from "./components/pages/ServicesPage";
@@ -8,7 +9,18 @@ import { GetInvolvedPage } from "./components/pages/GetInvolvedPage";
 import { ContactPage } from "./components/pages/ContactPage";
 import { JobsPage } from "./components/pages/jobs";
 import { ServiceDetailsPage } from "./components/pages/services/ServiceDetailsPage";
+
 import WorkshopRegistrationsAdminPage from "./components/pages/Admin/WorkshopRegistrations";
+
+// ✅ New: Admin home + placeholders (create these files)
+import AdminHomePage from "./components/pages/Admin/AdminHomePage";
+import AdminWorkshopsPage from "./components/pages/Admin/AdminWorkshopsPage";
+import AdminTeamPage from "./components/pages/Admin/AdminTeamPage";
+import AdminVolunteersPage from "./components/pages/Admin/AdminVolunteersPage";
+import AdminPartnersPage from "./components/pages/Admin/AdminPartnersPage";
+import AdminServicesPage from "./components/pages/Admin/AdminServicesPage";
+import AdminProcessStepsPage from "./components/pages/Admin/AdminProcessStepsPage";
+
 
 const routes: RouteObject[] = [
   {
@@ -25,14 +37,24 @@ const routes: RouteObject[] = [
       { path: "*", element: <HomePage /> },
     ],
   },
+
   {
     path: "/admin",
     element: <AdminLayout />,
     children: [
-      {
-        path: "workshop-registrations",
-        element: <WorkshopRegistrationsAdminPage />,
-      },
+      // ✅ Admin landing page (/admin)
+      { index: true, element: <AdminHomePage /> },
+
+      // ✅ Workshops
+      { path: "workshops", element: <AdminWorkshopsPage /> },
+      { path: "workshop-registrations", element: <WorkshopRegistrationsAdminPage /> },
+
+      // ✅ Content tables (placeholders for now)
+      { path: "team", element: <AdminTeamPage /> },
+      { path: "volunteers", element: <AdminVolunteersPage /> },
+      { path: "partners", element: <AdminPartnersPage /> },
+      { path: "services", element: <AdminServicesPage /> },
+      { path: "process-steps", element: <AdminProcessStepsPage /> },
     ],
   },
 ];
