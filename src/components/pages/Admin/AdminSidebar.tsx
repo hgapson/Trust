@@ -37,7 +37,7 @@ const items: AdminNavItem[] = [
 
 export function AdminSidebar() {
   return (
-    <aside className="sticky top-0 h-screen w-full max-w-[280px] border-r border-white/10 p-4 text-slate-100 backdrop-blur">
+    <aside className="w-full max-w-[280px] p-4 text-slate-100">
       <div className="mb-6 rounded-2xl border border-white/10 bg-white/5 p-4">
         <div className="text-xs uppercase tracking-[0.25em] text-teal-200/70">
         </div>

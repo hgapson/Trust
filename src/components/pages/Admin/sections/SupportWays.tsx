@@ -287,14 +287,6 @@ export default function SupportWaysAdminPage() {
                     </option>
                   ))}
                 </select>
-
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200 bg-slate-50">
-                  {PreviewIcon ? (
-                    <PreviewIcon className="h-6 w-6 text-slate-700" />
-                  ) : (
-                    <span className="text-xs text-slate-400">—</span>
-                  )}
-                </div>
               </div>
             </div>
 
