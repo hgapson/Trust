@@ -502,6 +502,21 @@ app.get("/api/process-steps", async (_req, res) => {
     res.status(500).json({ error: "Failed to fetch process steps" });
   }
 });
+
+/* =========================
+   VOLUNTEER OPPORTUNITIES ROUTES
+========================= */
+
+app.get("/api/volunteer-opportunities", async (_req, res) => {
+  try {
+    const opportunities = await db("volunteer_opportunities").select("*");
+    res.json(opportunities);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch volunteer opportunities" });
+  }
+});
+
 /* ======================
    START SERVER
 ====================== */

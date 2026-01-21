@@ -83,6 +83,13 @@ const Heart = createIcon(
     <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z" />
   </>,
 );
+const HelpCircle = createIcon(
+  <>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-2 2-2 4" />
+    <circle cx="12" cy="17" r="0.9" />
+  </>,
+);
 const Wrench = createIcon(
   <>
     <path d="m5.7 13.3 3.5 3.5" />
@@ -350,6 +357,7 @@ export {
   GripVerticalIcon,
   Handshake,
   Heart,
+  HelpCircle,
   Home,
   Link,
   Linkedin,
