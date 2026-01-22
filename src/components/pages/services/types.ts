@@ -43,6 +43,7 @@ export type Workshop = {
   location?: string | null;
   description?: string | null;
   capacity?: number | null;
+  created_at?: string | null;
 };
 
 export type WorkshopRegistrationPayload = {

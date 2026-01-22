@@ -1471,7 +1471,7 @@ app.get("/api/workshops", async (req, res) => {
   try {
     const upcomingOnly = req.query.upcoming === "true"
 
-    let query = db("workshops").select("*").where({ is_active: 1 })
+    let query = db("workshops").select("*")
 
     if (upcomingOnly) {
       query = query.where("start_at", ">=", db.fn.now())
@@ -1482,6 +1482,92 @@ app.get("/api/workshops", async (req, res) => {
   } catch (err) {
     console.error(err)
     res.status(500).json({ error: "Failed to fetch workshops" })
+  }
+})
+
+/* =========================
+   ADMIN: WORKSHOPS
+========================= */
+app.get("/api/admin/workshops", async (_req, res) => {
+  try {
+    const rows = await db("workshops").select("*").orderBy("start_at", "desc")
+    res.json(rows)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to fetch workshops" })
+  }
+})
+
+app.post("/api/admin/workshops", async (req, res) => {
+  const { title, description, start_at, end_at, location, capacity } = req.body
+
+  if (!title || !start_at || !end_at) {
+    return res.status(400).json({ error: "title, start_at, end_at are required" })
+  }
+
+  try {
+    const [id] = await db("workshops").insert({
+      title,
+      description: description || null,
+      start_at,
+      end_at,
+      location: location || null,
+      capacity: capacity != null ? Number(capacity) : null,
+      is_active: 1,
+    })
+
+    const row = await db("workshops").where({ id }).first()
+    res.status(201).json(row)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to create workshop" })
+  }
+})
+
+app.patch("/api/admin/workshops/:id", async (req, res) => {
+  const id = Number(req.params.id)
+  if (!id) return res.status(400).json({ error: "Invalid id" })
+
+  const { title, description, start_at, end_at, location, capacity } = req.body
+
+  if (!title || !start_at || !end_at) {
+    return res.status(400).json({ error: "title, start_at, end_at are required" })
+  }
+
+  try {
+    const updated = await db("workshops")
+      .where({ id })
+      .update({
+        title,
+        description: description || null,
+        start_at,
+        end_at,
+        location: location || null,
+        capacity: capacity != null ? Number(capacity) : null,
+        is_active: 1,
+      })
+
+    if (!updated) return res.status(404).json({ error: "Not found" })
+
+    const row = await db("workshops").where({ id }).first()
+    res.json(row)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to update workshop" })
+  }
+})
+
+app.delete("/api/admin/workshops/:id", async (req, res) => {
+  const id = Number(req.params.id)
+  if (!id) return res.status(400).json({ error: "Invalid id" })
+
+  try {
+    const deleted = await db("workshops").where({ id }).del()
+    if (!deleted) return res.status(404).json({ error: "Not found" })
+    res.json({ ok: true })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to delete workshop" })
   }
 })
 
