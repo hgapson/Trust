@@ -45,7 +45,7 @@ const items: AdminNavItem[] = [
   { label: "Process Steps", to: "/admin/process-steps", icon: ListChecks },
 
   // contact tables (later)
-  { label: "Contact Info", to: "/admin/contact", icon: Mail },
+  { label: "Contact Methods", to: "/admin/contact-methods", icon: Mail },
 ];
 
 export function AdminSidebar() {

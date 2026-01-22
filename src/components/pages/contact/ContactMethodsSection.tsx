@@ -45,7 +45,7 @@ export function ContactMethodsSection() {
   const methods = useMemo(() => rows.map(mapContactMethod), [rows])
 
   return (
-    <section className="py-20">
+    <section className="py-20 gradient-bg-values">
       <motion.div
         className="mb-16 text-center"
         initial={{ opacity: 0, y: 30 }}

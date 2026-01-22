@@ -30,6 +30,7 @@ import AdminDetailedServicesPage from "./components/pages/Admin/sections/AdminDe
 import AdminAdditionalServicesPage from "./components/pages/Admin/sections/AdminAdditionalServicesPage"
 import AdminProcessTimelinePage from "./components/pages/Admin/sections/AdminProcessTimelinePage"
 import AdminJobsPage from "./components/pages/Admin/sections/AdminJobsPage"
+import AdminContactMethodsPage from "./components/pages/Admin/sections/AdminContactMethodsPage"
 
 
 const routes: RouteObject[] = [
@@ -75,6 +76,7 @@ const routes: RouteObject[] = [
       { path: "community-stories", element: <AdminCommunityStoriesPage /> },
       { path: "detailed-services", element: <AdminDetailedServicesPage /> },
       { path: "additional-services", element: <AdminAdditionalServicesPage /> },
+      { path: "contact-methods", element: <AdminContactMethodsPage /> },
     ],
   },
 ];

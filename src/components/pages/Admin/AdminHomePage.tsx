@@ -16,6 +16,7 @@ export default function AdminHomePage() {
     { title: "Process Steps", to: "/admin/process-steps", desc: "Manage the process timeline shown on the Services page." },
     { title: "Volunteer Opportunities", to: "/admin/volunteers", desc: "Manage volunteering content shown on the site." },
     { title: "Partners & Funders", to: "/admin/partners", desc: "Update partner/funder logos and ordering." },
+    { title: "Contact Methods", to: "/admin/contact-methods", desc: "Manage the Get in Touch contact cards." },
   ];
 
   return (

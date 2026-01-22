@@ -1531,6 +1531,98 @@ app.get("/api/contact-methods", async (_req, res) => {
 })
 
 /* =========================
+   ADMIN: CONTACT METHODS
+========================= */
+app.get("/api/admin/contact-methods", async (_req, res) => {
+  try {
+    const rows = await db("contact_methods")
+      .select("*")
+      .orderBy("sort_order", "asc")
+
+    res.json(rows)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to fetch contact methods" })
+  }
+})
+
+app.post("/api/admin/contact-methods", async (req, res) => {
+  const { icon_key, title, details, description, action_label, sort_order } =
+    req.body
+
+  if (!icon_key || !title || !details || !description || !action_label) {
+    return res.status(400).json({
+      error: "icon_key, title, details, description, action_label are required",
+    })
+  }
+
+  try {
+    const [id] = await db("contact_methods").insert({
+      icon_key,
+      title,
+      details,
+      description,
+      action_label,
+      sort_order: Number(sort_order) || 0,
+    })
+
+    const created = await db("contact_methods").where({ id }).first()
+    res.status(201).json(created)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to create contact method" })
+  }
+})
+
+app.patch("/api/admin/contact-methods/:id", async (req, res) => {
+  const id = Number(req.params.id)
+  if (!id) return res.status(400).json({ error: "Invalid id" })
+
+  const { icon_key, title, details, description, action_label, sort_order } =
+    req.body
+
+  if (!icon_key || !title || !details || !description || !action_label) {
+    return res.status(400).json({
+      error: "icon_key, title, details, description, action_label are required",
+    })
+  }
+
+  try {
+    const updated = await db("contact_methods")
+      .where({ id })
+      .update({
+        icon_key,
+        title,
+        details,
+        description,
+        action_label,
+        sort_order: Number(sort_order) || 0,
+      })
+    if (!updated) return res.status(404).json({ error: "Not found" })
+
+    const row = await db("contact_methods").where({ id }).first()
+    res.json(row)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to update contact method" })
+  }
+})
+
+app.delete("/api/admin/contact-methods/:id", async (req, res) => {
+  const id = Number(req.params.id)
+  if (!id) return res.status(400).json({ error: "Invalid id" })
+
+  try {
+    const deleted = await db("contact_methods").where({ id }).del()
+    if (!deleted) return res.status(404).json({ error: "Not found" })
+    res.json({ ok: true })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to delete contact method" })
+  }
+})
+
+/* =========================
    UPCOMING WORKSHOP ROUTES
 ========================= */
 app.get("/api/workshops", async (req, res) => {

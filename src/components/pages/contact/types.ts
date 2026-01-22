@@ -2,11 +2,14 @@ import type { ComponentType } from "react"
 import type { LucideProps as IconProps } from "lucide-react"
 
 export interface ContactMethodRow {
+  id?: number
   icon_key: "Phone" | "Mail" | "MessageSquare"
   title: string
   details: string
   description: string
   action_label: string
+  sort_order?: number
+  created_at?: string
 }
 
 export interface ContactMethodUI {
