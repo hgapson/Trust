@@ -1845,11 +1845,143 @@ app.delete("/api/admin/process-steps/:id", async (req, res) => {
 
 app.get("/api/volunteer-opportunities", async (_req, res) => {
   try {
-    const opportunities = await db("volunteer_opportunities").select("*");
+    const opportunities = await db("volunteer_opportunities")
+      .select("*")
+      .orderBy("sort_order", "asc");
     res.json(opportunities);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to fetch volunteer opportunities" });
+  }
+});
+
+/* ======================
+   ADMIN: VOLUNTEER OPPORTUNITIES
+====================== */
+
+app.get("/api/admin/volunteer-opportunities", async (_req, res) => {
+  try {
+    const opportunities = await db("volunteer_opportunities")
+      .select("*")
+      .orderBy("sort_order", "asc");
+    res.json(opportunities);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch volunteer opportunities" });
+  }
+});
+
+app.post("/api/admin/volunteer-opportunities", async (req, res) => {
+  const {
+    title,
+    description,
+    commitment,
+    skills,
+    icon_key,
+    color,
+    bg_color,
+    sort_order,
+  } = req.body;
+
+  if (
+    !title ||
+    !description ||
+    !commitment ||
+    !skills ||
+    !icon_key ||
+    !color ||
+    !bg_color
+  ) {
+    return res.status(400).json({
+      error:
+        "title, description, commitment, skills, icon_key, color, bg_color are required",
+    });
+  }
+
+  try {
+    const [id] = await db("volunteer_opportunities").insert({
+      title,
+      description,
+      commitment,
+      skills,
+      icon_key,
+      color,
+      bg_color,
+      sort_order: Number(sort_order) || 0,
+      active: 1,
+    });
+
+    const created = await db("volunteer_opportunities").where({ id }).first();
+    res.status(201).json(created);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to create volunteer opportunity" });
+  }
+});
+
+app.patch("/api/admin/volunteer-opportunities/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  const {
+    title,
+    description,
+    commitment,
+    skills,
+    icon_key,
+    color,
+    bg_color,
+    sort_order,
+  } = req.body;
+
+  if (
+    !title ||
+    !description ||
+    !commitment ||
+    !skills ||
+    !icon_key ||
+    !color ||
+    !bg_color
+  ) {
+    return res.status(400).json({
+      error:
+        "title, description, commitment, skills, icon_key, color, bg_color are required",
+    });
+  }
+
+  try {
+    const updated = await db("volunteer_opportunities")
+      .where({ id })
+      .update({
+        title,
+        description,
+        commitment,
+        skills,
+        icon_key,
+        color,
+        bg_color,
+        sort_order: Number(sort_order) || 0,
+      });
+    if (!updated) return res.status(404).json({ error: "Not found" });
+    const row = await db("volunteer_opportunities").where({ id }).first();
+    res.json(row);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update volunteer opportunity" });
+  }
+});
+
+app.delete("/api/admin/volunteer-opportunities/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  try {
+    const deleted = await db("volunteer_opportunities").where({ id }).del();
+    if (!deleted) return res.status(404).json({ error: "Not found" });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete volunteer opportunity" });
   }
 });
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion } from "motion/react"
-import { Clock, Star, Users, Heart, Building } from "lucide-react"
+import { Clock, Star } from "lucide-react"
 
 import { Button } from "../../ui/button"
 import {
@@ -13,15 +13,8 @@ import {
 } from "../../ui/card"
 
 import { fetchVolunteerOpportunities } from "./api/volunteerOpportunities"
-import type { VolunteerOpportunity } from "./types"
-
-/* Map icon_key from DB → actual icon component */
-const iconMap = {
-  Users,
-  Heart,
-  Building,
-  Clock,
-}
+import { iconMap, type IconKey } from "./iconMap"
+import type { VolunteerOpportunity, VolunteerOpportunityRow } from "./types"
 
 export function VolunteerOpportunitiesSection() {
   const navigate = useNavigate()
@@ -31,10 +24,11 @@ export function VolunteerOpportunitiesSection() {
 
   useEffect(() => {
     fetchVolunteerOpportunities()
-      .then((data) => {
-        const withIcons = data.map((item: VolunteerOpportunity) => ({
+      .then((data: VolunteerOpportunityRow[]) => {
+        const withIcons: VolunteerOpportunity[] = data.map((item) => ({
           ...item,
-          icon: iconMap[item.icon_key as keyof typeof iconMap],
+          bgColor: item.bg_color,
+          icon: iconMap[item.icon_key as IconKey],
         }))
         setOpportunities(withIcons)
       })
@@ -85,16 +79,6 @@ export function VolunteerOpportunitiesSection() {
           >
             <Card className="h-full border-0 bg-white/90 shadow-lg transition-all duration-300 hover:shadow-xl">
               <CardHeader>
-                <div
-                  className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg ${opportunity.bgColor}`}
-                >
-                  {opportunity.icon && (
-                    <opportunity.icon
-                      className={`h-6 w-6 ${opportunity.color}`}
-                    />
-                  )}
-                </div>
-
                 <CardTitle className="text-xl">
                   {opportunity.title}
                 </CardTitle>

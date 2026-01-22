@@ -12,6 +12,19 @@ export interface VolunteerOpportunity {
   bgColor: string
   icon?: ComponentType<SVGProps<SVGSVGElement>>
 }
+export interface VolunteerOpportunityRow {
+  id: number
+  title: string
+  description: string
+  commitment: string
+  skills: string
+  icon_key: string
+  color: string
+  bg_color: string
+  sort_order: number
+  active?: boolean
+  created_at?: string
+}
 export type SupportWayRow = {
   id: number
   title: string
