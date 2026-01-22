@@ -1,6 +1,26 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "motion/react";
-import { Clock, Mail, Phone, BookOpen, CheckCircle, Users, MapPin } from "lucide-react";
+import {
+  Award,
+  BookOpen,
+  Briefcase,
+  CheckCircle,
+  Clock,
+  Globe,
+  GraduationCap,
+  HandHeart,
+  Heart,
+  HelpingHand,
+  Mail,
+  MapPin,
+  MessageSquare,
+  Phone,
+  Shield,
+  Star,
+  Target,
+  Users,
+  Wrench,
+} from "lucide-react";
 
 import {
   Card,
@@ -22,6 +42,20 @@ const iconMap = {
   CheckCircle,
   Users,
   MapPin,
+  Heart,
+  Shield,
+  Star,
+  Target,
+  Briefcase,
+  GraduationCap,
+  HelpingHand,
+  HandHeart,
+  Globe,
+  Wrench,
+  Award,
+  Mail,
+  Phone,
+  MessageSquare,
 } as const;
 
 type UiAdditionalService = {

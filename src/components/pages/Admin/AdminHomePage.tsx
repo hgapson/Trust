@@ -10,6 +10,7 @@ export default function AdminHomePage() {
     { title: "Core Values", to: "/admin/values", desc: "Manage the core values cards on the About page." },
     { title: "Testimonials", to: "/admin/community-stories", desc: "Manage community impact stories (testimonials)." },
     { title: "Detailed Services", to: "/admin/detailed-services", desc: "Manage detailed services shown on the Services page." },
+    { title: "Additional Services", to: "/admin/additional-services", desc: "Manage additional support services on the Services page." },
     { title: "Volunteer Opportunities", to: "/admin/volunteers", desc: "Manage volunteering content shown on the site." },
     { title: "Partners & Funders", to: "/admin/partners", desc: "Update partner/funder logos and ordering." },
   ];

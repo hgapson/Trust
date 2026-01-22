@@ -1364,6 +1364,91 @@ app.get("/api/additional-services", async (_req, res) => {
 });
 
 /* =========================
+   ADMIN: ADDITIONAL SERVICES
+========================= */
+app.get("/api/admin/additional-services", async (_req, res) => {
+  try {
+    const rows = await db("additional_services")
+      .select("*")
+      .orderBy("sort_order", "asc");
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch additional services" });
+  }
+});
+
+app.post("/api/admin/additional-services", async (req, res) => {
+  const { title, description, icon_key, sessions, sort_order } = req.body;
+
+  if (!title || !description || !icon_key || !sessions) {
+    return res.status(400).json({
+      error: "title, description, icon_key, sessions are required",
+    });
+  }
+
+  try {
+    const [id] = await db("additional_services").insert({
+      title,
+      description,
+      icon_key,
+      sessions,
+      sort_order: Number(sort_order) || 0,
+    });
+    const created = await db("additional_services").where({ id }).first();
+    res.status(201).json(created);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to create additional service" });
+  }
+});
+
+app.patch("/api/admin/additional-services/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  const { title, description, icon_key, sessions, sort_order } = req.body;
+
+  if (!title || !description || !icon_key || !sessions) {
+    return res.status(400).json({
+      error: "title, description, icon_key, sessions are required",
+    });
+  }
+
+  try {
+    const updated = await db("additional_services")
+      .where({ id })
+      .update({
+        title,
+        description,
+        icon_key,
+        sessions,
+        sort_order: Number(sort_order) || 0,
+      });
+    if (!updated) return res.status(404).json({ error: "Not found" });
+    const row = await db("additional_services").where({ id }).first();
+    res.json(row);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update additional service" });
+  }
+});
+
+app.delete("/api/admin/additional-services/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  try {
+    const deleted = await db("additional_services").where({ id }).del();
+    if (!deleted) return res.status(404).json({ error: "Not found" });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete additional service" });
+  }
+});
+
+/* =========================
    CONTACT METHODS ROUTES
 ========================= */
 app.get("/api/contact-methods", async (_req, res) => {
