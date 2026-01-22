@@ -15,15 +15,13 @@ import { Label } from "../../ui/label";
 import { Textarea } from "../../ui/textarea";
 import { ImageWithFallback } from "../../FallBacks/ImageWithFallback";
 import { Globe } from "lucide-react";
-import type { OfficeInfo } from "./data";
+import { OfficeInfoList } from "./OfficeInfoList";
 
 interface ContactFormAndInfoSectionProps {
-  officeInfo: OfficeInfo[];
   languages: string[];
 }
 
 export function ContactFormAndInfoSection({
-  officeInfo,
   languages,
 }: ContactFormAndInfoSectionProps) {
   const location = useLocation();
@@ -143,25 +141,7 @@ export function ContactFormAndInfoSection({
           transition={{ duration: 0.8 }}
           className="space-y-8"
         >
-          <div>
-            <h2 className="mb-6 text-3xl">Visit Our Office</h2>
-            <div className="space-y-6">
-              {officeInfo.map((info) => (
-                <div key={info.title} className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
-                    <info.icon className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h3 className="mb-1 text-lg">{info.title}</h3>
-                    <p className="text-gray-700">{info.details}</p>
-                    {info.extra ? (
-                      <p className="text-sm text-gray-600">{info.extra}</p>
-                    ) : null}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <OfficeInfoList />
 
           <Card>
             <CardHeader>

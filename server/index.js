@@ -1531,6 +1531,110 @@ app.get("/api/contact-methods", async (_req, res) => {
 })
 
 /* =========================
+   OFFICE INFO ROUTES
+========================= */
+app.get("/api/office-info", async (_req, res) => {
+  try {
+    const rows = await db("office_info")
+      .select("*")
+      .orderBy("sort_order", "asc")
+
+    res.json(rows)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to fetch office info" })
+  }
+})
+
+/* =========================
+   ADMIN: OFFICE INFO
+========================= */
+app.get("/api/admin/office-info", async (_req, res) => {
+  try {
+    const rows = await db("office_info")
+      .select("*")
+      .orderBy("sort_order", "asc")
+
+    res.json(rows)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to fetch office info" })
+  }
+})
+
+app.post("/api/admin/office-info", async (req, res) => {
+  const { icon_key, title, details, extra, sort_order } = req.body
+
+  if (!icon_key || !title || !details) {
+    return res.status(400).json({
+      error: "icon_key, title, details are required",
+    })
+  }
+
+  try {
+    const [id] = await db("office_info").insert({
+      icon_key,
+      title,
+      details,
+      extra: extra || null,
+      sort_order: Number(sort_order) || 0,
+    })
+
+    const created = await db("office_info").where({ id }).first()
+    res.status(201).json(created)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to create office info" })
+  }
+})
+
+app.patch("/api/admin/office-info/:id", async (req, res) => {
+  const id = Number(req.params.id)
+  if (!id) return res.status(400).json({ error: "Invalid id" })
+
+  const { icon_key, title, details, extra, sort_order } = req.body
+
+  if (!icon_key || !title || !details) {
+    return res.status(400).json({
+      error: "icon_key, title, details are required",
+    })
+  }
+
+  try {
+    const updated = await db("office_info")
+      .where({ id })
+      .update({
+        icon_key,
+        title,
+        details,
+        extra: extra || null,
+        sort_order: Number(sort_order) || 0,
+      })
+    if (!updated) return res.status(404).json({ error: "Not found" })
+
+    const row = await db("office_info").where({ id }).first()
+    res.json(row)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to update office info" })
+  }
+})
+
+app.delete("/api/admin/office-info/:id", async (req, res) => {
+  const id = Number(req.params.id)
+  if (!id) return res.status(400).json({ error: "Invalid id" })
+
+  try {
+    const deleted = await db("office_info").where({ id }).del()
+    if (!deleted) return res.status(404).json({ error: "Not found" })
+    res.json({ ok: true })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to delete office info" })
+  }
+})
+
+/* =========================
    ADMIN: CONTACT METHODS
 ========================= */
 app.get("/api/admin/contact-methods", async (_req, res) => {

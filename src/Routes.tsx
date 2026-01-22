@@ -31,6 +31,7 @@ import AdminAdditionalServicesPage from "./components/pages/Admin/sections/Admin
 import AdminProcessTimelinePage from "./components/pages/Admin/sections/AdminProcessTimelinePage"
 import AdminJobsPage from "./components/pages/Admin/sections/AdminJobsPage"
 import AdminContactMethodsPage from "./components/pages/Admin/sections/AdminContactMethodsPage"
+import AdminOfficeInfoPage from "./components/pages/Admin/sections/AdminOfficeInfoPage"
 
 
 const routes: RouteObject[] = [
@@ -77,6 +78,7 @@ const routes: RouteObject[] = [
       { path: "detailed-services", element: <AdminDetailedServicesPage /> },
       { path: "additional-services", element: <AdminAdditionalServicesPage /> },
       { path: "contact-methods", element: <AdminContactMethodsPage /> },
+      { path: "office-info", element: <AdminOfficeInfoPage /> },
     ],
   },
 ];

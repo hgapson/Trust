@@ -28,6 +28,16 @@ export interface OfficeInfo {
   extra?: string
 }
 
+export interface OfficeInfoRow {
+  id: number
+  icon_key: "MapPin" | "Clock" | "Car" | "Accessibility"
+  title: string
+  details: string
+  extra?: string | null
+  sort_order?: number
+  created_at?: string
+}
+
 export interface FaqItem {
   question: string
   answer: string

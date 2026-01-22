@@ -13,7 +13,6 @@ import {
 import {
   emergencyContact,
   faqs,
-  officeInfo,
   supportedLanguages,
 } from "./contact/data";
 
@@ -44,7 +43,6 @@ export function ContactPage() {
       <div className="container mx-auto max-w-screen-xl px-4">
         <ContactMethodsSection />
         <ContactFormAndInfoSection
-          officeInfo={officeInfo}
           languages={supportedLanguages}
         />
         <FaqSection faqs={faqs} />
