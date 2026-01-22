@@ -1,12 +1,21 @@
 import { useEffect, useMemo, useState } from "react"
 import {
+  Award,
+  BookOpen,
   Briefcase,
+  Building,
   FileText,
   GraduationCap,
   Heart,
+  HelpingHand,
+  MapPin,
   RefreshCw,
+  Rocket,
+  Shield,
+  Star,
   Target,
   Trash2,
+  Users,
   Wrench,
 } from "lucide-react"
 
@@ -16,7 +25,21 @@ import { Badge } from "../../../ui/badge"
 import { AdminServicesApi } from "../API/services"
 import type { ServiceRow } from "../../home/types"
 
-type IconKey = "Heart" | "Wrench" | "Target" | "Briefcase" | "GraduationCap"
+type IconKey =
+  | "Heart"
+  | "Wrench"
+  | "Target"
+  | "Briefcase"
+  | "GraduationCap"
+  | "BookOpen"
+  | "Award"
+  | "Shield"
+  | "Star"
+  | "Rocket"
+  | "HelpingHand"
+  | "Users"
+  | "MapPin"
+  | "Building"
 
 const iconMap = {
   Heart,
@@ -24,6 +47,15 @@ const iconMap = {
   Target,
   Briefcase,
   GraduationCap,
+  BookOpen,
+  Award,
+  Shield,
+  Star,
+  Rocket,
+  HelpingHand,
+  Users,
+  MapPin,
+  Building,
 } as const
 
 const ICON_OPTIONS: Array<{ key: IconKey; label: string }> = [
@@ -32,6 +64,15 @@ const ICON_OPTIONS: Array<{ key: IconKey; label: string }> = [
   { key: "Target", label: "Target — Achieve" },
   { key: "Briefcase", label: "Briefcase — Work / Career" },
   { key: "GraduationCap", label: "GraduationCap — Learning / Training" },
+  { key: "BookOpen", label: "BookOpen — Skills / Education" },
+  { key: "Award", label: "Award — Achievement" },
+  { key: "Shield", label: "Shield — Safety / Trust" },
+  { key: "Star", label: "Star — Excellence" },
+  { key: "Rocket", label: "Rocket — Growth / Launch" },
+  { key: "HelpingHand", label: "HelpingHand — Support" },
+  { key: "Users", label: "Users — Community" },
+  { key: "MapPin", label: "MapPin — Local Access" },
+  { key: "Building", label: "Building — Employers" },
 ]
 
 const toInt = (value: string, fallback = 0) => {
