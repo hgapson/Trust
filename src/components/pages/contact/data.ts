@@ -1,60 +1,11 @@
-import type { ComponentType } from "react";
-import type { LucideProps as IconProps } from "lucide-react";
 import {
   Accessibility,
-  Calendar,
   Car,
   Clock,
   Globe,
-  Mail,
   MapPin,
-  MessageSquare,
-  Phone,
 } from "lucide-react";
-
-export interface ContactMethod {
-  icon: ComponentType<IconProps>;
-  title: string;
-  details: string;
-  description: string;
-  action: string;
-}
-
-export interface OfficeInfo {
-  icon: ComponentType<IconProps>;
-  title: string;
-  details: string;
-  extra?: string;
-}
-
-export interface FaqItem {
-  question: string;
-  answer: string;
-}
-
-export const contactMethods: ContactMethod[] = [
-  {
-    icon: Phone,
-    title: "Phone",
-    details: "+64 223146756",
-    description: "Monday to Friday, 9:00 AM - 5:00 PM",
-    action: "Call Now",
-  },
-  {
-    icon: Mail,
-    title: "Email",
-    details: "waikato.navtrust@outlook.com",
-    description: "We respond within 24 hours",
-    action: "Send Email",
-  },
-  {
-    icon: MessageSquare,
-    title: "WhatsApp",
-    details: "+64 223146756",
-    description: "Quick questions and support",
-    action: "Message Us",
-  },
-];
+import type { FaqItem, OfficeInfo } from "./types";
 
 export const officeInfo: OfficeInfo[] = [
   {

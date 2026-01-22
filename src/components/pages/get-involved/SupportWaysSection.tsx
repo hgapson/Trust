@@ -1,9 +1,10 @@
 import { useEffect, useState, type ComponentType } from "react"
 import { motion } from "motion/react"
+import { Gift, Handshake, Heart, Mail, Phone, Users } from "lucide-react"
 import { Button } from "../../ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card"
-
-import { Users, Heart, Handshake, Gift } from "lucide-react"
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover"
+import { useContactMethodLinks } from "../contact/contactMethods"
 import { SupportWaysApi } from "./api/supportWays"
 import type { SupportWayRow } from "./types"
 
@@ -22,6 +23,7 @@ export function SupportWaysSection() {
   const [supportWays, setSupportWays] = useState<SupportWayUI[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const { phoneHref, emailHref } = useContactMethodLinks()
 
   useEffect(() => {
     SupportWaysApi.list()
@@ -102,13 +104,66 @@ export function SupportWaysSection() {
           a community organization aligned with our mission, we&apos;d love to
           explore partnership opportunities together.
         </p>
-        <Button
-          variant="outline"
-          size="lg"
-          className="border-blue-600 text-blue-600 transition-colors hover:bg-blue-600 hover:text-white"
-        >
-          Discuss Partnership Options
-        </Button>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-blue-600 text-blue-600 transition-colors hover:bg-blue-600 hover:text-white"
+              disabled={!phoneHref && !emailHref}
+            >
+              Discuss Partnership Options
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent
+            align="center"
+            sideOffset={10}
+            className="w-72 space-y-3 rounded-xl border border-slate-200 bg-white shadow-2xl"
+          >
+            <p className="text-sm font-semibold text-slate-700">
+              Choose how you want to reach us
+            </p>
+            <div className="flex flex-col gap-2">
+              {phoneHref ? (
+                <a
+                  href={phoneHref}
+                  className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-blue-200 hover:bg-blue-50 hover:shadow-sm"
+                >
+                  <span className="flex items-center gap-2 font-semibold">
+                    <Phone className="h-4 w-4 text-blue-600" />
+                    Call us
+                  </span>
+                </a>
+              ) : (
+                <span className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-400">
+                  <span className="flex items-center gap-2 font-semibold">
+                    <Phone className="h-4 w-4 text-blue-300" />
+                    Call us
+                  </span>
+                </span>
+              )}
+
+              {emailHref ? (
+                <a
+                  href={emailHref}
+                  className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-purple-200 hover:bg-purple-50 hover:shadow-sm"
+                >
+                  <span className="flex items-center gap-2 font-semibold">
+                    <Mail className="h-4 w-4 text-purple-600" />
+                    Email us
+                  </span>
+                </a>
+              ) : (
+                <span className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-400">
+                  <span className="flex items-center gap-2 font-semibold">
+                    <Mail className="h-4 w-4 text-purple-300" />
+                    Email us
+                  </span>
+                </span>
+              )}
+            </div>
+          </PopoverContent>
+        </Popover>
       </motion.div>
     </section>
   )

@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { motion } from "motion/react";
 
 import { Button } from "../../ui/button";
-import { FileText } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
+import { FileText, Mail, Phone } from "lucide-react";
 import brochurePdf from "../../../assets/brochure.pdf";
+import { useContactMethodLinks } from "../contact/contactMethods";
 
 export function ServicesCtaSection() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const { phoneHref, emailHref } = useContactMethodLinks();
 
   // Simple Modal component defined locally so Modal is available
   const Modal: React.FC<{ showModal: boolean; handleClose: () => void; children?: React.ReactNode }> = ({ showModal, handleClose, children }) => {
@@ -71,11 +74,64 @@ export function ServicesCtaSection() {
           and designed specifically for migrants and former refugees in the Waikato region.
         </p>
         <div className="flex flex-col items-center justify-center gap-3 pt-2 sm:flex-row">
-          <Button
-            className="h-11 rounded-md bg-gradient-to-r from-blue-500 to-purple-600 px-6 text-sm font-semibold text-white shadow-sm transition hover:from-blue-600 hover:to-purple-700 hover:shadow-md"
-          >
-            Schedule Assessment
-          </Button>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                className="h-11 rounded-md bg-gradient-to-r from-blue-500 to-purple-600 px-6 text-sm font-semibold text-white shadow-sm transition hover:from-blue-600 hover:to-purple-700 hover:shadow-md"
+                disabled={!phoneHref && !emailHref}
+              >
+                Schedule Assessment
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent
+              align="center"
+              sideOffset={10}
+              className="w-72 space-y-3 rounded-xl border border-slate-200 bg-white shadow-2xl"
+            >
+              <p className="text-sm font-semibold text-slate-700">
+                Choose how you want to reach us
+              </p>
+              <div className="flex flex-col gap-2">
+                {phoneHref ? (
+                  <a
+                    href={phoneHref}
+                    className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-blue-200 hover:bg-blue-50 hover:shadow-sm"
+                  >
+                    <span className="flex items-center gap-2 font-semibold">
+                      <Phone className="h-4 w-4 text-blue-600" />
+                      Call us
+                    </span>
+                  </a>
+                ) : (
+                  <span className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-400">
+                    <span className="flex items-center gap-2 font-semibold">
+                      <Phone className="h-4 w-4 text-blue-300" />
+                      Call us
+                    </span>
+                  </span>
+                )}
+
+                {emailHref ? (
+                  <a
+                    href={emailHref}
+                    className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-purple-200 hover:bg-purple-50 hover:shadow-sm"
+                  >
+                    <span className="flex items-center gap-2 font-semibold">
+                      <Mail className="h-4 w-4 text-purple-600" />
+                      Email us
+                    </span>
+                  </a>
+                ) : (
+                  <span className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-400">
+                    <span className="flex items-center gap-2 font-semibold">
+                      <Mail className="h-4 w-4 text-purple-300" />
+                      Email us
+                    </span>
+                  </span>
+                )}
+              </div>
+            </PopoverContent>
+          </Popover>
           <Button
             variant="outline"
             size="lg"

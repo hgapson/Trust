@@ -1,22 +1,49 @@
-import { motion } from "motion/react";
+import { useMemo } from "react"
+import type { ComponentType } from "react"
+import type { LucideProps } from "lucide-react"
+import { Mail, MessageSquare, Phone } from "lucide-react"
+import { motion } from "motion/react"
 
-import { Button } from "../../ui/button";
+import { Button } from "../../ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../ui/card";
-import type { ContactMethod } from "./data";
+} from "../../ui/card"
+import { getActionHrefForRow, useContactMethods } from "./contactMethods"
+import type { ContactMethodRow, ContactMethodUI } from "./types"
 
-interface ContactMethodsSectionProps {
-  methods: ContactMethod[];
+const iconMap: Record<string, ComponentType<LucideProps>> = {
+  Phone,
+  Mail,
+  MessageSquare,
+}
+const fallbackIcon = Phone
+
+const mapContactMethod = (row: ContactMethodRow): ContactMethodUI => ({
+  icon: iconMap[row.icon_key] ?? fallbackIcon,
+  title: row.title,
+  details: row.details,
+  description: row.description,
+  action: row.action_label,
+  actionHref: getActionHrefForRow(row),
+})
+
+const openContactAction = (href?: string) => {
+  if (!href) return
+  if (href.startsWith("http")) {
+    window.open(href, "_blank", "noopener,noreferrer")
+    return
+  }
+  window.location.href = href
 }
 
-export function ContactMethodsSection({
-  methods,
-}: ContactMethodsSectionProps) {
+export function ContactMethodsSection() {
+  const { rows } = useContactMethods()
+  const methods = useMemo(() => rows.map(mapContactMethod), [rows])
+
   return (
     <section className="py-20">
       <motion.div
@@ -53,7 +80,11 @@ export function ContactMethodsSection({
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-sm text-gray-600">{method.description}</p>
-                <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 transition-colors hover:from-blue-700 hover:to-purple-700">
+                <Button
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 transition-colors hover:from-blue-700 hover:to-purple-700"
+                  disabled={!method.actionHref}
+                  onClick={() => openContactAction(method.actionHref)}
+                >
                   {method.action}
                 </Button>
               </CardContent>
@@ -62,5 +93,5 @@ export function ContactMethodsSection({
         ))}
       </div>
     </section>
-  );
+  )
 }

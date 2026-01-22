@@ -8,10 +8,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
 import type { CallToActionData } from "./home/types";
+import { useContactMethodLinks } from "./contact/contactMethods";
 
 export function CallToAction() {
   const [cta, setCta] = useState<CallToActionData | null>(null);
   const [loading, setLoading] = useState(true);
+  const { phoneHref, emailHref } = useContactMethodLinks();
 
   useEffect(() => {
     const load = async () => {
@@ -116,13 +118,13 @@ export function CallToAction() {
 
                       <PopoverContent className="w-80 space-y-3">
                         <a
-                          href={`tel:${cta.phone.replace(/\s/g, "")}`}
+                          href={phoneHref}
                           className="block rounded-lg border px-3 py-2 hover:bg-blue-50"
                         >
                           Call us
                         </a>
                         <a
-                          href={`mailto:${cta.email}`}
+                          href={emailHref}
                           className="block rounded-lg border px-3 py-2 hover:bg-purple-50"
                         >
                           Email us

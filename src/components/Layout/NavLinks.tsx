@@ -1,6 +1,9 @@
 import { useEffect, useLayoutEffect, useState } from "react";
+import { Mail, Menu, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Menu } from "lucide-react";
+import { useContactMethodLinks } from "../pages/contact/contactMethods";
+import { Button } from "../ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 type NavItem = { name: string; href: string };
 
@@ -12,6 +15,8 @@ export default function NavLinks({ items }: NavLinksProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
   const [menuTop, setMenuTop] = useState(80); // fallback
+  const { phoneHref, emailHref } = useContactMethodLinks();
+  const hasContact = Boolean(phoneHref || emailHref);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
@@ -91,13 +96,66 @@ export default function NavLinks({ items }: NavLinksProps) {
             ))}
 
             <li className="pt-2">
-              <Link
-                to="/contact#contact-form"
-                onClick={() => setIsMenuOpen(false)}
-                className="block rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-3 text-center font-semibold text-white shadow-md transition hover:from-blue-700 hover:to-purple-700"
-              >
-                Get Help Now
-              </Link>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-3 text-center font-semibold text-white shadow-md transition hover:from-blue-700 hover:to-purple-700"
+                    disabled={!hasContact}
+                  >
+                    Get Help Now
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent
+                  align="center"
+                  sideOffset={8}
+                  className="w-72 space-y-3 rounded-xl border border-slate-200 bg-white shadow-2xl"
+                >
+                  <p className="text-sm font-semibold text-slate-700">
+                    Choose how you want to reach us
+                  </p>
+                  <div className="flex flex-col gap-2">
+                    {phoneHref ? (
+                      <a
+                        href={phoneHref}
+                        onClick={() => setIsMenuOpen(false)}
+                        className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-blue-200 hover:bg-blue-50 hover:shadow-sm"
+                      >
+                        <span className="flex items-center gap-2 font-semibold">
+                          <Phone className="h-4 w-4 text-blue-600" />
+                          Call us
+                        </span>
+                      </a>
+                    ) : (
+                      <span className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-400">
+                        <span className="flex items-center gap-2 font-semibold">
+                          <Phone className="h-4 w-4 text-blue-300" />
+                          Call us
+                        </span>
+                      </span>
+                    )}
+
+                    {emailHref ? (
+                      <a
+                        href={emailHref}
+                        onClick={() => setIsMenuOpen(false)}
+                        className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-purple-200 hover:bg-purple-50 hover:shadow-sm"
+                      >
+                        <span className="flex items-center gap-2 font-semibold">
+                          <Mail className="h-4 w-4 text-purple-600" />
+                          Email us
+                        </span>
+                      </a>
+                    ) : (
+                      <span className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-400">
+                        <span className="flex items-center gap-2 font-semibold">
+                          <Mail className="h-4 w-4 text-purple-300" />
+                          Email us
+                        </span>
+                      </span>
+                    )}
+                  </div>
+                </PopoverContent>
+              </Popover>
             </li>
           </ul>
         </div>
@@ -116,12 +174,64 @@ export default function NavLinks({ items }: NavLinksProps) {
             </Link>
           ))}
 
-          <Link
-            to="/contact#contact-form"
-            className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 font-semibold text-white shadow-md transition hover:from-blue-700 hover:to-purple-700"
-          >
-            Get Help Now
-          </Link>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                className="inline-flex items-center justify-center rounded-md bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 font-semibold text-white shadow-md transition hover:from-blue-700 hover:to-purple-700"
+                disabled={!hasContact}
+              >
+                Get Help Now
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent
+              align="end"
+              sideOffset={8}
+              className="w-72 space-y-3 rounded-xl border border-slate-200 bg-white shadow-2xl"
+            >
+              <p className="text-sm font-semibold text-slate-700">
+                Choose how you want to reach us
+              </p>
+              <div className="flex flex-col gap-2">
+                {phoneHref ? (
+                  <a
+                    href={phoneHref}
+                    className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-blue-200 hover:bg-blue-50 hover:shadow-sm"
+                  >
+                    <span className="flex items-center gap-2 font-semibold">
+                      <Phone className="h-4 w-4 text-blue-600" />
+                      Call us
+                    </span>
+                  </a>
+                ) : (
+                  <span className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-400">
+                    <span className="flex items-center gap-2 font-semibold">
+                      <Phone className="h-4 w-4 text-blue-300" />
+                      Call us
+                    </span>
+                  </span>
+                )}
+
+                {emailHref ? (
+                  <a
+                    href={emailHref}
+                    className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-purple-200 hover:bg-purple-50 hover:shadow-sm"
+                  >
+                    <span className="flex items-center gap-2 font-semibold">
+                      <Mail className="h-4 w-4 text-purple-600" />
+                      Email us
+                    </span>
+                  </a>
+                ) : (
+                  <span className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-400">
+                    <span className="flex items-center gap-2 font-semibold">
+                      <Mail className="h-4 w-4 text-purple-300" />
+                      Email us
+                    </span>
+                  </span>
+                )}
+              </div>
+            </PopoverContent>
+          </Popover>
         </div>
       )}
     </nav>

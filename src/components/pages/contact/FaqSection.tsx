@@ -2,8 +2,11 @@ import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown, Mail, Phone } from "lucide-react";
 
+import { Button } from "../../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
-import type { FaqItem } from "./data";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
+import { useContactMethodLinks } from "./contactMethods";
+import type { FaqItem } from "./types";
 
 interface FaqSectionProps {
   faqs: FaqItem[];
@@ -77,6 +80,7 @@ function FaqCard({
 
 export function FaqSection({ faqs }: FaqSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { phoneHref, emailHref } = useContactMethodLinks();
 
   const { left, right } = useMemo(() => {
     const left: Array<{ item: FaqItem; index: number }> = [];
@@ -152,22 +156,65 @@ export function FaqSection({ faqs }: FaqSectionProps) {
             </p>
             <p className="mt-1 text-gray-600">Contact us — we&apos;re here to help</p>
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
-              <a
-                href="tel:+64223146756"
-                className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white/80 px-4 py-2 text-slate-900 shadow-sm transition hover:-translate-y-[1px] hover:border-blue-200 hover:bg-blue-50"
-              >
-                <Phone className="h-4 w-4 text-blue-600" />
-                Call us
-              </a>
+            <div className="mt-6 flex justify-center">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300 hover:from-blue-700 hover:to-purple-700 hover:shadow-xl"
+                    disabled={!phoneHref && !emailHref}
+                  >
+                    Contact us
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent
+                  align="center"
+                  sideOffset={10}
+                  className="w-72 space-y-3 rounded-xl border border-slate-200 bg-white shadow-2xl"
+                >
+                  <p className="text-sm font-semibold text-slate-700">
+                    Choose how you want to reach us
+                  </p>
+                  <div className="flex flex-col gap-2">
+                    {phoneHref ? (
+                      <a
+                        href={phoneHref}
+                        className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-blue-200 hover:bg-blue-50 hover:shadow-sm"
+                      >
+                        <span className="flex items-center gap-2 font-semibold">
+                          <Phone className="h-4 w-4 text-blue-600" />
+                          Call us
+                        </span>
+                      </a>
+                    ) : (
+                      <span className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-400">
+                        <span className="flex items-center gap-2 font-semibold">
+                          <Phone className="h-4 w-4 text-blue-300" />
+                          Call us
+                        </span>
+                      </span>
+                    )}
 
-              <a
-                href="mailto:waikato.navtrust@outlook.com"
-                className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white/80 px-4 py-2 text-slate-900 shadow-sm transition hover:-translate-y-[1px] hover:border-purple-200 hover:bg-purple-50"
-              >
-                <Mail className="h-4 w-4 text-purple-600" />
-                Email us
-              </a>
+                    {emailHref ? (
+                      <a
+                        href={emailHref}
+                        className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-purple-200 hover:bg-purple-50 hover:shadow-sm"
+                      >
+                        <span className="flex items-center gap-2 font-semibold">
+                          <Mail className="h-4 w-4 text-purple-600" />
+                          Email us
+                        </span>
+                      </a>
+                    ) : (
+                      <span className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-400">
+                        <span className="flex items-center gap-2 font-semibold">
+                          <Mail className="h-4 w-4 text-purple-300" />
+                          Email us
+                        </span>
+                      </span>
+                    )}
+                  </div>
+                </PopoverContent>
+              </Popover>
             </div>
           </div>
         </motion.div>

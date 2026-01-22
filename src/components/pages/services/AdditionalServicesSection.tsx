@@ -15,6 +15,7 @@ import type { AdditionalService } from "./types";
 import type { CallToActionData } from "../Shared/Data/contactTypes";
 import { AdditionalServicesApi } from "./api/additionalServices";
 import { CallToActionApi } from "../Shared/API/callToAction"; 
+import { findContactMethodByKind, useContactMethodLinks } from "../contact/contactMethods";
 
 const iconMap = {
   BookOpen,
@@ -35,6 +36,19 @@ export function AdditionalServicesSection() {
   const [services, setServices] = useState<AdditionalService[]>([]);
   const [cta, setCta] = useState<CallToActionData | null>(null);
   const [loading, setLoading] = useState(true);
+  const { rows, phoneHref, emailHref } = useContactMethodLinks();
+
+  const phoneDetails = useMemo(
+    () => findContactMethodByKind(rows, "phone")?.details ?? cta?.phone ?? "+64 223146756",
+    [rows, cta?.phone],
+  );
+  const emailDetails = useMemo(
+    () =>
+      findContactMethodByKind(rows, "email")?.details ??
+      cta?.email ??
+      "waikato.navtrust@outlook.com",
+    [rows, cta?.email],
+  );
 
   useEffect(() => {
     const load = async () => {
@@ -145,7 +159,7 @@ export function AdditionalServicesSection() {
 
                 <div className="flex flex-col gap-2">
                   <a
-                    href={cta?.phone ? `tel:${cta.phone.replace(/\s/g, "")}` : "tel:+64223146756"}
+                    href={phoneHref}
                     className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-blue-200 hover:bg-blue-50 hover:shadow-sm"
                   >
                     <span className="flex items-center gap-2 font-semibold">
@@ -153,12 +167,12 @@ export function AdditionalServicesSection() {
                   
                     </span>
                     <span className="text-xs text-slate-600">
-                      {cta?.phone ?? "+64 223146756"}
+                      {phoneDetails}
                     </span>
                   </a>
 
                   <a
-                    href={cta?.email ? `mailto:${cta.email}` : "mailto:waikato.navtrust@outlook.com"}
+                    href={emailHref}
                     className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-purple-200 hover:bg-purple-50 hover:shadow-sm"
                   >
                     <span className="flex items-center gap-2 font-semibold">
@@ -166,7 +180,7 @@ export function AdditionalServicesSection() {
                       
                     </span>
                     <span className="text-xs text-slate-600">
-                      {cta?.email ?? "waikato.navtrust@outlook.com"}
+                      {emailDetails}
                     </span>
                   </a>
                 </div>

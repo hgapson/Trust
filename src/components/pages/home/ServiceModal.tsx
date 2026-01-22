@@ -4,6 +4,7 @@ import { Mail, Phone } from "lucide-react";
 
 import { Button } from "../../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
+import { useContactMethodLinks } from "../contact/contactMethods";
 
 export type ServiceModalData = {
   title: string;
@@ -21,6 +22,8 @@ type Props = {
 };
 
 export function ServiceModal({ service, onClose }: Props) {
+  const { phoneHref, emailHref } = useContactMethodLinks();
+
   return createPortal(
     <div
       className="fixed inset-0 z-50 flex items-center justify-center px-4"
@@ -101,7 +104,7 @@ export function ServiceModal({ service, onClose }: Props) {
                 className="w-64 space-y-3 rounded-xl border bg-white shadow-2xl"
               >
                 <a
-                  href="tel:+64223146756"
+                  href={phoneHref}
                   className="flex items-center justify-between rounded-lg border px-3 py-2 transition hover:bg-blue-50"
                 >
                   <span className="flex items-center gap-2 font-semibold">
@@ -111,7 +114,7 @@ export function ServiceModal({ service, onClose }: Props) {
                 </a>
 
                 <a
-                  href="mailto:waikato.navtrust@outlook.com"
+                  href={emailHref}
                   className="flex items-center justify-between rounded-lg border px-3 py-2 transition hover:bg-purple-50"
                 >
                   <span className="flex items-center gap-2 font-semibold">

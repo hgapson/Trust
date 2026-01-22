@@ -11,7 +11,6 @@ import {
 } from "./contact";
 
 import {
-  contactMethods,
   emergencyContact,
   faqs,
   officeInfo,
@@ -43,7 +42,7 @@ export function ContactPage() {
     <div className="py-20">
       <ContactHero />
       <div className="container mx-auto max-w-screen-xl px-4">
-        <ContactMethodsSection methods={contactMethods} />
+        <ContactMethodsSection />
         <ContactFormAndInfoSection
           officeInfo={officeInfo}
           languages={supportedLanguages}

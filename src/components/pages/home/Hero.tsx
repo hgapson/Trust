@@ -6,8 +6,11 @@ import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { Mail, Phone } from "lucide-react";
 import home from "../../../assets/home.png";
 import brochurePdf from "../../../assets/brochure.pdf";
+import { useContactMethodLinks } from "../contact/contactMethods";
 
 export function Hero() {
+  const { phoneHref, emailHref } = useContactMethodLinks();
+
   return (
     <section id="home" className="gradient-bg-hero relative py-20 lg:py-32">
       <div className="absolute inset-0 bg-black/10" />
@@ -61,7 +64,7 @@ export function Hero() {
                 >
                   <div className="flex flex-col gap-2">
                     <a
-                      href="tel:+64223146756"
+                      href={phoneHref}
                       className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-blue-200 hover:bg-blue-50 hover:shadow-sm"
                     >
                       <span className="flex items-center gap-2 font-semibold">
@@ -70,7 +73,7 @@ export function Hero() {
                       </span>
                     </a>
                     <a
-                      href="mailto:waikato.navtrust@outlook.com"
+                      href={emailHref}
                       className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-2 text-slate-900 transition hover:-translate-y-[1px] hover:border-purple-200 hover:bg-purple-50 hover:shadow-sm"
                     >
                       <span className="flex items-center gap-2 font-semibold">
