@@ -365,6 +365,154 @@ app.get("/api/detailed-services", async (_req, res) => {
   }
 });
 
+/* ======================
+   ADMIN: DETAILED SERVICES
+====================== */
+app.get("/api/admin/detailed-services", async (_req, res) => {
+  try {
+    const services = await db("detailed_services")
+      .select("*")
+      .orderBy("sort_order", "asc");
+
+    const features = await db("detailed_service_features")
+      .select("*")
+      .orderBy("sort_order", "asc");
+
+    const grouped = services.map((service) => ({
+      ...service,
+      features: features
+        .filter((feature) => feature.service_id === service.id)
+        .map((feature) => feature.feature),
+    }));
+
+    res.json(grouped);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch detailed services" });
+  }
+});
+
+app.post("/api/admin/detailed-services", async (req, res) => {
+  const {
+    id,
+    title,
+    icon,
+    color,
+    bg_color,
+    image_url,
+    description,
+    sort_order,
+    features,
+  } = req.body;
+
+  if (!id || !title || !icon || !color || !bg_color || !image_url || !description) {
+    return res.status(400).json({
+      error: "id, title, icon, color, bg_color, image_url, description are required",
+    });
+  }
+
+  try {
+    await db("detailed_services").insert({
+      id,
+      title,
+      icon,
+      color,
+      bg_color,
+      image_url,
+      description,
+      sort_order: Number(sort_order) || 0,
+    });
+
+    const featureRows = Array.isArray(features) ? features : [];
+    if (featureRows.length) {
+      await db("detailed_service_features").insert(
+        featureRows.map((feature, index) => ({
+          service_id: id,
+          feature,
+          sort_order: index,
+        })),
+      );
+    }
+
+    const created = await db("detailed_services").where({ id }).first();
+    res.status(201).json(created);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to create detailed service" });
+  }
+});
+
+app.patch("/api/admin/detailed-services/:id", async (req, res) => {
+  const serviceId = String(req.params.id);
+  if (!serviceId) return res.status(400).json({ error: "Invalid id" });
+
+  const {
+    title,
+    icon,
+    color,
+    bg_color,
+    image_url,
+    description,
+    sort_order,
+    features,
+  } = req.body;
+
+  if (!title || !icon || !color || !bg_color || !image_url || !description) {
+    return res.status(400).json({
+      error: "title, icon, color, bg_color, image_url, description are required",
+    });
+  }
+
+  try {
+    const updated = await db("detailed_services")
+      .where({ id: serviceId })
+      .update({
+        title,
+        icon,
+        color,
+        bg_color,
+        image_url,
+        description,
+        sort_order: Number(sort_order) || 0,
+      });
+
+    if (!updated) return res.status(404).json({ error: "Not found" });
+
+    const featureRows = Array.isArray(features) ? features : [];
+    await db("detailed_service_features").where({ service_id: serviceId }).del();
+
+    if (featureRows.length) {
+      await db("detailed_service_features").insert(
+        featureRows.map((feature, index) => ({
+          service_id: serviceId,
+          feature,
+          sort_order: index,
+        })),
+      );
+    }
+
+    const row = await db("detailed_services").where({ id: serviceId }).first();
+    res.json(row);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update detailed service" });
+  }
+});
+
+app.delete("/api/admin/detailed-services/:id", async (req, res) => {
+  const id = String(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  try {
+    const deleted = await db("detailed_services").where({ id }).del();
+    if (!deleted) return res.status(404).json({ error: "Not found" });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete detailed service" });
+  }
+});
+
 app.get("/api/detailed-services/:id", async (req, res) => {
   try {
     const { id } = req.params;

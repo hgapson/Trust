@@ -32,6 +32,7 @@ const items: AdminNavItem[] = [
   { label: "Mission & Vision", to: "/admin/mission-vision", icon: Layers },
   { label: "Core Values", to: "/admin/values", icon: Shield },
   { label: "Testimonials", to: "/admin/community-stories", icon: Quote },
+  { label: "Detailed Services", to: "/admin/detailed-services", icon: Layers },
   // content tables you already have / are building
   { label: "Team", to: "/admin/team", icon: Users },
   { label: "Volunteer Opportunities", to: "/admin/volunteers", icon: HandHeart },
