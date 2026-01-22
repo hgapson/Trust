@@ -28,6 +28,16 @@ export const AdminSupportWaysApi = {
     return res.json()
   },
 
+  async update(id: number, payload: CreateSupportWayPayload): Promise<SupportWayRow> {
+    const res = await fetch(`${BASE}/api/admin/support-ways/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    })
+    if (!res.ok) throw new Error("Failed to update support way")
+    return res.json()
+  },
+
   async remove(id: number): Promise<{ ok: boolean }> {
     const res = await fetch(`${BASE}/api/admin/support-ways/${id}`, {
       method: "DELETE",

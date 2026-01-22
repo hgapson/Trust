@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import {
   Trash2,
   RefreshCw,
-  Plus,
   Users,
   Heart,
   Handshake,
@@ -21,6 +20,7 @@ import {
   MessageSquare,
   Mail,
   Phone,
+  FileText,
 } from "lucide-react";
 
 import { Button } from "../../../ui/button";
@@ -114,6 +114,7 @@ export default function SupportWaysAdminPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<number | null>(null);
 
   // form
   const [title, setTitle] = useState("");
@@ -164,9 +165,20 @@ export default function SupportWaysAdminPage() {
     setColor("text-blue-600");
     setBgColor("bg-blue-100");
     setSortOrder("0");
+    setEditingId(null);
   };
 
-  const create = async () => {
+  const startEdit = (row: SupportWayRow) => {
+    setEditingId(row.id);
+    setTitle(row.title);
+    setDescription(row.description);
+    setIconKey(row.icon_key as IconKey);
+    setColor(row.color ?? "text-blue-600");
+    setBgColor(row.bg_color ?? "bg-blue-100");
+    setSortOrder(String(row.sort_order ?? 0));
+  };
+
+  const upsert = async () => {
     if (!title.trim() || !description.trim() || !iconKey) {
       alert("Please fill Title, Description and Icon.");
       return;
@@ -185,19 +197,24 @@ export default function SupportWaysAdminPage() {
       setSaving(true);
       setError(null);
 
-      const created = await AdminSupportWaysApi.create(payload);
-
-      // If API returns the created row, push it. Otherwise reload.
-      if (created && typeof created === "object") {
-        setRows((prev) => [...prev, created as SupportWayRow]);
+      if (editingId) {
+        const updated = await AdminSupportWaysApi.update(editingId, payload);
+        setRows((prev) =>
+          prev.map((row) => (row.id === updated.id ? updated : row))
+        );
       } else {
-        await load();
+        const created = await AdminSupportWaysApi.create(payload);
+        if (created && typeof created === "object") {
+          setRows((prev) => [...prev, created as SupportWayRow]);
+        } else {
+          await load();
+        }
       }
 
       resetForm();
     } catch (e) {
       console.error(e);
-      alert("Failed to add Support Way");
+      alert("Failed to save Support Way");
     } finally {
       setSaving(false);
     }
@@ -249,7 +266,9 @@ export default function SupportWaysAdminPage() {
       {/* Create */}
       <Card className="shadow-xl">
         <CardHeader>
-          <CardTitle className="text-2xl">Add a Support Way</CardTitle>
+          <CardTitle className="text-2xl">
+            {editingId ? "Edit Support Way" : "Add a Support Way"}
+          </CardTitle>
           <p className="mt-1 text-sm text-slate-500">
             Fill in details. The icon is selected from a safe list (no typos).
           </p>
@@ -326,17 +345,16 @@ export default function SupportWaysAdminPage() {
                 onClick={resetForm}
                 className="border-slate-200 text-slate-700 hover:bg-slate-50"
               >
-                Reset
+                {editingId ? "Cancel Edit" : "Reset"}
               </Button>
 
               <Button
                 type="button"
-                onClick={create}
+                onClick={upsert}
                 disabled={saving}
                 className="gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700"
               >
-                <Plus className="h-4 w-4" />
-                {saving ? "Saving..." : "Add Support Way"}
+                {saving ? "Saving..." : editingId ? "Update Support Way" : "Add Support Way"}
               </Button>
             </div>
           </div>
@@ -435,6 +453,15 @@ export default function SupportWaysAdminPage() {
                             {r.bg_color ?? "bg-slate-100"}
                           </span>
                         </div>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="gap-2 border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50"
+                          onClick={() => startEdit(r)}
+                        >
+                          <FileText className="h-4 w-4" />
+                          Edit
+                        </Button>
                         <Button
                           variant="outline"
                           size="sm"

@@ -2040,6 +2040,39 @@ app.post("/api/admin/support-ways", async (req, res) => {
   }
 })
 
+app.patch("/api/admin/support-ways/:id", async (req, res) => {
+  const id = Number(req.params.id)
+  if (!id) return res.status(400).json({ error: "Invalid id" })
+
+  const { title, description, icon_key, color, bg_color, sort_order } = req.body
+
+  if (!title || !description || !icon_key || !color || !bg_color) {
+    return res.status(400).json({
+      error: "title, description, icon_key, color, bg_color are required",
+    })
+  }
+
+  try {
+    const updated = await db("support_ways")
+      .where({ id })
+      .update({
+        title,
+        description,
+        icon_key,
+        color,
+        bg_color,
+        sort_order: Number(sort_order) || 0,
+      })
+    if (!updated) return res.status(404).json({ error: "Not found" })
+
+    const row = await db("support_ways").where({ id }).first()
+    res.json(row)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to update support way" })
+  }
+})
+
 app.delete("/api/admin/support-ways/:id", async (req, res) => {
   const id = Number(req.params.id)
   if (!id) return res.status(400).json({ error: "Invalid id" })
