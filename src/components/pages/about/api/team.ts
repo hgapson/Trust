@@ -3,8 +3,9 @@ import type { TeamMember } from "../types";
 const BASE_URL = "http://localhost:4000";
 
 export const TeamApi = {
-  async list(): Promise<TeamMember[]> {
-    const res = await fetch(`${BASE_URL}/api/team`);
+  async list(type?: "staff" | "trustee"): Promise<TeamMember[]> {
+    const url = type ? `${BASE_URL}/api/team?type=${type}` : `${BASE_URL}/api/team`;
+    const res = await fetch(url);
     if (!res.ok) throw new Error("Failed to load team");
     const data = (await res.json()) as TeamMember[];
     return data.map((member) => {

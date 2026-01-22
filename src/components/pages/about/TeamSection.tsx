@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import { motion } from "motion/react";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import { ImageWithFallback } from "../../FallBacks/ImageWithFallback";
@@ -17,6 +18,12 @@ function initialsFromName(name: string) {
 }
 
 export function TeamSection({ members }: TeamSectionProps) {
+  const [activeGroup, setActiveGroup] = useState<"staff" | "trustee">("staff");
+
+  const filteredMembers = useMemo(() => {
+    return members.filter((member) => (member.team_type ?? "staff") === activeGroup);
+  }, [members, activeGroup]);
+
   return (
     <section className="py-20">
       <div className="container mx-auto max-w-screen-xl px-4">
@@ -33,10 +40,37 @@ export function TeamSection({ members }: TeamSectionProps) {
           </p>
         </motion.div>
 
+        <div className="mb-10 flex justify-center">
+          <div className="inline-flex rounded-full border border-slate-200 bg-white p-1 shadow-sm">
+            <button
+              type="button"
+              onClick={() => setActiveGroup("staff")}
+              className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                activeGroup === "staff"
+                  ? "bg-blue-600 text-white shadow"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              Team Staff
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveGroup("trustee")}
+              className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                activeGroup === "trustee"
+                  ? "bg-blue-600 text-white shadow"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              Trustees
+            </button>
+          </div>
+        </div>
+
         {/* Grid */}
         <div className="flex justify-center">
           <div className="grid w-full max-w-6xl place-items-center gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {members.map((member, index) => (
+            {filteredMembers.map((member, index) => (
               <motion.div
                 key={member.name}
                 initial={{ opacity: 0, y: 50 }}
@@ -74,6 +108,11 @@ export function TeamSection({ members }: TeamSectionProps) {
                 </Card>
               </motion.div>
             ))}
+            {!filteredMembers.length ? (
+              <div className="col-span-full rounded-xl border border-dashed border-slate-200 px-6 py-8 text-center text-sm text-slate-500">
+                No team members available.
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

@@ -1020,13 +1020,101 @@ app.delete("/api/admin/values/:id", async (req, res) => {
 /* =========================
    TEAM ROUTES
 ========================= */
-app.get("/api/team", async (_req, res) => {
+app.get("/api/team", async (req, res) => {
   try {
-    const team = await db("team_members").select("*").orderBy("sort_order", "asc");
+    const type = req.query.type ? String(req.query.type) : null;
+    let query = db("team_members").select("*").orderBy("sort_order", "asc");
+    if (type) query = query.where({ team_type: type });
+    const team = await query;
     res.json(team);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to fetch team members" });
+  }
+});
+
+/* ======================
+   ADMIN: TEAM MEMBERS
+====================== */
+app.get("/api/admin/team", async (_req, res) => {
+  try {
+    const rows = await db("team_members").select("*").orderBy("sort_order", "asc");
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch team members" });
+  }
+});
+
+app.post("/api/admin/team", async (req, res) => {
+  const { name, role, description, image_url, team_type, sort_order } = req.body;
+
+  if (!name || !role || !description || !team_type) {
+    return res.status(400).json({
+      error: "name, role, description, team_type are required",
+    });
+  }
+
+  try {
+    const [id] = await db("team_members").insert({
+      name,
+      role,
+      description,
+      image_url: image_url || null,
+      team_type,
+      sort_order: Number(sort_order) || 0,
+    });
+    const created = await db("team_members").where({ id }).first();
+    res.status(201).json(created);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to create team member" });
+  }
+});
+
+app.patch("/api/admin/team/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  const { name, role, description, image_url, team_type, sort_order } = req.body;
+
+  if (!name || !role || !description || !team_type) {
+    return res.status(400).json({
+      error: "name, role, description, team_type are required",
+    });
+  }
+
+  try {
+    const updated = await db("team_members")
+      .where({ id })
+      .update({
+        name,
+        role,
+        description,
+        image_url: image_url || null,
+        team_type,
+        sort_order: Number(sort_order) || 0,
+      });
+    if (!updated) return res.status(404).json({ error: "Not found" });
+    const row = await db("team_members").where({ id }).first();
+    res.json(row);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update team member" });
+  }
+});
+
+app.delete("/api/admin/team/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  try {
+    const deleted = await db("team_members").where({ id }).del();
+    if (!deleted) return res.status(404).json({ error: "Not found" });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete team member" });
   }
 });
 

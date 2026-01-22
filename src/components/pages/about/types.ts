@@ -51,6 +51,7 @@ export function mapDbPartner(row: DbPartner): PartnerProfile {
   };
 }
 export type ValueItem = {
+  sort_order: number;
   id: number;
   title: string;
   description: string;
@@ -75,4 +76,6 @@ export type TeamMember = {
   role: string;
   image_url?: string;
   description: string;
+  team_type?: "staff" | "trustee";
+  sort_order?: number;
 };
