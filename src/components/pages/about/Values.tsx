@@ -9,7 +9,19 @@ import {
   CardTitle,
 } from "../../ui/card";
 
-import { Award, CheckCircle, Shield, Users } from "lucide-react";
+import {
+  Award,
+  BookOpen,
+  Briefcase,
+  CheckCircle,
+  Globe,
+  Heart,
+  HelpingHand,
+  Shield,
+  Star,
+  Target,
+  Users,
+} from "lucide-react";
 import { ValuesApi } from "./api/values";
 import type { ValueItem } from "./types";
 
@@ -18,6 +30,13 @@ const iconMap = {
   Award,
   CheckCircle,
   Users,
+  Heart,
+  Star,
+  Target,
+  HelpingHand,
+  Globe,
+  BookOpen,
+  Briefcase,
 };
 
 export function Values() {
@@ -50,7 +69,7 @@ export function Values() {
         {/* 🔒 GRID & CARD STYLING UNCHANGED */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {values.map((value, index) => {
-            const Icon = iconMap[value.icon];
+            const Icon = iconMap[value.icon] ?? Shield;
 
             return (
               <motion.div

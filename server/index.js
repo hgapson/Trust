@@ -819,6 +819,91 @@ app.get("/api/values", async (_req, res) => {
   }
 });
 
+/* ======================
+   ADMIN: CORE VALUES
+====================== */
+app.get("/api/admin/values", async (_req, res) => {
+  try {
+    const rows = await db("values").select("*").orderBy("sort_order", "asc");
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch values" });
+  }
+});
+
+app.post("/api/admin/values", async (req, res) => {
+  const { title, description, icon, color, bg_color, sort_order } = req.body;
+
+  if (!title || !description || !icon || !color || !bg_color) {
+    return res.status(400).json({
+      error: "title, description, icon, color, bg_color are required",
+    });
+  }
+
+  try {
+    const [id] = await db("values").insert({
+      title,
+      description,
+      icon,
+      color,
+      bg_color,
+      sort_order: Number(sort_order) || 0,
+    });
+    const created = await db("values").where({ id }).first();
+    res.status(201).json(created);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to create value" });
+  }
+});
+
+app.patch("/api/admin/values/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  const { title, description, icon, color, bg_color, sort_order } = req.body;
+
+  if (!title || !description || !icon || !color || !bg_color) {
+    return res.status(400).json({
+      error: "title, description, icon, color, bg_color are required",
+    });
+  }
+
+  try {
+    const updated = await db("values")
+      .where({ id })
+      .update({
+        title,
+        description,
+        icon,
+        color,
+        bg_color,
+        sort_order: Number(sort_order) || 0,
+      });
+    if (!updated) return res.status(404).json({ error: "Not found" });
+    const row = await db("values").where({ id }).first();
+    res.json(row);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update value" });
+  }
+});
+
+app.delete("/api/admin/values/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  try {
+    const deleted = await db("values").where({ id }).del();
+    if (!deleted) return res.status(404).json({ error: "Not found" });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete value" });
+  }
+});
+
 /* =========================
    TEAM ROUTES
 ========================= */

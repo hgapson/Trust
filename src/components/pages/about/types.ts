@@ -54,7 +54,18 @@ export type ValueItem = {
   id: number;
   title: string;
   description: string;
-  icon: "Shield" | "Award" | "CheckCircle" | "Users";
+  icon:
+    | "Shield"
+    | "Award"
+    | "CheckCircle"
+    | "Users"
+    | "Heart"
+    | "Star"
+    | "Target"
+    | "HelpingHand"
+    | "Globe"
+    | "BookOpen"
+    | "Briefcase";
   color: string;
   bg_color: string;
 };
