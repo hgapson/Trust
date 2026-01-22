@@ -700,6 +700,83 @@ app.get("/api/mission-vision", async (_req, res) => {
   }
 });
 
+/* ======================
+   ADMIN: MISSION & VISION
+====================== */
+app.get("/api/admin/mission-vision", async (_req, res) => {
+  try {
+    const row = await db("mission_vision").first();
+    res.json(row);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch mission & vision" });
+  }
+});
+
+app.patch("/api/admin/mission-vision", async (req, res) => {
+  const {
+    mission_title,
+    mission_description,
+    vision_title,
+    vision_description,
+    image_url,
+  } = req.body;
+
+  if (
+    !mission_title ||
+    !mission_description ||
+    !vision_title ||
+    !vision_description ||
+    !image_url
+  ) {
+    return res.status(400).json({
+      error:
+        "mission_title, mission_description, vision_title, vision_description, image_url are required",
+    });
+  }
+
+  try {
+    const existing = await db("mission_vision").select("id").first();
+
+    if (existing?.id) {
+      await db("mission_vision")
+        .where({ id: existing.id })
+        .update({
+          mission_title,
+          mission_description,
+          vision_title,
+          vision_description,
+          image_url,
+        });
+      const updated = await db("mission_vision").where({ id: existing.id }).first();
+      return res.json(updated);
+    }
+
+    const [id] = await db("mission_vision").insert({
+      mission_title,
+      mission_description,
+      vision_title,
+      vision_description,
+      image_url,
+    });
+    const created = await db("mission_vision").where({ id }).first();
+    res.status(201).json(created);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update mission & vision" });
+  }
+});
+
+app.delete("/api/admin/mission-vision", async (_req, res) => {
+  try {
+    await db("mission_vision").del();
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete mission & vision" });
+  }
+});
+
 /* ==========================
    PARTNERS & FUNDERS ROUTES
 ========================== */

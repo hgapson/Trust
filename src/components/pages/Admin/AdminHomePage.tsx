@@ -6,6 +6,7 @@ export default function AdminHomePage() {
     { title: "Registrations", to: "/admin/workshop-registrations", desc: "View and manage workshop registrations." },
     { title: "Who We Serve", to: "/admin/audiences", desc: "Manage the audience cards on the home page." },
     { title: "Call To Action", to: "/admin/call-to-action", desc: "Update the CTA block shown on the home page." },
+    { title: "Mission & Vision", to: "/admin/mission-vision", desc: "Update the mission and vision section on the About page." },
     { title: "Volunteer Opportunities", to: "/admin/volunteers", desc: "Manage volunteering content shown on the site." },
     { title: "Partners & Funders", to: "/admin/partners", desc: "Update partner/funder logos and ordering." },
   ];

@@ -23,6 +23,7 @@ import AdminProcessStepsPage from "./components/pages/Admin/sections/AdminProces
 import SupportWaysAdminPage from "./components/pages/Admin/sections/SupportWays"
 import AdminAudiencesPage from "./components/pages/Admin/sections/AdminAudiencesPage"
 import AdminCallToActionPage from "./components/pages/Admin/sections/AdminCallToActionPage"
+import AdminMissionVisionPage from "./components/pages/Admin/sections/AdminMissionVisionPage"
 
 
 const routes: RouteObject[] = [
@@ -61,6 +62,7 @@ const routes: RouteObject[] = [
       { path: "support-ways", element: <SupportWaysAdminPage /> },
       { path: "audiences", element: <AdminAudiencesPage /> },
       { path: "call-to-action", element: <AdminCallToActionPage /> },
+      { path: "mission-vision", element: <AdminMissionVisionPage /> },
     ],
   },
 ];
