@@ -1605,6 +1605,89 @@ app.get("/api/process-steps", async (_req, res) => {
 });
 
 /* =========================
+   ADMIN: PROCESS STEPS
+========================= */
+app.get("/api/admin/process-steps", async (_req, res) => {
+  try {
+    const steps = await db("process_steps")
+      .select("*")
+      .orderBy("sort_order", "asc");
+    res.json(steps);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch process steps" });
+  }
+});
+
+app.post("/api/admin/process-steps", async (req, res) => {
+  const { step_number, title, description, sort_order } = req.body;
+
+  if (!step_number || !title || !description) {
+    return res.status(400).json({
+      error: "step_number, title, description are required",
+    });
+  }
+
+  try {
+    const [id] = await db("process_steps").insert({
+      step_number: Number(step_number),
+      title,
+      description,
+      sort_order: Number(sort_order) || 0,
+    });
+    const created = await db("process_steps").where({ id }).first();
+    res.status(201).json(created);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to create process step" });
+  }
+});
+
+app.patch("/api/admin/process-steps/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  const { step_number, title, description, sort_order } = req.body;
+
+  if (!step_number || !title || !description) {
+    return res.status(400).json({
+      error: "step_number, title, description are required",
+    });
+  }
+
+  try {
+    const updated = await db("process_steps")
+      .where({ id })
+      .update({
+        step_number: Number(step_number),
+        title,
+        description,
+        sort_order: Number(sort_order) || 0,
+      });
+    if (!updated) return res.status(404).json({ error: "Not found" });
+    const row = await db("process_steps").where({ id }).first();
+    res.json(row);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update process step" });
+  }
+});
+
+app.delete("/api/admin/process-steps/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  try {
+    const deleted = await db("process_steps").where({ id }).del();
+    if (!deleted) return res.status(404).json({ error: "Not found" });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete process step" });
+  }
+});
+
+/* =========================
    VOLUNTEER OPPORTUNITIES ROUTES
 ========================= */
 

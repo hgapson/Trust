@@ -39,6 +39,7 @@ const items: AdminNavItem[] = [
   { label: "Volunteer Opportunities", to: "/admin/volunteers", icon: HandHeart },
   { label: "Partners & Funders", to: "/admin/partners", icon: Handshake },
   { label: "Services", to: "/admin/services", icon: Layers },
+  { label: "Approach Steps", to: "/admin/approach-steps", icon: Layers },
   { label: "Process Steps", to: "/admin/process-steps", icon: ListChecks },
 
   // contact tables (later)
