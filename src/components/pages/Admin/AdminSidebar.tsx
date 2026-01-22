@@ -11,6 +11,7 @@ import {
   Mail,
   Globe,
   Shield,
+  Quote,
 } from "lucide-react";
 
 type AdminNavItem = {
@@ -30,6 +31,7 @@ const items: AdminNavItem[] = [
   { label: "Call To Action", to: "/admin/call-to-action", icon: Mail },
   { label: "Mission & Vision", to: "/admin/mission-vision", icon: Layers },
   { label: "Core Values", to: "/admin/values", icon: Shield },
+  { label: "Testimonials", to: "/admin/community-stories", icon: Quote },
   // content tables you already have / are building
   { label: "Team", to: "/admin/team", icon: Users },
   { label: "Volunteer Opportunities", to: "/admin/volunteers", icon: HandHeart },

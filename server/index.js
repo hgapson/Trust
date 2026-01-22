@@ -578,6 +578,87 @@ app.get("/api/community-stories", async (req, res) => {
 });
 
 /* ======================
+   ADMIN: COMMUNITY STORIES
+====================== */
+app.get("/api/admin/community-stories", async (_req, res) => {
+  try {
+    const rows = await db("community_stories")
+      .select("*")
+      .orderBy("sort_order", "asc");
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch community stories" });
+  }
+});
+
+app.post("/api/admin/community-stories", async (req, res) => {
+  const { quote, author, sort_order } = req.body;
+
+  if (!quote || !author) {
+    return res.status(400).json({
+      error: "quote and author are required",
+    });
+  }
+
+  try {
+    const [id] = await db("community_stories").insert({
+      quote,
+      author,
+      sort_order: Number(sort_order) || 0,
+    });
+    const created = await db("community_stories").where({ id }).first();
+    res.status(201).json(created);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to create community story" });
+  }
+});
+
+app.patch("/api/admin/community-stories/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  const { quote, author, sort_order } = req.body;
+
+  if (!quote || !author) {
+    return res.status(400).json({
+      error: "quote and author are required",
+    });
+  }
+
+  try {
+    const updated = await db("community_stories")
+      .where({ id })
+      .update({
+        quote,
+        author,
+        sort_order: Number(sort_order) || 0,
+      });
+    if (!updated) return res.status(404).json({ error: "Not found" });
+    const row = await db("community_stories").where({ id }).first();
+    res.json(row);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update community story" });
+  }
+});
+
+app.delete("/api/admin/community-stories/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  try {
+    const deleted = await db("community_stories").where({ id }).del();
+    if (!deleted) return res.status(404).json({ error: "Not found" });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete community story" });
+  }
+});
+
+/* ======================
    CALL TO ACTION ROUTES
 ====================== */
 app.get("/api/call-to-action", async (_req, res) => {

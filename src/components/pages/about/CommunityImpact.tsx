@@ -2,13 +2,21 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { Quote } from "lucide-react";
 import { ChevronDown, Mail, Phone } from "lucide-react";
-import { ImageWithFallback } from "../../FallBacks/ImageWithFallback";
 import { Card, CardContent } from "../../ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { Button } from "../../ui/button";
 import { useContactMethodLinks } from "../contact/contactMethods";
 import type { CommunityStory } from "../home/types";
 import { CommunityStoriesApi } from "../home/api/communityStories";
+
+function initialsFromName(name: string) {
+  return name
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
 
 export function CommunityImpact() {
   const [stories, setStories] = useState<CommunityStory[]>([]);
@@ -74,16 +82,11 @@ export function CommunityImpact() {
                         “{story.quote}”
                       </p>
                       <div className="flex items-center gap-3 border-t border-gray-100 pt-4">
-                        <div className="h-12 w-12 overflow-hidden rounded-full bg-gray-200">
-                          <ImageWithFallback
-                            src={story.image_url}
-                            alt={story.author}
-                            className="h-full w-full object-cover"
-                          />
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-sm font-semibold text-white">
+                          {initialsFromName(story.author)}
                         </div>
                         <div>
                           <div className="text-gray-800">{story.author}</div>
-                          <div className="text-sm text-gray-500">{story.role}</div>
                         </div>
                       </div>
                     </CardContent>

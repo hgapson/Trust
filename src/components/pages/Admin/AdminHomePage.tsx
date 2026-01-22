@@ -8,6 +8,7 @@ export default function AdminHomePage() {
     { title: "Call To Action", to: "/admin/call-to-action", desc: "Update the CTA block shown on the home page." },
     { title: "Mission & Vision", to: "/admin/mission-vision", desc: "Update the mission and vision section on the About page." },
     { title: "Core Values", to: "/admin/values", desc: "Manage the core values cards on the About page." },
+    { title: "Testimonials", to: "/admin/community-stories", desc: "Manage community impact stories (testimonials)." },
     { title: "Volunteer Opportunities", to: "/admin/volunteers", desc: "Manage volunteering content shown on the site." },
     { title: "Partners & Funders", to: "/admin/partners", desc: "Update partner/funder logos and ordering." },
   ];

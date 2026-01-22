@@ -25,6 +25,7 @@ import AdminAudiencesPage from "./components/pages/Admin/sections/AdminAudiences
 import AdminCallToActionPage from "./components/pages/Admin/sections/AdminCallToActionPage"
 import AdminMissionVisionPage from "./components/pages/Admin/sections/AdminMissionVisionPage"
 import AdminValuesPage from "./components/pages/Admin/sections/AdminValuesPage"
+import AdminCommunityStoriesPage from "./components/pages/Admin/sections/AdminCommunityStoriesPage"
 
 
 const routes: RouteObject[] = [
@@ -65,6 +66,7 @@ const routes: RouteObject[] = [
       { path: "call-to-action", element: <AdminCallToActionPage /> },
       { path: "mission-vision", element: <AdminMissionVisionPage /> },
       { path: "values", element: <AdminValuesPage /> },
+      { path: "community-stories", element: <AdminCommunityStoriesPage /> },
     ],
   },
 ];
