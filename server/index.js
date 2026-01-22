@@ -179,6 +179,160 @@ app.get("/api/services", async (_req, res) => {
 });
 
 /* ======================
+   ADMIN: HOW WE HELP (SERVICES)
+====================== */
+app.get("/api/admin/services", async (_req, res) => {
+  try {
+    const services = await db("services").select("*").orderBy("sort_order", "asc");
+    const features = await db("service_features")
+      .select("*")
+      .orderBy("sort_order", "asc");
+    const steps = await db("service_steps").select("*").orderBy("sort_order", "asc");
+
+    const grouped = services.map((service) => ({
+      ...service,
+      features: features
+        .filter((f) => f.service_id === service.id)
+        .map((f) => f.feature),
+      modalSteps: steps
+        .filter((s) => s.service_id === service.id)
+        .map((s) => s.step),
+    }));
+
+    res.json(grouped);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch services" });
+  }
+});
+
+app.post("/api/admin/services", async (req, res) => {
+  const { title, description, icon, color, bgColor, modalDetails, sort_order, features, modalSteps } = req.body;
+
+  if (!title || !description || !icon || !color || !bgColor) {
+    return res.status(400).json({
+      error: "title, description, icon, color, bgColor are required",
+    });
+  }
+
+  try {
+    const [id] = await db("services").insert({
+      title,
+      description,
+      icon,
+      color,
+      bgColor,
+      modalDetails: modalDetails || null,
+      sort_order: Number(sort_order) || 0,
+    });
+
+    const featureRows = Array.isArray(features) ? features : [];
+    const stepRows = Array.isArray(modalSteps) ? modalSteps : [];
+
+    if (featureRows.length) {
+      await db("service_features").insert(
+        featureRows.map((feature, index) => ({
+          service_id: id,
+          feature,
+          sort_order: index,
+        })),
+      );
+    }
+
+    if (stepRows.length) {
+      await db("service_steps").insert(
+        stepRows.map((step, index) => ({
+          service_id: id,
+          step,
+          sort_order: index,
+        })),
+      );
+    }
+
+    const created = await db("services").where({ id }).first();
+    res.status(201).json(created);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to create service" });
+  }
+});
+
+app.patch("/api/admin/services/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  const { title, description, icon, color, bgColor, modalDetails, sort_order, features, modalSteps } = req.body;
+
+  if (!title || !description || !icon || !color || !bgColor) {
+    return res.status(400).json({
+      error: "title, description, icon, color, bgColor are required",
+    });
+  }
+
+  try {
+    const updated = await db("services")
+      .where({ id })
+      .update({
+        title,
+        description,
+        icon,
+        color,
+        bgColor,
+        modalDetails: modalDetails || null,
+        sort_order: Number(sort_order) || 0,
+      });
+
+    if (!updated) return res.status(404).json({ error: "Not found" });
+
+    const featureRows = Array.isArray(features) ? features : [];
+    const stepRows = Array.isArray(modalSteps) ? modalSteps : [];
+
+    await db("service_features").where({ service_id: id }).del();
+    await db("service_steps").where({ service_id: id }).del();
+
+    if (featureRows.length) {
+      await db("service_features").insert(
+        featureRows.map((feature, index) => ({
+          service_id: id,
+          feature,
+          sort_order: index,
+        })),
+      );
+    }
+
+    if (stepRows.length) {
+      await db("service_steps").insert(
+        stepRows.map((step, index) => ({
+          service_id: id,
+          step,
+          sort_order: index,
+        })),
+      );
+    }
+
+    const row = await db("services").where({ id }).first();
+    res.json(row);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update service" });
+  }
+});
+
+app.delete("/api/admin/services/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  try {
+    const deleted = await db("services").where({ id }).del();
+    if (!deleted) return res.status(404).json({ error: "Not found" });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete service" });
+  }
+});
+
+/* ======================
    DETAILED SERVICES ROUTES
 ====================== */
 app.get("/api/detailed-services", async (_req, res) => {
