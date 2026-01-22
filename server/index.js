@@ -61,6 +61,93 @@ app.get("/api/audiences", async (_req, res) => {
 });
 
 /* ======================
+   ADMIN: WHO WE SERVE
+====================== */
+app.get("/api/admin/audiences", async (_req, res) => {
+  try {
+    const audiences = await db("audiences")
+      .select("*")
+      .orderBy("sort_order", "asc");
+    res.json(audiences);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch audiences" });
+  }
+});
+
+app.post("/api/admin/audiences", async (req, res) => {
+  const { title, description, icon, color, bgColor, sort_order } = req.body;
+
+  if (!title || !description || !icon || !color || !bgColor) {
+    return res.status(400).json({
+      error: "title, description, icon, color, bgColor are required",
+    });
+  }
+
+  try {
+    const [id] = await db("audiences").insert({
+      title,
+      description,
+      icon,
+      color,
+      bgColor,
+      sort_order: Number(sort_order) || 0,
+    });
+    const created = await db("audiences").where({ id }).first();
+    res.status(201).json(created);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to create audience" });
+  }
+});
+
+app.patch("/api/admin/audiences/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  const { title, description, icon, color, bgColor, sort_order } = req.body;
+
+  if (!title || !description || !icon || !color || !bgColor) {
+    return res.status(400).json({
+      error: "title, description, icon, color, bgColor are required",
+    });
+  }
+
+  try {
+    const updated = await db("audiences")
+      .where({ id })
+      .update({
+        title,
+        description,
+        icon,
+        color,
+        bgColor,
+        sort_order: Number(sort_order) || 0,
+      });
+    if (!updated) return res.status(404).json({ error: "Not found" });
+    const row = await db("audiences").where({ id }).first();
+    res.json(row);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update audience" });
+  }
+});
+
+app.delete("/api/admin/audiences/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  try {
+    const deleted = await db("audiences").where({ id }).del();
+    if (!deleted) return res.status(404).json({ error: "Not found" });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete audience" });
+  }
+});
+
+/* ======================
    HOW WE HELP ROUTES
 ====================== */
 

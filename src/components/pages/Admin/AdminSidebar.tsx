@@ -9,6 +9,7 @@ import {
   Layers,
   ListChecks,
   Mail,
+  Globe,
 } from "lucide-react";
 
 type AdminNavItem = {
@@ -24,6 +25,7 @@ const items: AdminNavItem[] = [
   { label: "Workshops", to: "/admin/workshops", icon: CalendarDays },
   { label: "Registrations", to: "/admin/workshop-registrations", icon: ClipboardList },
    { label: "Support Ways", to: "/admin/support-ways", icon: HandHeart },
+  { label: "Who We Serve", to: "/admin/audiences", icon: Globe },
   // content tables you already have / are building
   { label: "Team", to: "/admin/team", icon: Users },
   { label: "Volunteer Opportunities", to: "/admin/volunteers", icon: HandHeart },

@@ -21,6 +21,7 @@ import AdminPartnersPage from "./components/pages/Admin/sections/AdminPartnersPa
 import AdminServicesPage from "./components/pages/Admin/sections/AdminServicesPage";
 import AdminProcessStepsPage from "./components/pages/Admin/sections/AdminProcessStepsPage";
 import SupportWaysAdminPage from "./components/pages/Admin/sections/SupportWays"
+import AdminAudiencesPage from "./components/pages/Admin/sections/AdminAudiencesPage"
 
 
 const routes: RouteObject[] = [
@@ -57,6 +58,7 @@ const routes: RouteObject[] = [
       { path: "services", element: <AdminServicesPage /> },
       { path: "process-steps", element: <AdminProcessStepsPage /> },
       { path: "support-ways", element: <SupportWaysAdminPage /> },
+      { path: "audiences", element: <AdminAudiencesPage /> },
     ],
   },
 ];
