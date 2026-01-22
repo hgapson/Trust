@@ -24,7 +24,7 @@ exports.seed = async function (knex) {
       name: "Leeya",
       role: "Office Administrator",
       description:
-        "Certified office administrator with expertise in cross-cultural communication",
+        "Certified office administrator with expertise in cross-cultural communication and client relations",
       image_url: "/team/leeya.jpg",
       team_type: "staff",
       sort_order: 3,
