@@ -32,6 +32,7 @@ import AdminProcessTimelinePage from "./components/pages/Admin/sections/AdminPro
 import AdminJobsPage from "./components/pages/Admin/sections/AdminJobsPage"
 import AdminContactMethodsPage from "./components/pages/Admin/sections/AdminContactMethodsPage"
 import AdminOfficeInfoPage from "./components/pages/Admin/sections/AdminOfficeInfoPage"
+import AdminSupportedLanguagesPage from "./components/pages/Admin/sections/AdminSupportedLanguagesPage"
 
 
 const routes: RouteObject[] = [
@@ -79,6 +80,7 @@ const routes: RouteObject[] = [
       { path: "additional-services", element: <AdminAdditionalServicesPage /> },
       { path: "contact-methods", element: <AdminContactMethodsPage /> },
       { path: "office-info", element: <AdminOfficeInfoPage /> },
+      { path: "supported-languages", element: <AdminSupportedLanguagesPage /> },
     ],
   },
 ];

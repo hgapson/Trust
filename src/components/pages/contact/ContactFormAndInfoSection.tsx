@@ -14,15 +14,13 @@ import { Input } from "../../ui/input";
 import { Label } from "../../ui/label";
 import { Textarea } from "../../ui/textarea";
 import { ImageWithFallback } from "../../FallBacks/ImageWithFallback";
-import { Globe } from "lucide-react";
 import { OfficeInfoList } from "./OfficeInfoList";
+import { SupportedLanguagesCard } from "./SupportedLanguagesCard";
 
 interface ContactFormAndInfoSectionProps {
-  languages: string[];
 }
 
 export function ContactFormAndInfoSection({
-  languages,
 }: ContactFormAndInfoSectionProps) {
   const location = useLocation();
   const inquiryContext = useMemo(() => {
@@ -143,26 +141,7 @@ export function ContactFormAndInfoSection({
         >
           <OfficeInfoList />
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Globe className="h-5 w-5" />
-                Languages We Support
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-3 gap-2">
-                {languages.map((language) => (
-                  <div
-                    key={language}
-                    className="rounded-full bg-blue-50 px-3 py-1 text-center text-sm text-blue-700"
-                  >
-                    {language}
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <SupportedLanguagesCard />
 
           <div className="overflow-hidden rounded-lg shadow-lg">
             <ImageWithFallback

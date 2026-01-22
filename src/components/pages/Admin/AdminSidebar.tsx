@@ -47,6 +47,7 @@ const items: AdminNavItem[] = [
   // contact tables (later)
   { label: "Contact Methods", to: "/admin/contact-methods", icon: Mail },
   { label: "Office Info", to: "/admin/office-info", icon: Globe },
+  { label: "Supported Languages", to: "/admin/supported-languages", icon: Globe },
 ];
 
 export function AdminSidebar() {

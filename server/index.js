@@ -1547,6 +1547,100 @@ app.get("/api/office-info", async (_req, res) => {
 })
 
 /* =========================
+   SUPPORTED LANGUAGES ROUTES
+========================= */
+app.get("/api/supported-languages", async (_req, res) => {
+  try {
+    const rows = await db("supported_languages")
+      .select("*")
+      .orderBy("sort_order", "asc")
+
+    res.json(rows)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to fetch supported languages" })
+  }
+})
+
+/* =========================
+   ADMIN: SUPPORTED LANGUAGES
+========================= */
+app.get("/api/admin/supported-languages", async (_req, res) => {
+  try {
+    const rows = await db("supported_languages")
+      .select("*")
+      .orderBy("sort_order", "asc")
+
+    res.json(rows)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to fetch supported languages" })
+  }
+})
+
+app.post("/api/admin/supported-languages", async (req, res) => {
+  const { name, sort_order } = req.body
+
+  if (!name) {
+    return res.status(400).json({ error: "name is required" })
+  }
+
+  try {
+    const [id] = await db("supported_languages").insert({
+      name,
+      sort_order: Number(sort_order) || 0,
+    })
+
+    const created = await db("supported_languages").where({ id }).first()
+    res.status(201).json(created)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to create supported language" })
+  }
+})
+
+app.patch("/api/admin/supported-languages/:id", async (req, res) => {
+  const id = Number(req.params.id)
+  if (!id) return res.status(400).json({ error: "Invalid id" })
+
+  const { name, sort_order } = req.body
+
+  if (!name) {
+    return res.status(400).json({ error: "name is required" })
+  }
+
+  try {
+    const updated = await db("supported_languages")
+      .where({ id })
+      .update({
+        name,
+        sort_order: Number(sort_order) || 0,
+      })
+    if (!updated) return res.status(404).json({ error: "Not found" })
+
+    const row = await db("supported_languages").where({ id }).first()
+    res.json(row)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to update supported language" })
+  }
+})
+
+app.delete("/api/admin/supported-languages/:id", async (req, res) => {
+  const id = Number(req.params.id)
+  if (!id) return res.status(400).json({ error: "Invalid id" })
+
+  try {
+    const deleted = await db("supported_languages").where({ id }).del()
+    if (!deleted) return res.status(404).json({ error: "Not found" })
+    res.json({ ok: true })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to delete supported language" })
+  }
+})
+
+/* =========================
    ADMIN: OFFICE INFO
 ========================= */
 app.get("/api/admin/office-info", async (_req, res) => {

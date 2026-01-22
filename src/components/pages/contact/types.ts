@@ -42,3 +42,10 @@ export interface FaqItem {
   question: string
   answer: string
 }
+
+export interface SupportedLanguageRow {
+  id: number
+  name: string
+  sort_order?: number
+  created_at?: string
+}

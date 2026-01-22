@@ -18,6 +18,7 @@ export default function AdminHomePage() {
     { title: "Partners & Funders", to: "/admin/partners", desc: "Update partner/funder logos and ordering." },
     { title: "Contact Methods", to: "/admin/contact-methods", desc: "Manage the Get in Touch contact cards." },
     { title: "Office Info", to: "/admin/office-info", desc: "Manage the Visit Our Office info list." },
+    { title: "Supported Languages", to: "/admin/supported-languages", desc: "Manage the languages shown on the Contact page." },
   ];
 
   return (

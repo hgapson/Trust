@@ -10,11 +10,7 @@ import {
   FaqSection,
 } from "./contact";
 
-import {
-  emergencyContact,
-  faqs,
-  supportedLanguages,
-} from "./contact/data";
+import { emergencyContact, faqs } from "./contact/data";
 
 export function ContactPage() {
   const { hash } = useLocation();
@@ -42,9 +38,7 @@ export function ContactPage() {
       <ContactHero />
       <div className="container mx-auto max-w-screen-xl px-4">
         <ContactMethodsSection />
-        <ContactFormAndInfoSection
-          languages={supportedLanguages}
-        />
+        <ContactFormAndInfoSection />
         <FaqSection faqs={faqs} />
         {/* <EmergencyContactSection {...emergencyContact} /> */}
         <ContactCtaSection />
