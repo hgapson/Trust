@@ -82,7 +82,7 @@ export function JobsListSection({
           </Card>
         ) : (
           <div className="mx-auto max-w-6xl">
-            <div className="grid gap-10 md:grid-cols-2">
+            <div className="grid gap-12 md:grid-cols-2">
               {filteredJobs.map((job, index) => (
                 <motion.div
                   key={job.id}
