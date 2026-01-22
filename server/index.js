@@ -591,6 +591,103 @@ app.get("/api/call-to-action", async (_req, res) => {
 });
 
 /* ======================
+   ADMIN: CALL TO ACTION
+====================== */
+app.get("/api/admin/call-to-action", async (_req, res) => {
+  try {
+    const cta = await db("call_to_action").select("*").first();
+    res.json(cta);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch call to action" });
+  }
+});
+
+app.patch("/api/admin/call-to-action", async (req, res) => {
+  const {
+    heading,
+    description,
+    phone,
+    email,
+    location,
+    availability,
+    image_url,
+    card_title,
+    card_description,
+    cta_label,
+  } = req.body;
+
+  if (
+    !heading ||
+    !description ||
+    !phone ||
+    !email ||
+    !location ||
+    !availability ||
+    !image_url ||
+    !card_title ||
+    !card_description ||
+    !cta_label
+  ) {
+    return res.status(400).json({
+      error:
+        "heading, description, phone, email, location, availability, image_url, card_title, card_description, cta_label are required",
+    });
+  }
+
+  try {
+    const existing = await db("call_to_action").select("id").first();
+
+    if (existing?.id) {
+      await db("call_to_action")
+        .where({ id: existing.id })
+        .update({
+          heading,
+          description,
+          phone,
+          email,
+          location,
+          availability,
+          image_url,
+          card_title,
+          card_description,
+          cta_label,
+        });
+      const updated = await db("call_to_action").where({ id: existing.id }).first();
+      return res.json(updated);
+    }
+
+    const [id] = await db("call_to_action").insert({
+      heading,
+      description,
+      phone,
+      email,
+      location,
+      availability,
+      image_url,
+      card_title,
+      card_description,
+      cta_label,
+    });
+    const created = await db("call_to_action").where({ id }).first();
+    res.status(201).json(created);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update call to action" });
+  }
+});
+
+app.delete("/api/admin/call-to-action", async (_req, res) => {
+  try {
+    await db("call_to_action").del();
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete call to action" });
+  }
+});
+
+/* ======================
    MISSION & VISION ROUTES
 ====================== */
 app.get("/api/mission-vision", async (_req, res) => {
