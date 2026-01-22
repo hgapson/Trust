@@ -19,6 +19,7 @@ export default function AdminHomePage() {
     { title: "Contact Methods", to: "/admin/contact-methods", desc: "Manage the Get in Touch contact cards." },
     { title: "Office Info", to: "/admin/office-info", desc: "Manage the Visit Our Office info list." },
     { title: "Supported Languages", to: "/admin/supported-languages", desc: "Manage the languages shown on the Contact page." },
+    { title: "FAQs", to: "/admin/faqs", desc: "Manage the Frequently Asked Questions section." },
   ];
 
   return (

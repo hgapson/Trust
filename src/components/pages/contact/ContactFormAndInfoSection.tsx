@@ -13,7 +13,6 @@ import {
 import { Input } from "../../ui/input";
 import { Label } from "../../ui/label";
 import { Textarea } from "../../ui/textarea";
-import { ImageWithFallback } from "../../FallBacks/ImageWithFallback";
 import { OfficeInfoList } from "./OfficeInfoList";
 import { SupportedLanguagesCard } from "./SupportedLanguagesCard";
 
@@ -144,10 +143,12 @@ export function ContactFormAndInfoSection({
           <SupportedLanguagesCard />
 
           <div className="overflow-hidden rounded-lg shadow-lg">
-            <ImageWithFallback
-              src="https://images.unsplash.com/photo-1587400873582-230980eb46eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb250YWN0JTIwb2ZmaWNlJTIwbG9jYXRpb24lMjBtYXB8ZW58MXx8fHwxNzU4NTQ2OTgwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-              alt="Navigate Trust office location"
-              className="h-64 w-full object-cover"
+            <iframe
+              title="Navigate Trust office location"
+              className="h-64 w-full border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=46G%20Boundary%20Road%2C%20Claudelands%2C%20Hamilton%203200%2C%20New%20Zealand&z=16&output=embed"
             />
           </div>
         </motion.div>

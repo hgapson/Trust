@@ -10,7 +10,7 @@ import {
   FaqSection,
 } from "./contact";
 
-import { emergencyContact, faqs } from "./contact/data";
+import { emergencyContact } from "./contact/data";
 
 export function ContactPage() {
   const { hash } = useLocation();
@@ -39,7 +39,7 @@ export function ContactPage() {
       <div className="container mx-auto max-w-screen-xl px-4">
         <ContactMethodsSection />
         <ContactFormAndInfoSection />
-        <FaqSection faqs={faqs} />
+        <FaqSection />
         {/* <EmergencyContactSection {...emergencyContact} /> */}
         <ContactCtaSection />
       </div>

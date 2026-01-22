@@ -1563,6 +1563,96 @@ app.get("/api/supported-languages", async (_req, res) => {
 })
 
 /* =========================
+   FAQ ROUTES
+========================= */
+app.get("/api/faqs", async (_req, res) => {
+  try {
+    const rows = await db("faqs").select("*").orderBy("sort_order", "asc")
+    res.json(rows)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to fetch faqs" })
+  }
+})
+
+/* =========================
+   ADMIN: FAQS
+========================= */
+app.get("/api/admin/faqs", async (_req, res) => {
+  try {
+    const rows = await db("faqs").select("*").orderBy("sort_order", "asc")
+    res.json(rows)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to fetch faqs" })
+  }
+})
+
+app.post("/api/admin/faqs", async (req, res) => {
+  const { question, answer, sort_order } = req.body
+
+  if (!question || !answer) {
+    return res.status(400).json({ error: "question and answer are required" })
+  }
+
+  try {
+    const [id] = await db("faqs").insert({
+      question,
+      answer,
+      sort_order: Number(sort_order) || 0,
+    })
+
+    const created = await db("faqs").where({ id }).first()
+    res.status(201).json(created)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to create faq" })
+  }
+})
+
+app.patch("/api/admin/faqs/:id", async (req, res) => {
+  const id = Number(req.params.id)
+  if (!id) return res.status(400).json({ error: "Invalid id" })
+
+  const { question, answer, sort_order } = req.body
+
+  if (!question || !answer) {
+    return res.status(400).json({ error: "question and answer are required" })
+  }
+
+  try {
+    const updated = await db("faqs")
+      .where({ id })
+      .update({
+        question,
+        answer,
+        sort_order: Number(sort_order) || 0,
+      })
+    if (!updated) return res.status(404).json({ error: "Not found" })
+
+    const row = await db("faqs").where({ id }).first()
+    res.json(row)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to update faq" })
+  }
+})
+
+app.delete("/api/admin/faqs/:id", async (req, res) => {
+  const id = Number(req.params.id)
+  if (!id) return res.status(400).json({ error: "Invalid id" })
+
+  try {
+    const deleted = await db("faqs").where({ id }).del()
+    if (!deleted) return res.status(404).json({ error: "Not found" })
+    res.json({ ok: true })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Failed to delete faq" })
+  }
+})
+
+/* =========================
    ADMIN: SUPPORTED LANGUAGES
 ========================= */
 app.get("/api/admin/supported-languages", async (_req, res) => {

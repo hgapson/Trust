@@ -6,11 +6,8 @@ import { Button } from "../../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import { useContactMethodLinks } from "./contactMethods";
+import { useFaqs } from "./faqs";
 import type { FaqItem } from "./types";
-
-interface FaqSectionProps {
-  faqs: FaqItem[];
-}
 
 function FaqCard({
   faq,
@@ -78,9 +75,11 @@ function FaqCard({
   );
 }
 
-export function FaqSection({ faqs }: FaqSectionProps) {
+export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const { phoneHref, emailHref } = useContactMethodLinks();
+  const { rows } = useFaqs();
+  const faqs: FaqItem[] = rows;
 
   const { left, right } = useMemo(() => {
     const left: Array<{ item: FaqItem; index: number }> = [];

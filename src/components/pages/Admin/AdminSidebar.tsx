@@ -11,6 +11,7 @@ import {
   ListChecks,
   Mail,
   Globe,
+  HelpCircle,
   Shield,
   Quote,
 } from "lucide-react";
@@ -48,6 +49,7 @@ const items: AdminNavItem[] = [
   { label: "Contact Methods", to: "/admin/contact-methods", icon: Mail },
   { label: "Office Info", to: "/admin/office-info", icon: Globe },
   { label: "Supported Languages", to: "/admin/supported-languages", icon: Globe },
+  { label: "FAQs", to: "/admin/faqs", icon: HelpCircle },
 ];
 
 export function AdminSidebar() {

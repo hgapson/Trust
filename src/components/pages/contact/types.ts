@@ -43,6 +43,14 @@ export interface FaqItem {
   answer: string
 }
 
+export interface FaqRow {
+  id: number
+  question: string
+  answer: string
+  sort_order?: number
+  created_at?: string
+}
+
 export interface SupportedLanguageRow {
   id: number
   name: string

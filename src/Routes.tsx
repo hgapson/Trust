@@ -33,6 +33,7 @@ import AdminJobsPage from "./components/pages/Admin/sections/AdminJobsPage"
 import AdminContactMethodsPage from "./components/pages/Admin/sections/AdminContactMethodsPage"
 import AdminOfficeInfoPage from "./components/pages/Admin/sections/AdminOfficeInfoPage"
 import AdminSupportedLanguagesPage from "./components/pages/Admin/sections/AdminSupportedLanguagesPage"
+import AdminFaqsPage from "./components/pages/Admin/sections/AdminFaqsPage"
 
 
 const routes: RouteObject[] = [
@@ -81,6 +82,7 @@ const routes: RouteObject[] = [
       { path: "contact-methods", element: <AdminContactMethodsPage /> },
       { path: "office-info", element: <AdminOfficeInfoPage /> },
       { path: "supported-languages", element: <AdminSupportedLanguagesPage /> },
+      { path: "faqs", element: <AdminFaqsPage /> },
     ],
   },
 ];
