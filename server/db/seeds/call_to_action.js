@@ -7,7 +7,7 @@ exports.seed = async function (knex) {
       description:
         "Take the first step towards your career success. Our team is here to support you every step of the way.",
       phone: "+64 223146756",
-      email: "waikato.navtrust@outlook.com",
+      email: "office@wnt.org.nz",
       location: "Hamilton, Waikato, New Zealand",
       availability: "Mon–Fri 9:00 AM – 5:00 PM",
       image_url:

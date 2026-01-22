@@ -13,7 +13,7 @@ module.exports.seed = async function (knex) {
     {
       icon_key: "Mail",
       title: "Email",
-      details: "waikato.navtrust@outlook.com",
+      details: "office@wnt.org.nz",
       description: "We respond within 24 hours",
       action_label: "Send Email",
       sort_order: 2,
