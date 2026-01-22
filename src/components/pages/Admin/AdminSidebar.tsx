@@ -3,6 +3,7 @@ import {
   LayoutDashboard,
   CalendarDays,
   ClipboardList,
+  Briefcase,
   Users,
   HandHeart,
   Handshake,
@@ -26,6 +27,7 @@ const items: AdminNavItem[] = [
   // workshops
   { label: "Workshops", to: "/admin/workshops", icon: CalendarDays },
   { label: "Registrations", to: "/admin/workshop-registrations", icon: ClipboardList },
+  { label: "Jobs", to: "/admin/jobs", icon: Briefcase },
   { label: "Support Ways", to: "/admin/support-ways", icon: HandHeart },
   { label: "Who We Serve", to: "/admin/audiences", icon: Globe },
   { label: "Call To Action", to: "/admin/call-to-action", icon: Mail },

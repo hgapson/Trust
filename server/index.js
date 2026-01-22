@@ -45,6 +45,72 @@ app.post("/api/jobs", async (req, res) => {
 });
 
 /* ======================
+   ADMIN: JOBS
+====================== */
+app.get("/api/admin/jobs", async (_req, res) => {
+  try {
+    const jobs = await db("jobs").select("*").orderBy("created_at", "desc");
+    res.json(jobs);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch jobs" });
+  }
+});
+
+app.post("/api/admin/jobs", async (req, res) => {
+  const { title, company, description } = req.body;
+
+  if (!title || !company) {
+    return res.status(400).json({ error: "title and company required" });
+  }
+
+  try {
+    const [id] = await db("jobs").insert({ title, company, description });
+    const job = await db("jobs").where({ id }).first();
+    res.status(201).json(job);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to create job" });
+  }
+});
+
+app.patch("/api/admin/jobs/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  const { title, company, description } = req.body;
+  if (!title || !company) {
+    return res.status(400).json({ error: "title and company required" });
+  }
+
+  try {
+    const updated = await db("jobs")
+      .where({ id })
+      .update({ title, company, description });
+    if (!updated) return res.status(404).json({ error: "Not found" });
+    const job = await db("jobs").where({ id }).first();
+    res.json(job);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update job" });
+  }
+});
+
+app.delete("/api/admin/jobs/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  try {
+    const deleted = await db("jobs").where({ id }).del();
+    if (!deleted) return res.status(404).json({ error: "Not found" });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete job" });
+  }
+});
+
+/* ======================
    WHO WE SERVE ROUTES
 ====================== */
 app.get("/api/audiences", async (_req, res) => {

@@ -29,6 +29,7 @@ import AdminCommunityStoriesPage from "./components/pages/Admin/sections/AdminCo
 import AdminDetailedServicesPage from "./components/pages/Admin/sections/AdminDetailedServicesPage"
 import AdminAdditionalServicesPage from "./components/pages/Admin/sections/AdminAdditionalServicesPage"
 import AdminProcessTimelinePage from "./components/pages/Admin/sections/AdminProcessTimelinePage"
+import AdminJobsPage from "./components/pages/Admin/sections/AdminJobsPage"
 
 
 const routes: RouteObject[] = [
@@ -67,6 +68,7 @@ const routes: RouteObject[] = [
       { path: "process-steps", element: <AdminProcessTimelinePage /> },
       { path: "support-ways", element: <SupportWaysAdminPage /> },
       { path: "audiences", element: <AdminAudiencesPage /> },
+      { path: "jobs", element: <AdminJobsPage /> },
       { path: "call-to-action", element: <AdminCallToActionPage /> },
       { path: "mission-vision", element: <AdminMissionVisionPage /> },
       { path: "values", element: <AdminValuesPage /> },
