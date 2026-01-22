@@ -807,6 +807,119 @@ app.get("/api/funders", async (_req, res) => {
 });
 
 /* =========================
+   ADMIN: PARTNERS & FUNDERS
+========================= */
+app.get("/api/admin/partners", async (_req, res) => {
+  try {
+    const rows = await db("partners").select("*").orderBy("sort_order", "asc");
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch partners" });
+  }
+});
+
+app.post("/api/admin/partners", async (req, res) => {
+  const {
+    type,
+    name,
+    logo_url,
+    website_url,
+    focus,
+    description,
+    location,
+    contribution,
+    sort_order,
+  } = req.body;
+
+  if (!type || !name || !focus || !description || !location || !contribution) {
+    return res.status(400).json({
+      error:
+        "type, name, focus, description, location, contribution are required",
+    });
+  }
+
+  try {
+    const [id] = await db("partners").insert({
+      type,
+      name,
+      logo_url: logo_url || null,
+      website_url: website_url || null,
+      focus,
+      description,
+      location,
+      contribution,
+      sort_order: Number(sort_order) || 0,
+    });
+    const created = await db("partners").where({ id }).first();
+    res.status(201).json(created);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to create partner" });
+  }
+});
+
+app.patch("/api/admin/partners/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  const {
+    type,
+    name,
+    logo_url,
+    website_url,
+    focus,
+    description,
+    location,
+    contribution,
+    sort_order,
+  } = req.body;
+
+  if (!type || !name || !focus || !description || !location || !contribution) {
+    return res.status(400).json({
+      error:
+        "type, name, focus, description, location, contribution are required",
+    });
+  }
+
+  try {
+    const updated = await db("partners")
+      .where({ id })
+      .update({
+        type,
+        name,
+        logo_url: logo_url || null,
+        website_url: website_url || null,
+        focus,
+        description,
+        location,
+        contribution,
+        sort_order: Number(sort_order) || 0,
+      });
+    if (!updated) return res.status(404).json({ error: "Not found" });
+    const row = await db("partners").where({ id }).first();
+    res.json(row);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to update partner" });
+  }
+});
+
+app.delete("/api/admin/partners/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  if (!id) return res.status(400).json({ error: "Invalid id" });
+
+  try {
+    const deleted = await db("partners").where({ id }).del();
+    if (!deleted) return res.status(404).json({ error: "Not found" });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete partner" });
+  }
+});
+
+/* =========================
    VALUES ROUTES
 ========================= */
 app.get("/api/values", async (_req, res) => {
