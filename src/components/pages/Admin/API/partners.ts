@@ -1,6 +1,6 @@
 import type { DbPartner } from "../../about/types"
 
-const BASE = "http://localhost:4000"
+const BASE = ""
 
 export type CreatePartnerPayload = {
   type: "partner" | "funder"

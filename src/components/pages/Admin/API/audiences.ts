@@ -1,6 +1,6 @@
 import type { Audience } from "../../home/types"
 
-const BASE = "http://localhost:4000"
+const BASE = ""
 
 export type CreateAudiencePayload = {
   title: string

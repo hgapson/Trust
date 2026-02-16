@@ -1,17 +1,30 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const { db } = require("./db");
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-  })
-);
+if (process.env.NODE_ENV !== "production") {
+  app.use(
+    cors({
+      origin: "http://localhost:5173",
+      credentials: true,
+    })
+  );
+}
+
 app.use(express.json());
-app.use(express.static("public"));
+
+/**
+ * ======================
+ * Health check
+ * ======================
+ */
+app.get("/health", (_req, res) => {
+  res.json({ ok: true });
+});
 
 /* ======================
    JOBS ROUTES
@@ -2466,11 +2479,45 @@ app.delete("/api/admin/support-ways/:id", async (req, res) => {
     res.status(500).json({ error: "Failed to delete support way" })
   }
 })
+
+// Serve React build in production
+const clientDistPath = path.join(__dirname, "client-dist");
+app.use(express.static(clientDistPath));
+
+// Catch-all (SPA) — but NOT /api routes
+app.get(/^(?!\/api).*/, (req, res) => {
+  const indexHtml = path.join(clientDistPath, "index.html");
+
+  res.sendFile(indexHtml, (err) => {
+    if (err) {
+      // If you're running locally without building frontend
+      return res
+        .status(404)
+        .send("Frontend build not found. Run the React dev server (npm run dev) or build it (npm run build).");
+    }
+  });
+});
+
 /* ======================
    START SERVER
 ====================== */
+const port = Number(process.env.PORT) || 4000;
+const host = "0.0.0.0";
 
-const port = process.env.PORT || 4000;
-app.listen(port, () => {
-  console.log(`API running on port ${port}`);
-});
+const startServer = async () => {
+  if (process.env.NODE_ENV === "production") {
+    try {
+      await db.migrate.latest();
+      console.log("Database migrations complete");
+    } catch (err) {
+      console.error("Failed to run database migrations", err);
+      process.exit(1);
+    }
+  }
+
+  app.listen(port, host, () => {
+    console.log(`API running on http://${host}:${port}`);
+  });
+};
+
+startServer();

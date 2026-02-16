@@ -1,6 +1,6 @@
 import type { VolunteerOpportunityRow } from "../../get-involved/types"
 
-const BASE = "http://localhost:4000"
+const BASE = ""
 
 export type VolunteerOpportunityPayload = {
   title: string

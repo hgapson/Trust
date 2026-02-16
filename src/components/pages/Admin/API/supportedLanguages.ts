@@ -1,6 +1,6 @@
 import type { SupportedLanguageRow } from "../../contact/types"
 
-const BASE = "http://localhost:4000"
+const BASE = ""
 
 export type SupportedLanguagePayload = {
   name: string

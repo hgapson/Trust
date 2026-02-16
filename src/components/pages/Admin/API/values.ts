@@ -1,6 +1,6 @@
 import type { ValueItem } from "../../about/types"
 
-const BASE = "http://localhost:4000"
+const BASE = ""
 
 export type CreateValuePayload = {
   title: string

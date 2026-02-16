@@ -1,6 +1,6 @@
 import type { Job } from "../../jobs/types"
 
-const BASE = "http://localhost:4000"
+const BASE = ""
 
 export type JobPayload = {
   title: string

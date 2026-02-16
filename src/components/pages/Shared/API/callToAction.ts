@@ -1,6 +1,6 @@
 import type { CallToActionData } from "../Data/contactTypes";
 
-const BASE_URL = "http://localhost:4000";
+const BASE_URL = "";
 
 export const CallToActionApi = {
   async get(): Promise<CallToActionData> {

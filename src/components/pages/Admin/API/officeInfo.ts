@@ -1,6 +1,6 @@
 import type { OfficeInfoRow } from "../../contact/types"
 
-const BASE = "http://localhost:4000"
+const BASE = ""
 
 export type OfficeInfoPayload = {
   icon_key: OfficeInfoRow["icon_key"]

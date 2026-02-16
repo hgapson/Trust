@@ -1,6 +1,6 @@
 import type { AdditionalService } from "../../services/types"
 
-const BASE = "http://localhost:4000"
+const BASE = ""
 
 export type CreateAdditionalServicePayload = {
   title: string

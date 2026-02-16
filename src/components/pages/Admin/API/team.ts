@@ -1,6 +1,6 @@
 import type { TeamMember } from "../../about/types"
 
-const BASE = "http://localhost:4000"
+const BASE = ""
 
 export type CreateTeamMemberPayload = {
   name: string

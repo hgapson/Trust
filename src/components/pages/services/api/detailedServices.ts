@@ -1,6 +1,6 @@
 import type { DetailedServiceRow } from "../types";
 
-const BASE_URL = import.meta.env.VITE_API_URL ?? "";
+const BASE_URL = "";
 
 export const DetailedServicesApi = {
   async list(): Promise<DetailedServiceRow[]> {

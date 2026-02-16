@@ -1,6 +1,6 @@
 import type { SupportWayRow } from "../types"
 
-const BASE = "http://localhost:4000"
+const BASE = ""
 
 export const SupportWaysApi = {
   async list(): Promise<SupportWayRow[]> {

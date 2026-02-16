@@ -1,6 +1,6 @@
 import type { MissionVisionData } from "../../about/types"
 
-const BASE = "http://localhost:4000"
+const BASE = ""
 
 export type MissionVisionPayload = {
   mission_title: string

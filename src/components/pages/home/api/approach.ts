@@ -1,6 +1,6 @@
 import type { ApproachStep } from "../types";
 
-const BASE_URL = import.meta.env.VITE_API_URL ?? "";
+const BASE_URL = "";
 
 export const ApproachApi = {
   async list(): Promise<ApproachStep[]> {

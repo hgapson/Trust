@@ -1,6 +1,6 @@
 import type { ProcessStep } from "../types";
 
-const BASE_URL = "http://localhost:4000";
+const BASE_URL = "";
 
 export const ProcessStepsApi = {
   async list(): Promise<ProcessStep[]> {

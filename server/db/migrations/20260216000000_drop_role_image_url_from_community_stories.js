@@ -1,17 +1,13 @@
-/**
- * @param { import("knex").Knex } knex
- */
 exports.up = function (knex) {
   return knex.schema.alterTable("community_stories", (table) => {
-    table.text("image_url").nullable().alter();
+    table.dropColumn("role");
+    table.dropColumn("image_url");
   });
 };
 
-/**
- * @param { import("knex").Knex } knex
- */
 exports.down = function (knex) {
   return knex.schema.alterTable("community_stories", (table) => {
-    table.text("image_url").notNullable().alter();
+    table.string("role").notNullable().defaultTo("");
+    table.text("image_url").notNullable().defaultTo("");
   });
 };

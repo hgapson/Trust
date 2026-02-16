@@ -1,0 +1,22 @@
+app = "wnt-api"
+primary_region = "syd"
+
+[env]
+  NODE_ENV = "production"
+  DB_PATH = "/data/dev.sqlite3"
+
+[mounts]
+  source = "data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 4000
+  force_https = true
+  auto_start_machines = true
+  auto_stop_machines = "stop"
+  min_machines_running = 1
+  processes = ["app"]
+
+[[vm]]
+  memory = "1gb"
+  cpus = 1

@@ -1,6 +1,6 @@
 import type { DetailedServiceRow } from "../../services/types"
 
-const BASE = "http://localhost:4000"
+const BASE = ""
 
 export type CreateDetailedServicePayload = {
   id: string

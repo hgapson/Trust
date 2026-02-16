@@ -1,6 +1,6 @@
 import type { CommunityStory } from "../../home/types"
 
-const BASE = "http://localhost:4000"
+const BASE = ""
 
 export type CreateCommunityStoryPayload = {
   quote: string

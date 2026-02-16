@@ -1,6 +1,6 @@
 import type { ProcessStep } from "../../services/types"
 
-const BASE = "http://localhost:4000"
+const BASE = ""
 
 export type CreateProcessStepPayload = {
   step_number: number

@@ -1,6 +1,6 @@
 import type { DbPartner } from "../types";
 
-const BASE_URL = "http://localhost:4000";
+const BASE_URL = "";
 
 async function getJson<T>(url: string): Promise<T> {
   const res = await fetch(url);

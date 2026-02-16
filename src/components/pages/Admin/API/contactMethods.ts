@@ -1,6 +1,6 @@
 import type { ContactMethodRow } from "../../contact/types"
 
-const BASE = "http://localhost:4000"
+const BASE = ""
 
 export type ContactMethodPayload = {
   icon_key: ContactMethodRow["icon_key"]

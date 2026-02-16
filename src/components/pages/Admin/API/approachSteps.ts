@@ -1,6 +1,6 @@
 import type { ApproachStep } from "../../home/types"
 
-const BASE = "http://localhost:4000"
+const BASE = ""
 
 export type CreateApproachStepPayload = {
   title: string
